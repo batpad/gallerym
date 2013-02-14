@@ -4,6 +4,8 @@ from os.path import join
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+# This is the setting for title in Grappelli
+GRAPPELLI_ADMIN_TITLE ="Gallery Maskara"
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -109,6 +111,9 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
+# This is needed for Grappelli dashboard
+
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -138,6 +143,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'grappelli',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
