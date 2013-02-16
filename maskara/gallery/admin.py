@@ -1,24 +1,29 @@
 from django.contrib import admin
 from models import *
-from adminsortable.admin import SortableAdmin, SortableStackedInline
+#from adminsortable.admin import SortableAdmin, admin.StackedInline
 
 
-class ArtistWorkInline(SortableStackedInline):
+class ArtistWorkInline(admin.StackedInline):
     model = ArtistWork
+    sortable_field_name = 'order'
 
-class ArtistReviewInline(SortableStackedInline):
+class ArtistReviewInline(admin.StackedInline):
     model = ArtistReview
+    sortable_field_name = 'order'
 
-class ArtistPressReleaseInline(SortableStackedInline):
+class ArtistPressReleaseInline(admin.StackedInline):
     model = ArtistPressRelease
+    sortable_field_name = 'order'
 
-class ExhibitionReviewInline(SortableStackedInline):
+class ExhibitionReviewInline(admin.StackedInline):
     model = ExhibitionReview
+    sortable_field_name = 'order'
 
-class ExhibitionPressReleaseInline(SortableStackedInline):
+class ExhibitionPressReleaseInline(admin.StackedInline):
     model = ExhibitionPressRelease
+    sortable_field_name = 'order'
 
-class BaseAdmin(SortableAdmin):
+class BaseAdmin(admin.ModelAdmin):
     list_display = ('__unicode__', 'published',)
     list_editable = ('published',)
      

@@ -1,9 +1,9 @@
 from django.db import models
 from maskara.base.models import BaseModel
-from adminsortable.models import Sortable
-from adminsortable.fields import SortableForeignKey
+#from adminsortable.models import Sortable
+#from adminsortable.fields import models.ForeignKey
 
-class Review(Sortable, BaseModel):
+class Review(BaseModel):
     title = models.CharField(max_length=1024)
     author = models.CharField(max_length=1024, blank=True)
     source = models.CharField(max_length=1024, blank=True)
@@ -13,15 +13,17 @@ class Review(Sortable, BaseModel):
     url = models.URLField(blank=True)
     pdf = models.FileField(blank=True, upload_to='review_pdfs/')
     published = models.BooleanField(default=False)
+    order = models.PositiveIntegerField()
     
-    class Meta(Sortable.Meta):
+    class Meta:
         abstract = True
+        ordering = ['order']
     
     def __unicode__(self):
         return self.title
 
 
-class PressRelease(Sortable, BaseModel):
+class PressRelease(BaseModel):
     title = models.CharField(max_length=1024)
     author = models.CharField(max_length=512, blank=True)
     publisher = models.CharField(max_length=1024)
@@ -31,9 +33,11 @@ class PressRelease(Sortable, BaseModel):
     url = models.URLField(blank=True)
     pdf = models.FileField(blank=True, upload_to='pressrelease_pdfs/')
     published = models.BooleanField(default=False)
+    order = models.PositiveIntegerField()
 
-    class Meta(Sortable.Meta):
+    class Meta:
         abstract = True
+        ordering = ['order']
 
 
     def __unicode__(self):
@@ -41,14 +45,14 @@ class PressRelease(Sortable, BaseModel):
 
 
 
-class Artist(Sortable, BaseModel):
+class Artist(BaseModel):
     name = models.CharField(max_length=512)
     bio = models.TextField(blank=True)
     image = models.ImageField(blank=True, upload_to='artist_images/')
     url = models.URLField(blank=True)
     published = models.BooleanField(default=False)
 
-    class Meta(Sortable.Meta):
+    class Meta:
         pass
 
     
@@ -64,7 +68,7 @@ WORK_CATEGORIES = (
     ('installation', 'Installation'),
 )
 
-class ArtistWork(Sortable, BaseModel):
+class ArtistWork(BaseModel):
     artist = models.ForeignKey(Artist)
     title = models.CharField(max_length=1024)
     image = models.ImageField(upload_to='work_images/', blank=True)
@@ -77,9 +81,10 @@ class ArtistWork(Sortable, BaseModel):
     attribution = models.TextField(blank=True)
     price = models.CharField(max_length=128)
     published = models.BooleanField(default=False)
+    order = models.PositiveIntegerField()
 
-    class Meta(Sortable.Meta):
-        pass
+    class Meta:
+        ordering = ['order']
 
 
     def __unicode__(self):
@@ -88,20 +93,20 @@ class ArtistWork(Sortable, BaseModel):
 
 class ArtistReview(Review):
     test = models.CharField(max_length=128)
-    artist = SortableForeignKey("Artist")
+    artist = models.ForeignKey("Artist")
 
 
     
 
 class ArtistPressRelease(PressRelease):
     test = models.CharField(max_length=128)
-    artist = SortableForeignKey("Artist")
+    artist = models.ForeignKey("Artist")
 
 
 
 
 
-class Exhibition(Sortable, BaseModel):
+class Exhibition(BaseModel):
     title = models.CharField(max_length=1024)
     start_date = models.DateField()
     end_date = models.DateField()
@@ -111,7 +116,7 @@ class Exhibition(Sortable, BaseModel):
     featured_work = models.ManyToManyField("ArtistWork", blank=True, null=True)
     published = models.BooleanField(default=False)
 
-    class Meta(Sortable.Meta):
+    class Meta:
         pass
 
     def __unicode__(self):
@@ -129,12 +134,12 @@ class ExhibitionPressRelease(PressRelease):
     test = models.CharField(max_length=128)
     exhibition = models.ForeignKey(Exhibition)
 
-    class Meta(Sortable.Meta):
+    class Meta:
         pass
 
 
 
-class Event(Sortable, BaseModel):
+class Event(BaseModel):
     title = models.CharField(max_length=1024)
     date = models.DateField()
     time_from = models.TimeField()
@@ -144,7 +149,7 @@ class Event(Sortable, BaseModel):
     description = models.TextField(blank=True)
     published = models.BooleanField(default=False)
 
-    class Meta(Sortable.Meta):
+    class Meta:
         pass
 
     def __unicode__(self):
@@ -152,7 +157,7 @@ class Event(Sortable, BaseModel):
 
 
 
-class Publication(Sortable, BaseModel):
+class Publication(BaseModel):
     title = models.CharField(max_length=1024)
     author = models.CharField(max_length=1024, blank=True)
     editor = models.CharField(max_length=1024, blank=True)
@@ -163,7 +168,7 @@ class Publication(Sortable, BaseModel):
     available = models.BooleanField(default=True)
     published = models.BooleanField(default=False)
 
-    class Meta(Sortable.Meta):
+    class Meta:
         pass
 
 
