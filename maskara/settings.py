@@ -145,7 +145,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'grappelli',
     # Uncomment the next line to enable the admin:
+    'adminsortable',
     'django.contrib.admin',
+
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'maskara.gallery',

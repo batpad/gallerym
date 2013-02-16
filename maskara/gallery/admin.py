@@ -1,26 +1,27 @@
 from django.contrib import admin
 from models import *
+from adminsortable.admin import SortableAdmin, SortableStackedInline
 
 
-class ArtistWorkInline(admin.StackedInline):
+class ArtistWorkInline(SortableStackedInline):
     model = ArtistWork
 
-class ArtistReviewInline(admin.StackedInline):
+class ArtistReviewInline(SortableStackedInline):
     model = ArtistReview
 
-class ArtistPressReleaseInline(admin.StackedInline):
+class ArtistPressReleaseInline(SortableStackedInline):
     model = ArtistPressRelease
 
-class ExhibitionReviewInline(admin.StackedInline):
+class ExhibitionReviewInline(SortableStackedInline):
     model = ExhibitionReview
 
-class ExhibitionPressReleaseInline(admin.StackedInline):
+class ExhibitionPressReleaseInline(SortableStackedInline):
     model = ExhibitionPressRelease
 
-class BaseAdmin(admin.ModelAdmin):
+class BaseAdmin(SortableAdmin):
     list_display = ('__unicode__', 'published',)
     list_editable = ('published',)
-    
+     
 
 class ArtistAdmin(BaseAdmin):
     inlines = [ArtistWorkInline, ArtistReviewInline, ArtistPressReleaseInline]
@@ -35,3 +36,4 @@ admin.site.register(Exhibition, ExhibitionAdmin)
 admin.site.register(Event, BaseAdmin)
 admin.site.register(Publication, BaseAdmin)
 #admin.site.register(ArtistReview, BaseAdmin)
+

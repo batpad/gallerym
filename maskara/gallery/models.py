@@ -1,7 +1,9 @@
 from django.db import models
 from maskara.base.models import BaseModel
+from adminsortable.models import Sortable
+from adminsortable.fields import SortableForeignKey
 
-class Review(BaseModel):
+class Review(Sortable, BaseModel):
     title = models.CharField(max_length=1024)
     author = models.CharField(max_length=1024, blank=True)
     source = models.CharField(max_length=1024, blank=True)
@@ -12,11 +14,14 @@ class Review(BaseModel):
     pdf = models.FileField(blank=True, upload_to='review_pdfs/')
     published = models.BooleanField(default=False)
     
+    class Meta(Sortable.Meta):
+        abstract = True
+    
     def __unicode__(self):
         return self.title
 
 
-class PressRelease(BaseModel):
+class PressRelease(Sortable, BaseModel):
     title = models.CharField(max_length=1024)
     author = models.CharField(max_length=512, blank=True)
     publisher = models.CharField(max_length=1024)
@@ -27,17 +32,25 @@ class PressRelease(BaseModel):
     pdf = models.FileField(blank=True, upload_to='pressrelease_pdfs/')
     published = models.BooleanField(default=False)
 
+    class Meta(Sortable.Meta):
+        abstract = True
+
+
     def __unicode__(self):
         return self.title
 
 
 
-class Artist(BaseModel):
+class Artist(Sortable, BaseModel):
     name = models.CharField(max_length=512)
     bio = models.TextField(blank=True)
     image = models.ImageField(blank=True, upload_to='artist_images/')
     url = models.URLField(blank=True)
     published = models.BooleanField(default=False)
+
+    class Meta(Sortable.Meta):
+        pass
+
     
     def __unicode__(self):
         return self.name
@@ -51,7 +64,7 @@ WORK_CATEGORIES = (
     ('installation', 'Installation'),
 )
 
-class ArtistWork(BaseModel):
+class ArtistWork(Sortable, BaseModel):
     artist = models.ForeignKey(Artist)
     title = models.CharField(max_length=1024)
     image = models.ImageField(upload_to='work_images/', blank=True)
@@ -65,19 +78,30 @@ class ArtistWork(BaseModel):
     price = models.CharField(max_length=128)
     published = models.BooleanField(default=False)
 
+    class Meta(Sortable.Meta):
+        pass
+
+
     def __unicode__(self):
         return self.title
 
 
 class ArtistReview(Review):
-    artist = models.ForeignKey("Artist")
+    test = models.CharField(max_length=128)
+    artist = SortableForeignKey("Artist")
+
+
     
 
 class ArtistPressRelease(PressRelease):
-    artist = models.ForeignKey("Artist")
+    test = models.CharField(max_length=128)
+    artist = SortableForeignKey("Artist")
 
 
-class Exhibition(BaseModel):
+
+
+
+class Exhibition(Sortable, BaseModel):
     title = models.CharField(max_length=1024)
     start_date = models.DateField()
     end_date = models.DateField()
@@ -87,19 +111,30 @@ class Exhibition(BaseModel):
     featured_work = models.ManyToManyField("ArtistWork", blank=True, null=True)
     published = models.BooleanField(default=False)
 
+    class Meta(Sortable.Meta):
+        pass
+
     def __unicode__(self):
         return self.title
 
 
 class ExhibitionReview(Review):
+    test = models.CharField(max_length=128)
     exhibition = models.ForeignKey(Exhibition)
+
+
 
 
 class ExhibitionPressRelease(PressRelease):
+    test = models.CharField(max_length=128)
     exhibition = models.ForeignKey(Exhibition)
 
+    class Meta(Sortable.Meta):
+        pass
 
-class Event(BaseModel):
+
+
+class Event(Sortable, BaseModel):
     title = models.CharField(max_length=1024)
     date = models.DateField()
     time_from = models.TimeField()
@@ -109,11 +144,15 @@ class Event(BaseModel):
     description = models.TextField(blank=True)
     published = models.BooleanField(default=False)
 
+    class Meta(Sortable.Meta):
+        pass
+
     def __unicode__(self):
         return self.title
 
 
-class Publication(BaseModel):
+
+class Publication(Sortable, BaseModel):
     title = models.CharField(max_length=1024)
     author = models.CharField(max_length=1024, blank=True)
     editor = models.CharField(max_length=1024, blank=True)
@@ -124,7 +163,12 @@ class Publication(BaseModel):
     available = models.BooleanField(default=True)
     published = models.BooleanField(default=False)
 
+    class Meta(Sortable.Meta):
+        pass
+
+
     def __unicode__(self):
         return self.title
 
 # Create your models here.
+# ^^ They are above, mind turning your head up ? :P
