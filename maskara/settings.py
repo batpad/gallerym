@@ -145,14 +145,21 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'grappelli',
     # Uncomment the next line to enable the admin:
-    'adminsortable',
+    # 'adminsortable',
     'django.contrib.admin',
 
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'maskara.gallery',
     'maskara.base',
+    'mockups',
 )
+
+DICTIONARY = "/usr/share/dict/words"
+DILLA_USE_LOREM_IPSUM = False # set to True ignores dictionary
+DILLA_APPS = ['gallery']
+
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
