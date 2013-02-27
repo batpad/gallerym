@@ -16,3 +16,18 @@ urlpatterns = patterns('',
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
+
+urlpatterns += patterns('django.views.generic.simple', 
+    url(r'^$', 'direct_to_template', {'template': 'index.html'}),
+    url(r'^artists$', 'direct_to_template', {'template': 'artists.html'}),
+    url(r'^artist$', 'direct_to_template', {'template': 'artist.html'}),
+    url(r'^exhibitions/current$', 'direct_to_template', {'template': 'exhibitions-current.html'}),
+    url(r'^exhibitions/upcoming$', 'direct_to_template', {'template': 'exhibitions-upcoming.html'}),
+    url(r'^exhibitions/previous$', 'direct_to_template', {'template': 'exhibitions-previous.html'}),
+    url(r'^exhibition$', 'direct_to_template', {'template': 'exhibition.html'}),
+    url(r'^events/current$', 'direct_to_template', {'template': 'events-current.html'}),
+    url(r'^events/upcoming$', 'direct_to_template', {'template': 'events-upcoming.html'}),
+    url(r'^events/previous$', 'direct_to_template', {'template': 'events-previous.html'}),
+    url(r'^event$', 'direct_to_template', {'template': 'events.html'}),
+    url(r'^contact$', 'direct_to_template', {'template': 'contact.html'}),
+)
