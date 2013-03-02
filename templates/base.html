@@ -34,7 +34,7 @@
 <![endif]-->
 
 
-<script type="text/javascript" src="/static/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/jquery-1.8.3.min.js"></script>
 
 {% block extra_js %}
 
@@ -67,32 +67,10 @@
         </div> <!-- end header block  -->
        
        <div id="contentBlock">
-            <div id="sideBar" class="col25">
-                
-                <div class="sideBarTitles">
-                    <p>Current Exhibition</p>
-                </div>
-                
-            </div> <!-- end side bar  -->
+            {% block content %}
             
-            <div id="mainBar" class="col75">
-                <div id="contentHome">
-                    <div class="homeMain">
-                        <h1><strong>Are The Limits Of My Language, The Limits Of My World?</strong></h1>
-                        <div class="smallestFont">
-                            <p>Artist or Artists</p>
-                            <p>Curated by (optional)</p>
-                            <p>Preview Date (optional)</p>
-                            <p>November 20 to December 29, 2012</p>
-                        </div>
-                        <img src="/static/img/home-main.jpg" alt="home-main" id="homeMain">    
-                    </div> <!-- end home main  -->
-                </div> <!-- end content home  -->
-                
-                
-            </div> <!-- end main bar  -->
-            
-            <div class="clear"></div>
+
+            {% endblock %}
             
        </div> <!-- end content block  -->
        
