@@ -6,9 +6,9 @@
 
 <title>Gallery Maskara: {% block extra_title %}{% endblock %}</title>
 
-<meta name="keywords" content="PLACE KEYWORDS HERE – they should appear in site content also">
+<meta name="keywords" content="Gallery Maskara">
 <meta name="title" content="CHANGE AS PER TITLE OF PAGE prefixed with company name"> 
-<meta name="description" content="ADD DETAILS HERE">
+<meta name="description" content="ADD DETAILS HERE"> <!-- Sanj, give them control in the CMS if possible  -->
 
 <meta http-equiv="X-UA-Compatible" content="chrome=1"> <!-- chrome frame -->
 
@@ -20,6 +20,7 @@
 
 <link rel="shortcut icon" href="/static/img/favicon.ico" /> <!--favicon-->
 
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,400,600,300' rel='stylesheet' type='text/css'> <!-- change later and install locally and custom to what you need  -->
 <link rel="stylesheet" href="/static/css/reset.css" type="text/css" />
 <link rel="stylesheet" href="/static/css/main.css" type="text/css" />
 
@@ -42,6 +43,62 @@
 </head>
 
 <body>
+
+<div id="wrapper">
+    <form id="searchBlock">
+        <input type="text" placeholder="Search Gallery Maskara">
+        <div class="clear"></div>
+    </form>
+    
+    <div id="contentMain">  
+        <div id="headerBlock">
+            <a id="logo">
+                <img src="/static/img/logo-gallery-maskara.png" alt="logo-gallery-maskara">
+            </a> <!-- end logo  -->
+            
+            <ul id="menu">
+                <li><a href="">Artists</a></li>
+                <li><a href="">Exhibitions</a></li>
+                <li><a href="">Events</a></li>
+                <li><a href="">About</a></li>
+                <li><a href="">Contact</a></li>
+            </ul>
+        
+        </div> <!-- end header block  -->
+       
+       <div id="contentBlock">
+            <div id="sideBar" class="col25">
+                
+                <div class="sideBarTitles">
+                    <p>Current Exhibition</p>
+                </div>
+                
+            </div> <!-- end side bar  -->
+            
+            <div id="mainBar" class="col75">
+                <div id="contentHome">
+                    <div class="homeMain">
+                        <h1><strong>Are The Limits Of My Language, The Limits Of My World?</strong></h1>
+                        <div class="smallestFont">
+                            <p>Artist or Artists</p>
+                            <p>Curated by (optional)</p>
+                            <p>Preview Date (optional)</p>
+                            <p>November 20 to December 29, 2012</p>
+                        </div>
+                        <img src="/static/img/home-main.jpg" alt="home-main" id="homeMain">    
+                    </div> <!-- end home main  -->
+                </div> <!-- end content home  -->
+                
+                
+            </div> <!-- end main bar  -->
+            
+            <div class="clear"></div>
+            
+       </div> <!-- end content block  -->
+       
+    </div> <!-- end content main  -->
+
+</div> <!-- end wrapper  -->
 
 <noscript><strong>You need Javascript to run this page</strong></noscript>
 
