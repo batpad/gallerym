@@ -30,8 +30,8 @@ body {
 	width: 25%;
 }
 
-.col32 {
-	width:32%;
+.col33 {
+	width:33%;
 }
 
 .col50 {
@@ -42,7 +42,7 @@ body {
 	width:75%;
 }
 
-.col25, .col32, .col50, .col75 {
+.col25, .col33, .col50, .col75 {
 	float: left;
 }
 
@@ -135,10 +135,16 @@ textarea {
 	border: none;
 	background: url('../../static/img/search.png') no-repeat;
 	float: right;
-	padding: 0 0 0 20px;
+	padding: 3px 3px 3px 20px;
+	
 }
 
-#contentMain {
+#searchBlock input:focus {
+	outline: none;
+	border: 2px solid #A7CF4F;
+}
+
+#contentMain, #footer {
 	padding: 0 0 0 110px;
 }
 
@@ -202,11 +208,8 @@ textarea {
 }
 
 .homeSecondary {
-	width: 33%;
 	margin: 0 0.5% 0 0;
-	float: left;
-	padding: 0 20px 0 0;
-	
+	padding: 0 20px 0 0;	
 }
 
 .homeSecondary .title{
@@ -239,9 +242,29 @@ textarea {
 	line-height: 1.8;
 }
 
+.footerLinks {
+	border-top: 2px solid #A7CF4F;
+	padding: 8px 4px;
+}
+
+.footerLinks span {
+	padding: 0 20px 0 0;
+}
+
 /* MEDIA QUERIES */
 
-/*@media only screen and (max-width: 980px) {
-}*/
+@media only screen and (max-width: 700px) {
+
+.col25, .col75, .col33, #homeSecondaryText, .homeCarousel {
+	width: 100%;
+	float: none;
+}
+
+
+#contentMain, #mainBar, .mainBar, .sideBarTitles, #footer {
+	padding: 10px;
+}
+
+}
 
 /* END MEDIA QUERIES */
