@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+
+{% block extra_css %}
+    <link rel="stylesheet" href="/static/css/flexslider.css">
+        
+    <style>
+        #slider {
+            width: 60%;
+            float: left;
+        }
+        
+        #carousel {
+            width: 30%;
+            float: right;
+        }
+        
+        #carousel li {
+            float: none !important;
+            margin: 20px 0;
+        }
+        
+        #carousel .flex-direction-nav .flex-prev {
+            top: -36px;
+        }
+
+        #carousel .flex-direction-nav .flex-next {
+            bottom: -36px;
+            right: 0;
+        }
+        
+        #carousel .flex-direction-nav a {
+            margin: 0;
+            bottom: 0;
+        }
+    </style>    
+        
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/jquery.flexslider-min.js"></script>
+
+<script>
+$(window).load(function() {
+  // The slider being synced must be initialized first
+  $('#carousel').flexslider({
+    animation: "slide",
+    controlNav: false,
+    animationLoop: false,
+    slideshow: false,
+    itemWidth: 80,
+    itemMargin: 5,
+    asNavFor: '#slider',
+    direction: 'vertical'
+  });
+   
+  $('#slider').flexslider({
+    animation: "slide",
+    controlNav: false,
+    animationLoop: false,
+    slideshow: true,
+    sync: "#carousel"
+  });
+});
+</script>
+{% endblock %}
+
+
+{% block content %}
+
+<div id="sideBar" class="col25">
+    
+    <div class="sideBarTitles">
+        <p><a href="/selected">Selected Work</a></p>
+        <p>Available Work</p>
+        <p>Exhibitions</p>
+        <p>Biography</p>
+        <p>Press</p>
+        <p>Publications</p>
+        <p>News</p>
+        <p>Talks</p>
+    </div>
+    
+</div> <!-- end side bar  -->
+
+<div id="mainBar" class="col75">
+    <h1 class="selectedHeading">Max Streicher</h1>
+    
+    <div id="slider" class="flexslider">
+        <ul class="slides">
+          <li>
+            <img src="/static/img/dd.jpg" />
+          </li>
+          <li>
+            <img src="/static/img/bb.jpg" />
+          </li>
+          <li>
+            <img src="/static/img/c.jpg" />
+          </li>
+          <!-- items mirrored twice, total of 12 -->
+        </ul>
+      </div>
+      <div id="carousel" class="flexslider">
+        <ul class="slides">
+          <li>
+            <img src="/static/img/dd.jpg" />
+          </li>
+          <li>
+            <img src="/static/img/bb.jpg" />
+          </li>
+          <li>
+            <img src="/static/img/c.jpg" />
+          </li>
+          <!-- items mirrored twice, total of 12 -->
+        </ul> 
+</div>
+    
+</div> <!-- end main bar  -->
+            
+
+
+{% endblock %}

@@ -30,4 +30,6 @@ urlpatterns += patterns('django.views.generic.simple',
     url(r'^events/previous$', 'direct_to_template', {'template': 'events-previous.html'}),
     url(r'^event$', 'direct_to_template', {'template': 'events.html'}),
     url(r'^contact$', 'direct_to_template', {'template': 'contact.html'}),
+    url(r'^selected$', 'direct_to_template', {'template': 'selected.html'}),
+    url(r'^single$', 'direct_to_template', {'template': 'single.html'}),
 )

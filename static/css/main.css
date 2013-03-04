@@ -122,6 +122,14 @@ textarea {
 	font-size: 80%;
 }
 
+.floatLeft {
+	float: left;
+}
+
+.floatRight {
+	float: right;
+}
+
 /* END GLOBAL STYLES */
 
 
@@ -199,6 +207,14 @@ textarea {
 	font-size: 80%;
 }
 
+.sideBarTitlesSelected {
+	font-weight: 600; /* add js to get selected one later  */
+}
+
+.sideBarTitles p {
+	padding: 0 0 18px 0;
+}
+
 #mainBar, .mainBar {
 	padding: 0 0 0 60px;
 }
@@ -212,7 +228,7 @@ textarea {
 	padding: 0 20px 0 0;	
 }
 
-.homeSecondary .title{
+.homeSecondary .title, .selectedThumbs h1 {
 	color: #4A4E51;
 	padding: 0 0 10px 0;
 }
@@ -242,6 +258,19 @@ textarea {
 	line-height: 1.8;
 }
 
+.selectedHeading {
+	/* float: left; */
+	padding: 0 0 30px 0;
+}
+
+.paginationThumbs {
+	float: right;
+}
+
+.paginationThumbs span {
+	padding: 0 0 0 16px ;
+}
+
 .footerLinks {
 	border-top: 2px solid #A7CF4F;
 	padding: 8px 4px;
@@ -250,6 +279,20 @@ textarea {
 .footerLinks span {
 	padding: 0 20px 0 0;
 }
+
+.thumbnailBlock .thumbEach:nth-of-type(4n+1) {
+	clear: both;
+}
+
+.thumbEach {
+	font-size: 80%;
+	padding: 0 24px 40px 0;
+}
+
+.thumbEach img {
+	padding: 16px 0 0 0;
+}
+
 
 /* MEDIA QUERIES */
 
