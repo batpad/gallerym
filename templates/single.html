@@ -6,16 +6,26 @@
         
     <style>
         #slider {
-            width: 60%;
-            float: left;
+/*             width: 60%;
+float: left;
+ */        }
+        
+
+        #slider .flex-direction-nav .flex-prev {
+            bottom: -20px;
+        }
+
+        #slider .flex-direction-nav a {
+            bottom: 0;
+            top: auto;
         }
         
         #carousel {
-            width: 30%;
-            float: right;
+/*             width: 30%;
+ */            float: right;
         }
         
-        #carousel li {
+        #carousel .slides li {
             float: none !important;
             margin: 20px 0;
         }
@@ -32,6 +42,7 @@
         #carousel .flex-direction-nav a {
             margin: 0;
             bottom: 0;
+            top: auto;
         }
     </style>    
         
@@ -86,7 +97,7 @@ $(window).load(function() {
 <div id="mainBar" class="col75">
     <h1 class="selectedHeading">Max Streicher</h1>
     
-    <div id="slider" class="flexslider">
+    <div id="slider" class="flexslider col60">
         <ul class="slides">
           <li>
             <img src="/static/img/dd.jpg" />
@@ -100,7 +111,7 @@ $(window).load(function() {
           <!-- items mirrored twice, total of 12 -->
         </ul>
       </div>
-      <div id="carousel" class="flexslider">
+      <div id="carousel" class="flexslider col30">
         <ul class="slides">
           <li>
             <img src="/static/img/dd.jpg" />
@@ -114,6 +125,21 @@ $(window).load(function() {
           <!-- items mirrored twice, total of 12 -->
         </ul> 
 </div>
+      <div class="clear"></div>
+
+      <div id="slideDescription" class="col60">
+        <p>Glimpse of Thirst(1), 2012</p>
+        <div class="smallestFont">
+          <p>Guys, what are the fields that come here?</p>
+          <p>Used fabric, jute, marbles, pine thorns, fiber glass, aluminium wire, thread</p>
+          <p>36 x 30 x 30 inches(91 x 76 x 76cms)</p>
+          <p>Edition : Unique</p>
+          <p>Pedestial in exposed ply, height 42 x 22 x 22 inches</p>
+        </div> <!-- end smallest font  -->
+      <br>
+    
+The giants in their great mass heave and sign to the timed intervals of industrial blowers. Lying on their backs and sides, heads raised from the floor, legs stiffened, chests inflated, only to relax again, as if in some futile attempt to stand up on their feet.
+      </div> <!-- end slide description  -->              
     
 </div> <!-- end main bar  -->
             

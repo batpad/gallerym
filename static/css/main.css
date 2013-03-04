@@ -30,6 +30,10 @@ body {
 	width: 25%;
 }
 
+.col30 {
+	width: 30%;	
+}
+
 .col33 {
 	width:33%;
 }
@@ -38,11 +42,19 @@ body {
 	width: 50%;
 }
 
+.col60 {
+	width: 60%;
+}
+
+.col70 {
+	width: 70%;
+}
+
 .col75 {
 	width:75%;
 }
 
-.col25, .col33, .col50, .col75 {
+.col25, .col30, .col33, .col50, .col60, .col70, .col75 {
 	float: left;
 }
 
