@@ -122,6 +122,14 @@ textarea {
 	font-size: 80%;
 }
 
+.floatLeft {
+	float: left;
+}
+
+.floatRight {
+	float: right;
+}
+
 /* END GLOBAL STYLES */
 
 
@@ -250,8 +258,8 @@ textarea {
 	line-height: 1.8;
 }
 
-.selectedThumbsHeading {
-	float: left;
+.selectedHeading {
+	/* float: left; */
 	padding: 0 0 30px 0;
 }
 
