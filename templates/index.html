@@ -2,7 +2,23 @@
 
     {% block extra_css %}
     <link rel="stylesheet" href="/static/css/flexslider.css">
-    
+    <style>
+        .homeCarousel .flex-direction-nav .flex-next {
+            background: url('../../static/img/right.png') no-repeat #A7CF4F;
+            padding: 2px;
+        }
+        
+        .homeCarousel .flex-direction-nav .flex-prev {
+            background: url('../../static/img/left.png') no-repeat #A7CF4F;
+            padding: 2px;
+        }
+
+        .homeCarousel .flex-direction-nav a {
+            width: 18px;
+            height: 15px;
+            top: 62%;
+        } /* remove this later if using icon fonts  */   
+    </style>
     {% endblock %}
 
     {% block extra_js %}
@@ -36,7 +52,7 @@
     <div class="mainBar col75">
         <div id="contentHome">
             <div class="homeMain">
-                <h1><strong>Are The Limits Of My Language, The Limits Of My World?</strong></h1>
+                <h1>Are The Limits Of My Language, The Limits Of My World?</h1>
                     <p class="blue">Artist or Artists</p>
                 <div class="smallestFont">
                     <p>Curated by (optional)</p>
@@ -61,7 +77,7 @@
     <div class="mainBar col75">
         <div class="homeSecondary col33">
             <div class="smallestFont homeSecondaryText">
-                <p class="title" title="Are The Limits Of My Language, The Limits of the world">Are The Limits Of My Language, The Limits...</p>
+                <p class="title ellipsis" title="Are The Limits Of My Language, The Limits of the world">Are The Limits Of My Language, The Limits of My World</p>
                 <p class="blue">Artist</p>
                 <p>Some data</p>
                 <p>Some data</p>

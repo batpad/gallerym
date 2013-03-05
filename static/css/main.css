@@ -153,7 +153,7 @@ textarea {
 
 #searchBlock input {
 	border: none;
-	background: url('../../static/img/search.png') no-repeat;
+	background: url('../../static/img/search.png') no-repeat 0px 49%;
 	float: right;
 	padding: 3px 3px 3px 20px;
 	
@@ -250,6 +250,12 @@ textarea {
 	padding: 0 0 10px 0;
 }
 
+.ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+} /* KAREN, add this class to anything p that requires an ellipsis  */  
+
 .homeSecondary:last-of-type {
 	margin-right: 0;
 }
@@ -278,6 +284,9 @@ textarea {
 .selectedHeading {
 	/* float: left; */
 	padding: 0 0 30px 0;
+}
+
+.homeMain h1:first-of-type, .selectedHeading {
 	margin-top: -10px; /* hackish to maintain symmetry between tops of both columns  */
 }
 
@@ -315,6 +324,7 @@ textarea {
 .thumbEach {
 	font-size: 80%;
 	padding: 0 24px 40px 0;
+	display: block;
 }
 
 .thumbEach img {
