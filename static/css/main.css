@@ -183,7 +183,7 @@ textarea {
 	position: relative;
 }
 
-#menu li:after, #menu li:first-of-type:before {
+#menu li:after, #menu li:first-of-type:before, .prev-pag:before {
 	content: "|";
 	color: #bbb;
 }
@@ -281,6 +281,16 @@ textarea {
 
 .paginationThumbs span {
 	padding: 0 0 0 16px ;
+	cursor: pointer;
+}
+
+.prev-pag img {
+	padding: 0 0 0 12px;
+}
+
+.prev-pag, .next-pag {
+	/* vertical-align: top; */ /* change later when converted to vectors  */
+	display: inline-block;
 }
 
 .footerLinks {
