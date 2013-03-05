@@ -147,8 +147,8 @@ textarea {
 
 
 #searchBlock {
-	border-bottom: 1px solid #222;
-	padding: 10px 110px 8px 0;
+	border-bottom: 2px solid #444;
+	padding: 6px 110px 6px 0;
 }
 
 #searchBlock input {
@@ -219,8 +219,13 @@ textarea {
 	font-size: 80%;
 }
 
-.sideBarTitlesSelected {
+.sideBarTitles a {
+	color: #666;	
+}
+
+.sideBarTitles a:hover, .sideBarTitles a:focus, .selectedSideBarTitles {
 	font-weight: 600; /* add js to get selected one later  */
+	color: inherit;
 }
 
 .sideBarTitles p {
@@ -362,6 +367,11 @@ textarea {
 
 .anchorInfo {
 	padding: 0 0 20px 20px;
+}
+
+.anchorInfo a:after, .linkExternal:after {
+	content: "some icon";
+	padding: 0 0 0 4px;
 }
 
 /* MEDIA QUERIES */
