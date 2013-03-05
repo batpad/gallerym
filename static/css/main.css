@@ -15,7 +15,7 @@ body {
 	font-family: 'Open Sans', Arial, Helvetica, 'DejaVu Sans', sans-serif;
 	color: #2B2B2B;
 	font-size: 14px;
-	line-height: 1.4;
+	line-height: 1.5;
 }
 
 
@@ -165,7 +165,7 @@ textarea {
 }
 
 #contentMain, #footer {
-	padding: 0 0 0 110px;
+	padding: 40px 0 0 110px;
 }
 
 #logo {
@@ -273,6 +273,7 @@ textarea {
 .selectedHeading {
 	/* float: left; */
 	padding: 0 0 30px 0;
+	margin-top: -10px; /* hackish to maintain symmetry between tops of both columns  */
 }
 
 .paginationThumbs {
@@ -315,6 +316,53 @@ textarea {
 	padding: 16px 0 0 0;
 }
 
+#slideDescription {
+	padding: 16px 30px 0 0;
+	border-top: 2px solid #4A4E51;
+}
+
+#slideControlBox {
+	padding: 0 0 40px 0;
+}
+
+.imgBio {
+	padding: 20px 0 40px;
+}
+
+.bioContent {
+	padding: 0 40px 0 0;
+}
+
+.bioDownloadInfo {
+	border-top: 2px solid #4A4E51;
+	padding: 16px 0 0 0;
+}
+
+.anchorsCv {
+	padding: 0 0 40px 0;	
+}
+
+.anchorsCv a {
+	margin: 0 12px 0 0;
+	font-size: 90%;
+}
+
+.anchorsCv a:hover, .anchorsCv a:focus, .selectedAnchorsCv {
+	border-bottom: 2px solid #005494;
+}
+
+.anchorDateBlock {
+	display: table-row;
+	padding: 0 0 20px 0;
+}
+
+.anchorDate, .anchorInfo {
+	display: table-cell;	
+}
+
+.anchorInfo {
+	padding: 0 0 20px 20px;
+}
 
 /* MEDIA QUERIES */
 
