@@ -7,7 +7,7 @@
     <style>
         
         #slider .flex-direction-nav:after {
-            content: "| 2 of 12 works";
+            /* content: "| 2 of 12 works"; */
             font-size: 80%;
             position: absolute;
             left: 40px;
@@ -29,17 +29,28 @@ float: left;
             top: auto;
         }
         
-        #slider .flex-direction-nav .flex-next {/* background-position: 100% 0; */ background: url('../../static/img/next.png') no-repeat; left: 26px; }
-        #slider .flex-direction-nav .flex-prev {left: 0px; background: url('../../static/img/prev.png') no-repeat;}
+        #carousel .flex-direction-nav .flex-next {
+            background: url('../../static/img/nextdown.png') no-repeat;
+            left: 34px;
+        }
+        
+        #carousel .flex-direction-nav .flex-prev {
+            background: url('../../static/img/prevup.png') no-repeat;
+            left: 34px;
+            
+        }
+        
+        #slider .flex-direction-nav .flex-next {/* background-position: 100% 0;*/ background: url('../../static/img/next.png') no-repeat; left: 26px; }
+
+        #slider .flex-direction-nav .flex-prev {background: url('../../static/img/prev.png') no-repeat; left: 0px; }
         
         #carousel {
-/*             width: 30%;
- */            float: right;
+            width: 30%;            float: left;
         }
         
         #carousel .slides li {
-            float: none !important;
-            margin: 20px 0;
+            float: none !important; /* see if important can be overriden later  */
+            margin: 0 0 20px 0;
         }
 
         #carousel .slides li {
@@ -51,10 +62,24 @@ float: left;
         }
 
         #carousel .flex-direction-nav .flex-next {
-            bottom: -10px;
-            left: 0;
+            bottom: -40px;
+            /* left: 0; */
         }
         
+/*         #carousel .flex-direction-nav li:last-of-type:before {
+    content: "More views";
+    font-size: 80%;
+    color: #999;
+    padding: 0 0 0 7px;
+} */ /* SANJ is this ok or jquery  */
+        
+/*         #carousel .flex-direction-nav li:first-of-type:before {
+    content: "Less views";
+    font-size: 80%;
+    color: #999;
+    padding: 0 0 0 7px;
+} */ /* SANJ is this ok or jquery  */
+
         #carousel .flex-direction-nav a {
             margin: 0;
             bottom: 0;
@@ -125,6 +150,9 @@ $(document).ready(function() {
           <li>
             <img src="/static/img/c.jpg" />
           </li>
+          <li>
+            <img src="/static/img/home-main.jpg" />
+          </li>
           <!-- items mirrored twice, total of 12 -->
         </ul>
       </div>
@@ -139,6 +167,10 @@ $(document).ready(function() {
           <li>
             <img src="/static/img/c.jpg" />
           </li>
+          <li>
+            <img src="/static/img/home-main.jpg" />
+          </li>
+
           <!-- items mirrored twice, total of 12 -->
         </ul> 
 </div>
@@ -149,8 +181,8 @@ $(document).ready(function() {
             <p>3 of 11 works</p>
         </div>
         <div class="floatRight">
-            <span>Zoom</span>
-            <span>Download PDF</span>
+            <span class="zoom">Zoom</span>
+            <span class="downloadPdf">Download PDF</span>
         </div>
         <div class="clear"></div>
       </div> <!-- end slide control box  -->

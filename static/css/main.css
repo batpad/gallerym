@@ -70,6 +70,7 @@ body {
 
 a {
   text-decoration: none;
+  color: #6e9f06;
 }
 
 a:hover, a:focus {
@@ -147,7 +148,7 @@ textarea {
 
 
 #searchBlock {
-	border-bottom: 2px solid #444;
+	border-bottom: 1px solid #444;
 	padding: 6px 110px 6px 0;
 }
 
@@ -174,7 +175,7 @@ textarea {
 }
 
 #menu {
-	font-size: 90%;
+	/* font-size: 90%; */
 	font-weight: 600;
 }
 
@@ -287,7 +288,7 @@ textarea {
 }
 
 .homeMain h1:first-of-type, .selectedHeading {
-	margin-top: -10px; /* hackish to maintain symmetry between tops of both columns  */
+	margin-top: -9px; /* hackish to maintain symmetry between tops of both columns  */
 }
 
 .paginationThumbs {
@@ -319,16 +320,28 @@ textarea {
 
 .thumbnailBlock .thumbEach:nth-of-type(4n+1) {
 	clear: both;
-}
+} /* no clue how to remove padding from last row. firstly, we don't know how many there are in a row!  */
 
 .thumbEach {
-	font-size: 80%;
+	font-size: 90%;
+	font-weight: 600;
 	padding: 0 24px 40px 0;
 	display: block;
+	color: inherit;
 }
 
 .thumbEach img {
 	padding: 16px 0 0 0;
+}
+
+.zoom:before {
+	content: url('../../static/img/search.png');
+	padding: 0 6px 0 0;
+}
+
+.downloadPdf:before {
+	content: url('../../static/img/down.png');
+	padding: 0 4px 0 0;
 }
 
 #slideDescription {
@@ -338,6 +351,12 @@ textarea {
 
 #slideControlBox {
 	padding: 0 0 40px 0;
+}
+
+#slideControlBox span {
+	vertical-align: top;
+	padding: 0 10px 0 0;
+	display: inline-block;
 }
 
 .imgBio {
@@ -382,6 +401,27 @@ textarea {
 .anchorInfo a:after, .linkExternal:after {
 	content: "some icon";
 	padding: 0 0 0 4px;
+}
+
+#mapMaskara {
+	border: 1px solid #999;
+}
+
+#mapContentBlock {
+	padding: 0 10px 0 40px;
+}
+
+#mapContent {
+	font-size: 90%;
+/* 	border-top: 2px solid #4A4E51;
+ */	
+}
+
+#mapContent p:first-of-type{
+	font-size: 100%;
+	text-transform: uppercase;
+	font-weight: 600;
+	padding: 16px 0 0 0;
 }
 
 /* MEDIA QUERIES */
