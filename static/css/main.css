@@ -417,6 +417,11 @@ textarea {
  */	
 }
 
+#mapLinks {
+	text-align: right;
+	font-size: 80%;
+}
+
 #mapContent p:first-of-type{
 	font-size: 100%;
 	text-transform: uppercase;
