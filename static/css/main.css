@@ -15,7 +15,7 @@ body {
 	font-family: 'Open Sans', Arial, Helvetica, 'DejaVu Sans', sans-serif;
 	color: #2B2B2B;
 	font-size: 14px;
-	line-height: 1.4;
+	line-height: 1.5;
 }
 
 
@@ -30,6 +30,10 @@ body {
 	width: 25%;
 }
 
+.col30 {
+	width: 30%;	
+}
+
 .col33 {
 	width:33%;
 }
@@ -38,11 +42,19 @@ body {
 	width: 50%;
 }
 
+.col60 {
+	width: 60%;
+}
+
+.col70 {
+	width: 70%;
+}
+
 .col75 {
 	width:75%;
 }
 
-.col25, .col33, .col50, .col75 {
+.col25, .col30, .col33, .col50, .col60, .col70, .col75 {
 	float: left;
 }
 
@@ -58,6 +70,7 @@ body {
 
 a {
   text-decoration: none;
+  color: #6e9f06;
 }
 
 a:hover, a:focus {
@@ -135,13 +148,13 @@ textarea {
 
 
 #searchBlock {
-	border-bottom: 1px solid #222;
-	padding: 10px 110px 8px 0;
+	border-bottom: 1px solid #444;
+	padding: 6px 110px 6px 0;
 }
 
 #searchBlock input {
 	border: none;
-	background: url('../../static/img/search.png') no-repeat;
+	background: url('../../static/img/search.png') no-repeat 0px 49%;
 	float: right;
 	padding: 3px 3px 3px 20px;
 	
@@ -153,7 +166,7 @@ textarea {
 }
 
 #contentMain, #footer {
-	padding: 0 0 0 110px;
+	padding: 40px 0 0 110px;
 }
 
 #logo {
@@ -162,7 +175,7 @@ textarea {
 }
 
 #menu {
-	font-size: 90%;
+	/* font-size: 90%; */
 	font-weight: 600;
 }
 
@@ -171,7 +184,7 @@ textarea {
 	position: relative;
 }
 
-#menu li:after, #menu li:first-of-type:before {
+#menu li:after, #menu li:first-of-type:before, .prev-pag:before {
 	content: "|";
 	color: #bbb;
 }
@@ -207,8 +220,13 @@ textarea {
 	font-size: 80%;
 }
 
-.sideBarTitlesSelected {
+.sideBarTitles a {
+	color: #666;	
+}
+
+.sideBarTitles a:hover, .sideBarTitles a:focus, .selectedSideBarTitles {
 	font-weight: 600; /* add js to get selected one later  */
+	color: inherit;
 }
 
 .sideBarTitles p {
@@ -232,6 +250,12 @@ textarea {
 	color: #4A4E51;
 	padding: 0 0 10px 0;
 }
+
+.ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+} /* KAREN, add this class to anything p that requires an ellipsis  */  
 
 .homeSecondary:last-of-type {
 	margin-right: 0;
@@ -263,12 +287,26 @@ textarea {
 	padding: 0 0 30px 0;
 }
 
+.homeMain h1:first-of-type, .selectedHeading {
+	margin-top: -9px; /* hackish to maintain symmetry between tops of both columns  */
+}
+
 .paginationThumbs {
 	float: right;
 }
 
 .paginationThumbs span {
 	padding: 0 0 0 16px ;
+	cursor: pointer;
+}
+
+.prev-pag img {
+	padding: 0 0 0 12px;
+}
+
+.prev-pag, .next-pag {
+	/* vertical-align: top; */ /* change later when converted to vectors  */
+	display: inline-block;
 }
 
 .footerLinks {
@@ -282,17 +320,114 @@ textarea {
 
 .thumbnailBlock .thumbEach:nth-of-type(4n+1) {
 	clear: both;
-}
+} /* no clue how to remove padding from last row. firstly, we don't know how many there are in a row!  */
 
 .thumbEach {
-	font-size: 80%;
+	font-size: 90%;
+	font-weight: 600;
 	padding: 0 24px 40px 0;
+	display: block;
+	color: inherit;
 }
 
 .thumbEach img {
 	padding: 16px 0 0 0;
 }
 
+.zoom:before {
+	content: url('../../static/img/search.png');
+	padding: 0 6px 0 0;
+}
+
+.downloadPdf:before {
+	content: url('../../static/img/down.png');
+	padding: 0 4px 0 0;
+}
+
+#slideDescription {
+	padding: 16px 30px 0 0;
+	border-top: 2px solid #4A4E51;
+}
+
+#slideControlBox {
+	padding: 0 0 40px 0;
+}
+
+#slideControlBox span {
+	vertical-align: top;
+	padding: 0 10px 0 0;
+	display: inline-block;
+}
+
+.imgBio {
+	padding: 20px 0 40px;
+}
+
+.bioContent {
+	padding: 0 40px 0 0;
+}
+
+.bioDownloadInfo {
+	border-top: 2px solid #4A4E51;
+	padding: 16px 0 0 0;
+}
+
+.anchorsCv {
+	padding: 0 0 40px 0;	
+}
+
+.anchorsCv a {
+	margin: 0 12px 0 0;
+	font-size: 90%;
+}
+
+.anchorsCv a:hover, .anchorsCv a:focus, .selectedAnchorsCv {
+	border-bottom: 2px solid #005494;
+}
+
+.anchorDateBlock {
+	display: table-row;
+	padding: 0 0 20px 0;
+}
+
+.anchorDate, .anchorInfo {
+	display: table-cell;	
+}
+
+.anchorInfo {
+	padding: 0 0 20px 20px;
+}
+
+.anchorInfo a:after, .linkExternal:after {
+	content: "some icon";
+	padding: 0 0 0 4px;
+}
+
+#mapMaskara {
+	border: 1px solid #999;
+}
+
+#mapContentBlock {
+	padding: 0 10px 0 40px;
+}
+
+#mapContent {
+	font-size: 90%;
+/* 	border-top: 2px solid #4A4E51;
+ */	
+}
+
+#mapLinks {
+	text-align: right;
+	font-size: 80%;
+}
+
+#mapContent p:first-of-type{
+	font-size: 100%;
+	text-transform: uppercase;
+	font-weight: 600;
+	padding: 16px 0 0 0;
+}
 
 /* MEDIA QUERIES */
 
