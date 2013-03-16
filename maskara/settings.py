@@ -6,6 +6,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 # This is the setting for title in Grappelli
 GRAPPELLI_ADMIN_TITLE ="Gallery Maskara"
+LOCAL_DEVELOPMENT = True
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -143,6 +144,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+#    'nested_inlines',
     'grappelli',
     # Uncomment the next line to enable the admin:
     # 'adminsortable',
@@ -153,6 +155,9 @@ INSTALLED_APPS = (
     'maskara.gallery',
     'maskara.base',
     'mockups',
+    'easy_thumbnails',
+    'image_cropping',
+    'south'
 )
 
 DICTIONARY = "/usr/share/dict/words"
@@ -189,6 +194,11 @@ LOGGING = {
         },
     }
 }
+
+from easy_thumbnails.conf import settings as thumbnail_settings
+THUMBNAIL_PROCESSORS = (
+    'image_cropping.thumbnail_processors.crop_corners',
+) + thumbnail_settings.THUMBNAIL_PROCESSORS
 
 try:
     from local_settings import *

@@ -3,6 +3,8 @@ from django.conf.urls import patterns, include, url
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
+import settings
+from os.path import join
 
 urlpatterns = patterns('',
     # Examples:
@@ -33,3 +35,10 @@ urlpatterns += patterns('django.views.generic.simple',
     url(r'^selected$', 'direct_to_template', {'template': 'selected.html'}),
     url(r'^single$', 'direct_to_template', {'template': 'single.html'}),
 )
+
+
+if settings.LOCAL_DEVELOPMENT:
+  urlpatterns += patterns('',
+  (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': join(settings.PROJECT_ROOT, "media")}),
+)
+

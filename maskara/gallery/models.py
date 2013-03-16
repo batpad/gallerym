@@ -2,6 +2,7 @@ from django.db import models
 from maskara.base.models import BaseModel
 #from adminsortable.models import Sortable
 #from adminsortable.fields import models.ForeignKey
+from image_cropping import ImageRatioField
 
 class Review(BaseModel):
     title = models.CharField(max_length=1024)
@@ -90,6 +91,20 @@ class ArtistWork(BaseModel):
     def __unicode__(self):
         return self.title
 
+class ArtistWorkImage(BaseModel):
+    work = models.ForeignKey(ArtistWork)
+    image = models.ImageField(upload_to='work_images/')
+    caption = models.CharField(max_length=512, blank=True)
+    is_hires = models.BooleanField(default=True)
+    order = models.PositiveIntegerField()
+
+    class Meta:
+        ordering = ['order']
+
+    def __unicode__(self):
+        return self.caption
+
+
 
 class ArtistReview(Review):
     test = models.CharField(max_length=128)
@@ -112,6 +127,7 @@ class Exhibition(BaseModel):
     end_date = models.DateField()
     autopublish_date = models.DateField()
     image = models.ImageField(blank=True, upload_to='exhibition_images/')
+    cropping = ImageRatioField('image', '430x360', size_warning=True)
     featured_artists = models.ManyToManyField("Artist", blank=True, null=True)
     featured_work = models.ManyToManyField("ArtistWork", blank=True, null=True)
     published = models.BooleanField(default=False)
