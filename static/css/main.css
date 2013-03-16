@@ -242,7 +242,7 @@ textarea {
 	padding: 0 0 0 60px;
 }
 
-#homeMain, .homeSecondaryImg {
+.imgMain, #homeMain, .homeSecondaryImg {
 	padding: 16px 0 60px 0;
 }
 
@@ -292,7 +292,7 @@ textarea {
 	padding: 0 0 30px 0;
 }
 
-.homeMain h1:first-of-type, .selectedHeading {
+.exibMain h1:first-of-type, .homeMain h1:first-of-type, .selectedHeading {
 	margin-top: -9px; /* hackish to maintain symmetry between tops of both columns  */
 }
 
@@ -381,17 +381,21 @@ textarea {
 	padding: 16px 0 0 0;
 }
 
-.anchorsCv {
+.anchorsCv, .anchorsExhibition {
 	padding: 0 0 40px 0;	
+	font-size: 90%;
 }
 
-.anchorsCv a {
+.anchorsExhibition {
+	padding-top: 40px;
+}
+
+.anchorsCv a, .anchorsExhibition a {
 	margin: 0 12px 0 0;
-	font-size: 90%;
 	color: inherit;
 }
 
-.anchorsCv a:hover, .anchorsCv a:focus, .selectedAnchorsCv {
+.anchorsExhibition a:hover, .anchorsExhibition:focus, .anchorsCv a:hover, .anchorsCv a:focus, .selectedAnchors {
 	border-bottom: 2px solid #005494; /* sanjay for js for each anchor selected  */
 }
 

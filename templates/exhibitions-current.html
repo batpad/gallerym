@@ -1,1 +1,47 @@
 {% extends 'base.html' %}
+
+{% block content %}
+<div id="sideBar" class="col25">
+    
+    <div class="sideBarTitles">
+        <p><a href="/exhibitions/current">Current</a></p>
+        <p><a href="/exhibitions/upcoming">Upcoming</a></p>
+        <p><a href="/exhibitions/previous">Previous</a></p>
+    </div>
+    
+</div> <!-- end side bar  -->
+
+<div id="mainBar" class="col75">
+    <div class="exibMain">
+        <h1>Glimpse of Thirst</h1>
+            <p>Shine Shivam</p>
+        <div class="smallestFont">
+            <p class="blue">January 11 to February 28, 2013</p>   <!-- SANJ, make a provision for date for first also, incase December 11 2013 to Jan 11, 2014  -->
+            <p>Preview: January 10, 2013</p>
+        </div>
+    </div> <!-- end exib main  -->
+    
+    <div class="anchorsExhibition">
+        <a href="#anchorExibWorks">Works</a>
+        <a href="#anchorExibArtists">Artists</a> <!-- sanj, should we make it artists if it is more than one  and default artist?-->  
+        <a href="#anchorExibPress">Press</a> <!-- use :empty if nothing is found?  -->  
+        <a href="#anchorExibPublications">Publication</a>
+        <a href="#anchorExibVideos">Videos</a>
+    </div> <!-- end anchorsExhibition  -->
+
+    <img src="/static/img/home-main.jpg" alt="" class="imgMain">    
+    
+    <div class="bioContent col75">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis aspernatur porro minus alias dignissimos et beatae repellat non quisquam optio ipsum dolorem nesciunt officia autem voluptas amet nisi fugit architecto.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi minus illo beatae quo ratione praesentium quas libero ullam vel numquam   nihil veniam distinctio harum asperiores cum. Repudiandae fugiat ipsum nulla.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit quae qui harum tenetur dolorum ipsam vitae distinctio ducimus in eius iusto dignissimos consectetur ab obcaecati modi. Corrupti totam officia suscipit.</p>
+    </div> <!-- end bio content -->
+
+    <div class="bioDownloadInfo col25 smallestFont">
+        <p><a href="" class="downloadPdf">Download PDF</a></p>
+    </div> <!-- end bio download info  -->
+
+    
+</div> <!-- end main bar  -->
+            
+{% endblock %}
