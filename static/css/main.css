@@ -207,7 +207,7 @@ textarea {
 	color: inherit;
 }
 
-.selectedMenu, .blue {
+#menu .selectedMenu, .blue {
 	color: #005494;
 }
 
@@ -229,7 +229,7 @@ textarea {
 	color: #666;	
 }
 
-.sideBarTitles a:hover, .sideBarTitles a:focus, .selectedSideBarTitles {
+.sideBarTitles a:hover, .sideBarTitles a:focus, .sideBarTitles .selectedSideBarTitles {
 	font-weight: 600; /* add js to get selected one later  */
 	color: inherit;
 }
@@ -399,7 +399,7 @@ textarea {
 	color: inherit;
 }
 
-.anchorsExhibition a:hover, .anchorsExhibition:focus, .anchorsCv a:hover, .anchorsCv a:focus, .selectedAnchors {
+.anchorsExhibition a:hover, .anchorsExhibition:focus, .anchorsCv a:hover, .anchorsCv a:focus, .anchorsCV, .selectedAnchors {
 	border-bottom: 2px solid #005494; /* sanjay for js for each anchor selected  */
 }
 
