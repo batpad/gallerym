@@ -2,6 +2,9 @@
 import os
 from os.path import join
 
+import djcelery
+djcelery.setup_loader()
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 # This is the setting for title in Grappelli
@@ -11,6 +14,8 @@ LOCAL_DEVELOPMENT = True
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
+
+BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 
 PROJECT_ROOT = os.path.normpath(os.path.dirname(__file__))
 
@@ -157,7 +162,8 @@ INSTALLED_APPS = (
     'mockups',
     'easy_thumbnails',
     'image_cropping',
-    'south'
+    'south',
+    'djcelery',
 )
 
 DICTIONARY = "/usr/share/dict/words"

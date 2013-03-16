@@ -3,6 +3,7 @@ from maskara.base.models import BaseModel
 #from adminsortable.models import Sortable
 #from adminsortable.fields import models.ForeignKey
 from image_cropping import ImageRatioField
+from tasks import create_tiles
 
 class Review(BaseModel):
     title = models.CharField(max_length=1024)
@@ -104,6 +105,10 @@ class ArtistWorkImage(BaseModel):
     def __unicode__(self):
         return self.caption
 
+    def save(self):
+        super(ArtistWorkImage, self).save()
+        if self.is_hires:
+            create_tiles.delay(self.image.path)
 
 
 class ArtistReview(Review):
