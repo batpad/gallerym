@@ -19,7 +19,7 @@ body {
 }
 
 
-#wrapper {
+#wrapper, #searchInputWrapper {
 	max-width: 1200px;
 }
 
@@ -152,6 +152,10 @@ textarea {
 	padding: 6px 110px 6px 0;
 }
 
+#searchInputWrapper {
+	padding: 0 0 0 110px;
+}
+
 #searchBlock input {
 	border: none;
 	background: url('../../static/img/search.png') no-repeat 0px 49%;
@@ -164,6 +168,7 @@ textarea {
 	outline: none;
 	border: 2px solid #A7CF4F;
 }
+
 
 #contentMain, #footer {
 	padding: 40px 0 0 110px;
@@ -318,6 +323,10 @@ textarea {
 	padding: 0 20px 0 0;
 }
 
+#footer a {
+	color: #777; /* change once default site link colour is approved  */
+}
+
 .thumbnailBlock .thumbEach:nth-of-type(4n+1) {
 	clear: both;
 } /* no clue how to remove padding from last row. firstly, we don't know how many there are in a row!  */
@@ -363,7 +372,7 @@ textarea {
 	padding: 20px 0 40px;
 }
 
-.bioContent {
+.bioContent, .anchorContent {
 	padding: 0 40px 0 0;
 }
 
@@ -379,10 +388,11 @@ textarea {
 .anchorsCv a {
 	margin: 0 12px 0 0;
 	font-size: 90%;
+	color: inherit;
 }
 
 .anchorsCv a:hover, .anchorsCv a:focus, .selectedAnchorsCv {
-	border-bottom: 2px solid #005494;
+	border-bottom: 2px solid #005494; /* sanjay for js for each anchor selected  */
 }
 
 .anchorDateBlock {
@@ -433,13 +443,12 @@ textarea {
 
 @media only screen and (max-width: 700px) {
 
-.col25, .col75, .col33, #homeSecondaryText, .homeCarousel {
+.col25, .col75, .col33, #searchBlock input, #homeSecondaryText, .homeCarousel {
 	width: 100%;
 	float: none;
 }
 
-
-#contentMain, #mainBar, .mainBar, .sideBarTitles, #footer {
+#searchInputWrapper, #contentMain, #mainBar, .mainBar, .sideBarTitles, #footer {
 	padding: 10px;
 }
 
