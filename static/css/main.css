@@ -242,8 +242,12 @@ textarea {
 	padding: 0 0 0 60px;
 }
 
-.imgMain, #homeMain, .homeSecondaryImg {
+#homeMain, .homeSecondaryImg {
 	padding: 16px 0 60px 0;
+}
+
+.imgMainExib {
+	padding: 0px 0 40px 0;
 }
 
 .homeSecondary {
@@ -372,7 +376,7 @@ textarea {
 	padding: 20px 0 40px;
 }
 
-.bioContent, .anchorContent {
+.exibContent, .bioContent, .anchorContent {
 	padding: 0 40px 0 0;
 }
 
@@ -447,13 +451,17 @@ textarea {
 
 @media only screen and (max-width: 700px) {
 
-.col25, .col75, .col33, #searchBlock input, #homeSecondaryText, .homeCarousel {
+.col25, .col30, .col33, .col75, .col70, #searchBlock input, #homeSecondaryText, .homeCarousel {
 	width: 100%;
 	float: none;
 }
 
 #searchInputWrapper, #contentMain, #mainBar, .mainBar, .sideBarTitles, #footer {
 	padding: 10px;
+}
+
+.bioDownloadInfo {
+	border-top: none;
 }
 
 }
