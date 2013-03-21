@@ -1,4 +1,5 @@
 # Django settings for maskara project.
+
 import os
 from os.path import join
 
@@ -81,6 +82,9 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
+HAYSTACK_SITECONF = 'maskara.search_indexes'
+HAYSTACK_SEARCH_ENGINE = 'whoosh'
+HAYSTACK_WHOOSH_PATH = STATIC_ROOT = join(PROJECT_ROOT, 'whoosh.index')
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -142,6 +146,13 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+    },
+}
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -157,6 +168,7 @@ INSTALLED_APPS = (
 
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
+    'haystack',
     'maskara.gallery',
     'maskara.base',
     'mockups',
