@@ -85,6 +85,11 @@ class ArtistWork(BaseModel):
     published = models.BooleanField(default=False)
     order = models.PositiveIntegerField()
 
+    @property
+    def class_name(self):
+        return(self._meta.verbose_name)
+    
+
     class Meta:
         ordering = ['order']
 
@@ -99,8 +104,14 @@ class ArtistWorkImage(BaseModel):
     is_hires = models.BooleanField(default=True)
     order = models.PositiveIntegerField()
 
+    @property
+    def class_name(self):
+        return(self._meta.verbose_name)
+
+
     class Meta:
         ordering = ['order']
+
 
     def __unicode__(self):
         return self.caption
@@ -114,6 +125,11 @@ class ArtistWorkImage(BaseModel):
 class ArtistReview(Review):
     test = models.CharField(max_length=128)
     artist = models.ForeignKey("Artist")
+
+    @property
+    def class_name(self):
+        return(self._meta.verbose_name)
+
 
 
     
@@ -141,6 +157,11 @@ class Exhibition(BaseModel):
     featured_work = models.ManyToManyField("ArtistWork", blank=True, null=True)
     published = models.BooleanField(default=False)
 
+    @property
+    def class_name(self):
+        return(self._meta.verbose_name)
+
+
     class Meta:
         pass
 
@@ -158,6 +179,7 @@ class ExhibitionReview(Review):
 class ExhibitionPressRelease(PressRelease):
     test = models.CharField(max_length=128)
     exhibition = models.ForeignKey(Exhibition)
+    
 
     class Meta:
         pass
@@ -173,6 +195,11 @@ class Event(BaseModel):
     image = models.ImageField(blank=True, upload_to='event_images/')
     description = models.TextField(blank=True)
     published = models.BooleanField(default=False)
+    
+    @property
+    def class_name(self):
+        return(self._meta.verbose_name)
+
 
     class Meta:
         pass
@@ -193,6 +220,11 @@ class Publication(BaseModel):
     pdf = models.FileField(upload_to='publication_pdfs/', blank=True)
     available = models.BooleanField(default=True)
     published = models.BooleanField(default=False)
+
+    @property
+    def class_name(self):
+        return(self._meta.verbose_name)
+
 
     class Meta:
         pass

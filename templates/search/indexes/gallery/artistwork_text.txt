@@ -1,0 +1,7 @@
+{{object.title}} 
+{{object.material}} 
+{{object.theme}} 
+{{object.code}} 
+
+
+
