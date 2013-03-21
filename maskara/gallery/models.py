@@ -4,6 +4,7 @@ from maskara.base.models import BaseModel
 #from adminsortable.fields import models.ForeignKey
 from image_cropping import ImageRatioField
 from tasks import create_tiles
+from os.path import basename
 
 class Review(BaseModel):
     title = models.CharField(max_length=1024)
@@ -104,6 +105,10 @@ class ArtistWorkImage(BaseModel):
 
     def __unicode__(self):
         return self.caption
+
+    @property
+    def tms_url(self):
+        return "/media/tiles/%s/{z}/{x}/{y}.png" % basename(self.image.path)        
 
     def save(self):
         super(ArtistWorkImage, self).save()
