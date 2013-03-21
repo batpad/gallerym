@@ -19,7 +19,7 @@ body {
 }
 
 
-#wrapper {
+#wrapper, #searchInputWrapper {
 	max-width: 1200px;
 }
 
@@ -152,6 +152,10 @@ textarea {
 	padding: 6px 110px 6px 0;
 }
 
+#searchInputWrapper {
+	padding: 0 0 0 110px;
+}
+
 #searchBlock input {
 	border: none;
 	background: url('../../static/img/search.png') no-repeat 0px 49%;
@@ -164,6 +168,7 @@ textarea {
 	outline: none;
 	border: 2px solid #A7CF4F;
 }
+
 
 #contentMain, #footer {
 	padding: 40px 0 0 110px;
@@ -241,6 +246,10 @@ textarea {
 	padding: 16px 0 60px 0;
 }
 
+.imgMainExib {
+	padding: 0px 0 40px 0;
+}
+
 .homeSecondary {
 	margin: 0 0.5% 0 0;
 	padding: 0 20px 0 0;	
@@ -287,7 +296,7 @@ textarea {
 	padding: 0 0 30px 0;
 }
 
-.homeMain h1:first-of-type, .selectedHeading {
+.exibMain h1:first-of-type, .homeMain h1:first-of-type, .selectedHeading {
 	margin-top: -9px; /* hackish to maintain symmetry between tops of both columns  */
 }
 
@@ -316,6 +325,10 @@ textarea {
 
 .footerLinks span {
 	padding: 0 20px 0 0;
+}
+
+#footer a {
+	color: #777; /* change once default site link colour is approved  */
 }
 
 .thumbnailBlock .thumbEach:nth-of-type(4n+1) {
@@ -363,7 +376,7 @@ textarea {
 	padding: 20px 0 40px;
 }
 
-.bioContent {
+.exibContent, .bioContent, .anchorContent {
 	padding: 0 40px 0 0;
 }
 
@@ -372,17 +385,22 @@ textarea {
 	padding: 16px 0 0 0;
 }
 
-.anchorsCv {
+.anchorsCv, .anchorsExhibition {
 	padding: 0 0 40px 0;	
-}
-
-.anchorsCv a {
-	margin: 0 12px 0 0;
 	font-size: 90%;
 }
 
-.anchorsCv a:hover, .anchorsCv a:focus, .selectedAnchorsCv {
-	border-bottom: 2px solid #005494;
+.anchorsExhibition {
+	padding-top: 40px;
+}
+
+.anchorsCv a, .anchorsExhibition a {
+	margin: 0 12px 0 0;
+	color: inherit;
+}
+
+.anchorsExhibition a:hover, .anchorsExhibition:focus, .anchorsCv a:hover, .anchorsCv a:focus, .selectedAnchors {
+	border-bottom: 2px solid #005494; /* sanjay for js for each anchor selected  */
 }
 
 .anchorDateBlock {
@@ -433,14 +451,17 @@ textarea {
 
 @media only screen and (max-width: 700px) {
 
-.col25, .col75, .col33, #homeSecondaryText, .homeCarousel {
+.col25, .col30, .col33, .col75, .col70, #searchBlock input, #homeSecondaryText, .homeCarousel {
 	width: 100%;
 	float: none;
 }
 
-
-#contentMain, #mainBar, .mainBar, .sideBarTitles, #footer {
+#searchInputWrapper, #contentMain, #mainBar, .mainBar, .sideBarTitles, #footer {
 	padding: 10px;
+}
+
+.bioDownloadInfo {
+	border-top: none;
 }
 
 }
