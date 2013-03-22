@@ -3,7 +3,12 @@ from maskara.base.models import BaseModel
 #from adminsortable.models import Sortable
 #from adminsortable.fields import models.ForeignKey
 from image_cropping import ImageRatioField
-from tasks import create_tiles
+from tasks import create_tiles, update_index
+from os.path import basename
+from django.db.models.signals import post_save
+from django.contrib.admin.models import LogEntry
+
+
 
 class Review(BaseModel):
     title = models.CharField(max_length=1024)
@@ -57,7 +62,10 @@ class Artist(BaseModel):
     class Meta:
         pass
 
-    
+#    def save(self, *args, **kwargs):
+#        super(Artist, self).save(*args, **kwargs)
+#        do_update_index()
+   
     def __unicode__(self):
         return self.name
 
@@ -115,6 +123,10 @@ class ArtistWorkImage(BaseModel):
 
     def __unicode__(self):
         return self.caption
+
+    @property
+    def tms_url(self):
+        return "/media/tiles/%s/{z}/{x}/{y}.png" % basename(self.image.path)        
 
     def save(self):
         super(ArtistWorkImage, self).save()
@@ -232,6 +244,14 @@ class Publication(BaseModel):
 
     def __unicode__(self):
         return self.title
+
+
+def do_update_index(*args, **kwargs):
+    sender = kwargs['sender']
+    if sender not in [LogEntry]:
+        update_index.delay()
+
+post_save.connect(do_update_index)
 
 # Create your models here.
 # ^^ They are above, mind turning your head up ? :P

@@ -19,6 +19,10 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 )
 
+urlpatterns += patterns('maskara.gallery.views',
+    url(r'^test_work_image/(?P<id>[0-9]*)', 'artist_work_image')
+)
+
 urlpatterns += patterns('django.views.generic.simple', 
     url(r'^$', 'direct_to_template', {'template': 'index.html'}),
     url(r'^artists$', 'direct_to_template', {'template': 'artists.html'}),
