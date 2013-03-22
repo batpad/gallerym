@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div id="sideBar" class="col25">
+    
+    <div class="sideBarTitles">
+        <p><a href="/about/mission">Mission</a></p>
+        <p><a href="/about/people">People</a></p> <!-- sanjay i need this to get the selected class bold  -->
+        <p><a href="/about/press">Press</a></p>
+        <p><a href="/about/space">Publications</a></p>
+        <p><a href="/about/space">Space</a></p>
+    </div>
+    
+</div> <!-- end side bar  -->
+
+<div id="mainBar" class="col75">
+    <div id="aboutContent">
+        <h1 class="selectedHeading">Abhay Maskara</h1>
+        
+    <div class="col70">
+        <img src="/static/img/artist.jpg" alt="abhay-maskara" class="paddingBottom">            
+        <div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto necessitatibus dicta ab eos maxime molestias rem reprehenderit eius adipisci repellendus. At necessitatibus natus sit architecto aut iure voluptates ex laborum! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio asperiores ut nisi labore natus obcaecati praesentium culpa suscipit voluptates molestiae minima mollitia voluptatibus repellat quod beatae aut quis? Officiis provident.</p>
+            <br>
+        <a href="/about/people" class="smallestFont">Back to People</a>    
+        </div>
+    </div> <!-- end col70  -->
+</div> <!-- end main bar  -->
+    
+    
+{% endblock %}

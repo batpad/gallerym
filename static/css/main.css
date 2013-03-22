@@ -70,10 +70,11 @@ body {
 
 a {
   text-decoration: none;
-  color: #6e9f06;
+  color: #666;  /*6e9f06*/
 }
 
-a:hover, a:focus {
+a:hover, a:focus, a:active {
+	color: #005494
 }
 
 strong {
@@ -143,9 +144,9 @@ textarea {
 	float: right;
 }
 
-/* END GLOBAL STYLES */
-
-
+.paddingBottom {
+	padding-bottom: 30px; 
+}
 
 #searchBlock {
 	border-bottom: 1px solid #444;
@@ -413,7 +414,7 @@ textarea {
 }
 
 .anchorInfo {
-	padding: 0 0 20px 20px;
+	padding: 0 0 20px 24px;
 }
 
 .anchorInfo a:after, .linkExternal:after {
