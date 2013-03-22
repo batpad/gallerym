@@ -467,4 +467,19 @@ textarea {
 
 }
 
+@media only screen and (max-width: 479px) {
+	#menu li {
+		display: block;
+		padding: 4px 0;
+	}
+
+	#menu li:first-of-type:before {
+		content: "";
+	}
+	
+	#menu li:after {
+		content: "";
+	}
+}
+
 /* END MEDIA QUERIES */
