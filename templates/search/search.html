@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
-
+{% load highlight %}
 {% block content %}
+    <style>
+.highlighted {
+    background-color: yellow;
+}
+    </style>
     <h2>Search</h2>
 
     <form method="get" action=".">
@@ -21,7 +26,7 @@
                 <p>
                     <a href="{{ result.object.get_absolute_url }}">{{ result.object.name }}</a>
                     <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a>
-		    
+		            <div class="result">{% highlight result.text with query %}</div> 
 
                 </p>
 		
