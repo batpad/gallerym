@@ -15,6 +15,10 @@ $(document).ready(function(){
       $('.anchorsCv .selectedAnchors').removeClass('selectedAnchors');
       $(this).addClass('selectedAnchors');
    });
-
+   
+   $('.anchorsExhibition a').click( function(e) {   
+      $('.anchorsExhibition .selectedAnchors').removeClass('selectedAnchors');
+      $(this).addClass('selectedAnchors');
+   });   
 
 });
