@@ -16,6 +16,8 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
+HAYSTACK_CUSTOM_HIGHLIGHTER = 'maskara.highlighter.MyHighlighter'
+
 BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 
 PROJECT_ROOT = os.path.normpath(os.path.dirname(__file__))

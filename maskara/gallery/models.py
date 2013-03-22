@@ -93,9 +93,6 @@ class ArtistWork(BaseModel):
     published = models.BooleanField(default=False)
     order = models.PositiveIntegerField()
 
-    @property
-    def class_name(self):
-        return(self._meta.verbose_name)
     
 
     class Meta:
@@ -112,9 +109,6 @@ class ArtistWorkImage(BaseModel):
     is_hires = models.BooleanField(default=True)
     order = models.PositiveIntegerField()
 
-    @property
-    def class_name(self):
-        return(self._meta.verbose_name)
 
 
     class Meta:
@@ -138,9 +132,6 @@ class ArtistReview(Review):
     test = models.CharField(max_length=128)
     artist = models.ForeignKey("Artist")
 
-    @property
-    def class_name(self):
-        return(self._meta.verbose_name)
 
 
 
@@ -169,9 +160,6 @@ class Exhibition(BaseModel):
     featured_work = models.ManyToManyField("ArtistWork", blank=True, null=True)
     published = models.BooleanField(default=False)
 
-    @property
-    def class_name(self):
-        return(self._meta.verbose_name)
 
 
     class Meta:
@@ -208,9 +196,6 @@ class Event(BaseModel):
     description = models.TextField(blank=True)
     published = models.BooleanField(default=False)
     
-    @property
-    def class_name(self):
-        return(self._meta.verbose_name)
 
 
     class Meta:

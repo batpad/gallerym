@@ -20,6 +20,10 @@ class BaseModel(models.Model):
             return self.name
         else:
             return self.__unicode__()
+    @property
+    def class_name(self):
+        return(self._meta.verbose_name)
+
 
     class Meta:
         abstract = True

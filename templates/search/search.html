@@ -25,8 +25,10 @@
             {% for result in page.object_list %}
                 <p>
                     <a href="{{ result.object.get_absolute_url }}">{{ result.object.name }}</a>
-                    <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a>
+                    <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a><br>
+		    {{result.object.class_name }}
 		            <div class="result">{% highlight result.text with query %}</div> 
+			    
 
                 </p>
 		
