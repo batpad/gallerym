@@ -70,10 +70,11 @@ body {
 
 a {
   text-decoration: none;
-  color: #6e9f06;
+  color: #666;  /*6e9f06*/
 }
 
-a:hover, a:focus {
+a:hover, a:focus, a:active {
+	color: #005494
 }
 
 strong {
@@ -143,9 +144,9 @@ textarea {
 	float: right;
 }
 
-/* END GLOBAL STYLES */
-
-
+.paddingBottom {
+	padding-bottom: 30px; 
+}
 
 #searchBlock {
 	border-bottom: 1px solid #444;
@@ -207,7 +208,7 @@ textarea {
 	color: inherit;
 }
 
-.selectedMenu, .blue {
+#menu .selectedMenu, .blue {
 	color: #005494;
 }
 
@@ -222,14 +223,14 @@ textarea {
 .sideBarTitles {
 	border-top: 2px solid #666;
 	padding: 4px 0 0 0;
-	font-size: 80%;
+	font-size: 90%;
 }
 
 .sideBarTitles a {
 	color: #666;	
 }
 
-.sideBarTitles a:hover, .sideBarTitles a:focus, .selectedSideBarTitles {
+.sideBarTitles a:hover, .sideBarTitles a:focus, .sideBarTitles .selectedSideBarTitles {
 	font-weight: 600; /* add js to get selected one later  */
 	color: inherit;
 }
@@ -399,7 +400,7 @@ textarea {
 	color: inherit;
 }
 
-.anchorsExhibition a:hover, .anchorsExhibition:focus, .anchorsCv a:hover, .anchorsCv a:focus, .selectedAnchors {
+.anchorsExhibition a:hover, .anchorsExhibition:focus, .anchorsCv a:hover, .anchorsCv a:focus, .anchorsCV, .selectedAnchors {
 	border-bottom: 2px solid #005494; /* sanjay for js for each anchor selected  */
 }
 
@@ -413,7 +414,7 @@ textarea {
 }
 
 .anchorInfo {
-	padding: 0 0 20px 20px;
+	padding: 0 0 20px 24px;
 }
 
 .anchorInfo a:after, .linkExternal:after {
@@ -464,6 +465,21 @@ textarea {
 	border-top: none;
 }
 
+}
+
+@media only screen and (max-width: 479px) {
+	#menu li {
+		display: block;
+		padding: 4px 0;
+	}
+
+	#menu li:first-of-type:before {
+		content: "";
+	}
+	
+	#menu li:after {
+		content: "";
+	}
 }
 
 /* END MEDIA QUERIES */

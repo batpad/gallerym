@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% block sidebar %}
+    
+    <div id="sideBar" class="col25">
+    
+        <div class="sideBarTitles">
+        <p><a href="/about/mission">Mission</a></p>
+        <p><a href="/about/people">People</a></p>
+        <p><a href="/about/press">Press</a></p>
+        <p><a href="/about/publications">Publications</a></p>
+        <p><a href="/about/space">Space</a></p>
+        </div>
+     
+    </div> <!-- end side bar  -->
+
+    {% endblock %}
+
+<div id="mainBar" class="col75">
+    {% block mainbar %}    
+    {% endblock %}
+</div> <!-- end main bar  -->
+
+{% endblock %}
+
