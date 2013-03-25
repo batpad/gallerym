@@ -16,19 +16,11 @@ class ExhibitionSitemap(Sitemap):
     changefreq = 'daily'
     priority = 0.9
 
-
-    
-    def items(self):
-        return  Exhibition.objects.filter(published = True)
-
-
-    
     def items(self):
         return  Exhibition.objects.filter(published=True)
 
     def last_mod(self):
         return obj.pub_date
-
 
 
 class EventSitemap(Sitemap):
@@ -39,9 +31,11 @@ class EventSitemap(Sitemap):
         return  Event.objects.filter(published = True)
 
 
-
     def last_mod(self):
         return obj.pub_date
+
+
+
 
 
 
@@ -50,11 +44,9 @@ class ArtistSitemap(Sitemap):
     priority = 0.7
     
     def items(self):
+        return  Artist.objects.filter(published=True)
 
-        return  Artist.objects.filter(published = True)
-
-
-
+    
     def last_mod(self):
         return obj.pub_date
     

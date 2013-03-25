@@ -1,13 +1,12 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.sitemaps import Sitemap
 
-
-from sitemaps import *
+from maskara.sitemaps import *
 
 
 # from django.contrib.sitemaps import Sitemap
 
-from maskara.sitemaps import *
+
 
 
 # Uncomment the next two lines to enable the admin:
@@ -16,6 +15,8 @@ admin.autodiscover()
 import settings
 from os.path import join
 sitemaps = {'exhibition': ExhibitionSitemap,'event':EventSitemap,'artist':ArtistSitemap} 
+
+sitemaps = {'artist': ArtistSitemap, 'event': EventSitemap, 'exhibition': ExhibitionSitemap} 
 
 sitemaps = {'artist': ArtistSitemap, 'event': EventSitemap, 'exhibition': ExhibitionSitemap} 
 
