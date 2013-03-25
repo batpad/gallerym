@@ -1,10 +1,23 @@
 from django.conf.urls import patterns, include, url
+from django.contrib.sitemaps import Sitemap
+
+
+from sitemaps import *
+
+
+# from django.contrib.sitemaps import Sitemap
+
+from maskara.sitemaps import *
+
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 import settings
 from os.path import join
+sitemaps = {'exhibition': ExhibitionSitemap,'event':EventSitemap,'artist':ArtistSitemap} 
+
+sitemaps = {'artist': ArtistSitemap, 'event': EventSitemap, 'exhibition': ExhibitionSitemap} 
 
 urlpatterns = patterns('',
     # Examples:
@@ -16,7 +29,9 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^grappelli/', include('grappelli.urls')),
+
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),                    
 )
 
 urlpatterns += patterns('maskara.gallery.views',
@@ -59,8 +74,11 @@ urlpatterns += patterns('django.views.generic.simple',
     url(r'^selected$', 'direct_to_template', {'template': 'selected.html'}),
     url(r'^single$', 'direct_to_template', {'template': 'single.html'}),
     
+    # sitemap
 
+    # Search (haystack)                    
     url(r'^search/', include('haystack.urls')),
+    url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps})
 
                     
 
