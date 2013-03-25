@@ -1,10 +1,14 @@
 from django.conf.urls import patterns, include, url
+from django.contrib.sitemaps import Sitemap
+from maskara.sitemaps import *
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 import settings
 from os.path import join
+
+sitemaps = {'artist': ArtistSitemap, 'event': EventSitemap, 'exhibition': ExhibitionSitemap} 
 
 urlpatterns = patterns('',
     # Examples:
@@ -61,6 +65,7 @@ urlpatterns += patterns('django.views.generic.simple',
     
 
     url(r'^search/', include('haystack.urls')),
+    url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps})
 
                     
 
