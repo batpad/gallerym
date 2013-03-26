@@ -79,7 +79,7 @@ urlpatterns += patterns('django.views.generic.simple',
 
     # Search (haystack)                    
     url(r'^search/', include('haystack.urls')),
-    url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps})
+#    url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps})
 
                     
 
