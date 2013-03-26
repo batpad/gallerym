@@ -120,6 +120,7 @@ except NameError:
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
+
 #     'django.template.loaders.eggs.Loader',
 )
 
@@ -162,6 +163,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
 #    'nested_inlines',
     'grappelli',
     # Uncomment the next line to enable the admin:
@@ -170,6 +172,9 @@ INSTALLED_APPS = (
 
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
+
     'haystack',
     'maskara.gallery',
     'maskara.base',
@@ -178,8 +183,9 @@ INSTALLED_APPS = (
     'image_cropping',
     'south',
     'djcelery',
-)
 
+)
+SITE_ID = 1
 DICTIONARY = "/usr/share/dict/words"
 DILLA_USE_LOREM_IPSUM = False # set to True ignores dictionary
 DILLA_APPS = ['gallery']

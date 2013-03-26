@@ -59,6 +59,9 @@ class Artist(BaseModel):
     url = models.URLField(blank=True)
     published = models.BooleanField(default=False)
 
+    def get_absolute_url(self):
+        return "/artist/%i/" % self.id
+
     class Meta:
         pass
 
@@ -161,6 +164,12 @@ class Exhibition(BaseModel):
     published = models.BooleanField(default=False)
 
 
+    @property
+    def class_name(self):
+        return(self._meta.verbose_name)
+    
+    def get_absolute_url(self):
+        return "/exhibition/%i/" % self.id
 
     class Meta:
         pass
@@ -196,7 +205,12 @@ class Event(BaseModel):
     description = models.TextField(blank=True)
     published = models.BooleanField(default=False)
     
+    @property
+    def class_name(self):
+        return(self._meta.verbose_name)
 
+    def get_absolute_url(self):
+        return "/event/%i/" % self.id
 
     class Meta:
         pass
