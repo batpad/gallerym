@@ -208,7 +208,7 @@ textarea {
 	color: inherit;
 }
 
-#menu .selectedMenu, .blue {
+#menu .selectedMenu, #menu li a:hover, .blue {
 	color: #005494;
 }
 
