@@ -170,7 +170,7 @@ textarea {
 	padding-bottom: 30px; 
 }
 
-.fontIcon {
+.fontIcon, .zoom:before, .downloadPdf:before {
 	font-family: 'icomoon';
 }
 
@@ -395,14 +395,23 @@ padding: 6px 110px 6px 0;
 	padding: 16px 0 0 0;
 }
 
-.zoom:before {
-	content: url('../../static/img/search.png');
+.thumbEach img:hover, #carousel li img:hover {
+	opacity: 0.8;
+}
+
+.zoom:before, .downloadPdf:before {
+	font-size: 140%;
 	padding: 0 6px 0 0;
 }
 
+.zoom:before {
+	content: "\z";
+	line-height: 1.2;
+}
+
 .downloadPdf:before {
-	content: url('../../static/img/down.png');
-	padding: 0 4px 0 0;
+	content: "\61";
+	line-height: 1.1;
 }
 
 #slideDescription {
