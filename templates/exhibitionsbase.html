@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% block sidebar %}
+    
+    <div id="sideBar" class="col25">
+    
+        <div class="sideBarTitles">
+        <p><a href="/exhibitions/current">Current Exhibition</a></p>
+        <p><a href="/exhibitions/upcoming">Upcoming Exhibitions</a></p>
+        <p><a href="/exhibitions/previous">Previous Exhibitions</a></p>
+        </div>
+     
+    </div> <!-- end side bar  -->
+
+    {% endblock %}
+
+<div id="mainBar" class="col75">
+    {% block mainbar %}    
+    {% endblock %}
+</div> <!-- end main bar  -->
+
+{% endblock %}
+

@@ -1,3 +1,9 @@
+/*
+- only 1 current exhibition ?
+- see previous exhibitions template and ask Rivka to confirm if fields are ok
+*/
+
+
 * {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -8,6 +14,17 @@
 html, body  { 
 	height: 100%;
 	width: 100%;
+}
+
+@font-face {
+	font-family: 'icomoon';
+	src:url('fonts/icomoon.eot');
+	src:url('fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+		url('../../static/fonts/icons/icomoon.woff') format('woff'),
+		url('fonts/icomoon.ttf') format('truetype'),
+		url('fonts/icomoon.svg#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
 }
 
 body {
@@ -132,6 +149,10 @@ textarea {
 	vertical-align: top;
 }
 
+.smallerFont {
+	font-size: 90%;
+}
+
 .smallestFont {
 	font-size: 80%;
 }
@@ -146,6 +167,10 @@ textarea {
 
 .paddingBottom {
 	padding-bottom: 30px; 
+}
+
+.fontIcon {
+	font-family: 'icomoon';
 }
 
 #searchBlock {
@@ -193,6 +218,14 @@ textarea {
 #menu li:after, #menu li:first-of-type:before, .prev-pag:before {
 	content: "|";
 	color: #bbb;
+}
+
+.prev-pag:before {
+	padding-right: 8px;
+/* 	position: absolute;
+bottom: 2px;
+ */	
+	
 }
 
 #menu li:after {
@@ -306,17 +339,20 @@ textarea {
 }
 
 .paginationThumbs span {
-	padding: 0 0 0 16px ;
+	padding: 0 0 0 16px;
 	cursor: pointer;
 }
 
-.prev-pag img {
-	padding: 0 0 0 12px;
+.paginationThumbs .prev-pag {
+	padding: 0 0 0 8px;
+	color: #888;
 }
 
 .prev-pag, .next-pag {
 	/* vertical-align: top; */ /* change later when converted to vectors  */
 	display: inline-block;
+	position: relative;
+	font-size: 90%;
 }
 
 .footerLinks {
@@ -446,6 +482,14 @@ textarea {
 	text-transform: uppercase;
 	font-weight: 600;
 	padding: 16px 0 0 0;
+}
+
+.exhibPrevEach {
+	padding: 0 0 50px 0;
+}
+
+.exhibPrevDesc {
+	padding: 0 0 0 20px;
 }
 
 /* MEDIA QUERIES */
