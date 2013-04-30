@@ -1,17 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'exhibitionsbase.html' %}
 
-{% block content %}
-<div id="sideBar" class="col25">
-    
-    <div class="sideBarTitles">
-        <p><a href="/exhibitions/current">Current</a></p>
-        <p><a href="/exhibitions/upcoming">Upcoming</a></p>
-        <p><a href="/exhibitions/previous">Previous</a></p>
-    </div>
-    
-</div> <!-- end side bar  -->
-
-<div id="mainBar" class="col75">
+{% block mainbar %}    
     <div class="exibMain">
         <h1>Glimpse of Thirst</h1>
             <p>Shine Shivam</p>
@@ -42,6 +31,4 @@
     </div> <!-- end bio download info  -->
 
     
-</div> <!-- end main bar  -->
-            
 {% endblock %}
