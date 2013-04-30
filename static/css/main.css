@@ -170,6 +170,14 @@ textarea {
 	padding-bottom: 30px; 
 }
 
+.none {
+	display: none; /* uses include adding class to hide pagination buttons  */
+}
+
+.pag-active {
+	font-weight: 600;
+}
+
 .fontIcon, .zoom:before, .downloadPdf:before {
 	font-family: 'icomoon';
 }
@@ -219,7 +227,7 @@ bottom: 2px;
 	color: inherit;
 }
 
-#menu .selectedMenu, #menu li a:hover, .prev-pag:hover, .next-pag:hover, .blue {
+#menu .selectedMenu, #menu li a:hover, .paginationThumbs span:hover, .blue, .linkExternal:hover, .pag-active {
 	color: #005494;
 }
 
@@ -319,6 +327,7 @@ bottom: 2px;
 .paginationThumbs span {
 	padding: 0 0 0 16px;
 	cursor: pointer;
+	color: #666;
 }
 
 .paginationThumbs .prev-pag {
@@ -330,7 +339,6 @@ bottom: 2px;
 	display: inline-block;
 	position: relative;
 	font-size: 90%;
-	color: #888;
 }
 
 #searchBlock {
@@ -473,11 +481,17 @@ padding: 6px 110px 6px 0;
 	padding: 0 0 20px 24px;
 }
 
-.anchorInfo a:after, .linkExternal:after {
+.linkExternal {
+	font-size: 150%;
+	padding: 0 0 0 4px;
+	line-height: 0.5;
+}
+
+/* .anchorInfo a:after, .linkExternal:after {
 	content: "some icon";
 	padding: 0 0 0 4px;
 }
-
+ */
 #mapMaskara {
 	border: 1px solid #999;
 }
@@ -527,6 +541,10 @@ padding: 6px 110px 6px 0;
 
 .bioDownloadInfo {
 	border-top: none;
+}
+
+#sideBar, .sideBar {
+	max-width: 160px;
 }
 
 }
