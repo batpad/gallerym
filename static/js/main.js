@@ -16,9 +16,9 @@ $(document).ready(function(){
       $(this).addClass('selectedAnchors');
    });
    
-   $('.anchorsExhibition a').click( function(e) {   
+/*   $('.anchorsExhibition a').click( function(e) {   
       $('.anchorsExhibition .selectedAnchors').removeClass('selectedAnchors');
       $(this).addClass('selectedAnchors');
    });   
-
+*/
 });
