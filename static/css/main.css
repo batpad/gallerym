@@ -38,8 +38,9 @@ body {
 }
 
 
-#wrapper, #searchInputWrapper {
+#wrapper {
 	max-width: 1200px;
+	padding: 0 10px 0 0;
 }
 
 
@@ -323,6 +324,7 @@ bottom: 2px;
 
 .paginationThumbs {
 	float: right;
+	padding: 0 20px 0 0;
 }
 
 .paginationThumbs span {
@@ -344,8 +346,8 @@ bottom: 2px;
 
 #searchBlock {
 	display: inline-block;
-	float: right;
-/* 	border-bottom: 1px solid #444;
+/*	float: right;
+ 	border-bottom: 1px solid #444;
 padding: 6px 110px 6px 0;
  */}
 
@@ -377,7 +379,6 @@ padding: 6px 110px 6px 0;
 
 .footerLinks {
 	padding: 8px 4px;
-	float: left;
 }
 
 .footerLinks span {
@@ -388,16 +389,18 @@ padding: 6px 110px 6px 0;
 	color: #777; /* change once default site link colour is approved  */
 }
 
-.thumbnailBlock .thumbEach:nth-of-type(4n+1) {
+/* .thumbnailBlock .thumbEach:nth-of-type(4n+1) {
 	clear: both;
-} /* no clue how to remove padding from last row. firstly, we don't know how many there are in a row!  */
+} */ /* no clue how to remove padding from last row. firstly, we don't know how many there are in a row!  */
 
 .thumbEach {
 	font-size: 90%;
 	font-weight: 600;
 	padding: 0 24px 40px 0;
-	display: block;
+	display: inline-block;
+	float: none;
 	color: inherit;
+	width: 24%;
 }
 
 .thumbEach img {
@@ -529,11 +532,42 @@ padding: 6px 110px 6px 0;
 
 /* MEDIA QUERIES */
 
+/* @media only screen and (min-width: 1101px) {
+	.thumbnailBlock .thumbEach:nth-of-type(4n+1) {
+		clear: both;
+	}
+
+}
+ */
+@media only screen and (max-width: 1100px) {
+	.thumbnailBlock .thumbEach {
+		width: 32%;
+	}
+	
+	/* .thumbnailBlock .thumbEach:nth-of-type(3n+1) {
+		clear: both;
+	} */
+}
+
+@media only screen and (max-width: 860px) {
+	.thumbnailBlock .thumbEach {
+		width: 48%;
+	}
+
+	/* .thumbnailBlock .thumbEach:nth-of-type(2n+1) {
+		clear: both;
+	} */
+}
+
 @media only screen and (max-width: 700px) {
 
-.col25, .col30, .col33, .col75, .col70, #searchBlock input, #homeSecondaryText, .homeCarousel {
+.col25, .col30, .col33, .col75, .col70, #homeSecondaryText, .homeCarousel, .thumbnailBlock .thumbEach, .floatLeft, .floatRight, .paginationThumbs {
 	width: 100%;
 	float: none;
+}
+
+.paginationThumbs span:first-of-type {
+	padding: 0;
 }
 
 #searchInputWrapper, #contentMain, #mainBar, .mainBar, .sideBarTitles, #footer {
@@ -548,9 +582,13 @@ padding: 6px 110px 6px 0;
 	max-width: 160px;
 }
 
+#mapContentBlock {
+	padding: 10px 10px 0 10px;
 }
 
-@media only screen and (max-width: 479px) {
+}
+
+@media only screen and (max-width: 500px) {
 	#menu li {
 		display: block;
 		padding: 4px 0;
@@ -563,6 +601,8 @@ padding: 6px 110px 6px 0;
 	#menu li:after {
 		content: "";
 	}
+
+
 }
 
 /* END MEDIA QUERIES */
