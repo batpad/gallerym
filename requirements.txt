@@ -6,5 +6,6 @@ South
 django-image-cropping
 # -e git+git://github.com/Soaa-/django-nested-inlines.git#egg=django-nested-inlines
 django-celery
-django-haystack
+django-haystack==1.2.7
 Whoosh
+

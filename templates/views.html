@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/flexslider.css">
+
+<style>
+    #headerBlock, #footer {
+        display: none;    
+    }
+    
+    #wrapper, #searchInputWrapper {
+        max-width: none;
+    }
+    
+    #contentBlock {
+        padding: 0;
+    }
+    
+    #contentMain {
+        padding: 20px;
+    }
+
+            #carousel .flex-direction-nav .flex-next {
+            background: url('../../static/img/view-down.png') no-repeat;
+            left: 58px;
+        }
+        
+        #carousel .flex-direction-nav .flex-prev {
+            background: url('../../static/img/view-up.png') no-repeat;
+            left: 58px;
+            
+        }
+        
+/*         #slider .flex-direction-nav .flex-next {
+    background: url('../../static/img/next.png') no-repeat;
+    left: 26px;
+}
+
+#slider .flex-direction-nav .flex-prev {
+    background: url('../../static/img/prev.png') no-repeat;
+    left: 0px;
+}
+ */        
+        #contentBlock {
+            display: table;
+            border: 2px solid #918f90;
+        }
+        
+        .viewsBlock, .carouselBlock {
+            float: none;
+            display: table-cell;
+        }
+        
+        .carouselBlock {
+            padding: 60px;
+            /* border: 2px solid #918f90;
+            border-left: none; */
+            vertical-align: top;
+        }
+        
+        .viewsBlock img {
+            display: block; /* remove later when leaflet is plugged in  */
+        }
+        
+        #carousel .slides li {
+            float: none !important; /* see if important can be overriden later  */
+            margin: 0 0 24px 0;
+        }
+
+        #carousel .slides li {
+            cursor: pointer;
+        }
+        
+        #carousel .flex-direction-nav .flex-prev {
+            top: -24px;
+        }
+
+        #carousel .flex-direction-nav .flex-next {
+            bottom: -26px;
+        }
+        
+        #carousel .flex-direction-nav a {
+            margin: 0;
+            bottom: 0;
+            top: auto;
+        }
+
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/jquery.flexslider-min.js"></script>
+
+<script>
+$(document).ready(function() {
+  // The slider being synced must be initialized first
+  $('#carousel').flexslider({
+    animation: "slide",
+    controlNav: false,
+    animationLoop: false,
+    slideshow: false,
+    itemWidth: 130,
+    itemMargin: 5,
+    direction: 'vertical'
+  });
+   
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="col75 viewsBlock">
+    <img src="static/img/view-dummy.jpg" alt="">
+
+</div> <!-- /col70  -->
+
+<div class="col25 carouselBlock">
+    <div id="carousel" class="flexslider">
+    <ul class="slides">
+    <li>
+      <img src="/static/img/dd.jpg" />
+    </li>
+    <li>
+      <img src="/static/img/bb.jpg" />
+    </li>
+    <li>
+      <img src="/static/img/c.jpg" />
+    </li>
+    <li>
+      <img src="/static/img/home-main.jpg" />
+    </li>
+    
+    <!-- items mirrored twice, total of 12 -->
+    </ul> 
+        </div>
+
+</div>
+{% endblock %}

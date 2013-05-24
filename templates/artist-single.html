@@ -40,12 +40,19 @@ float: left;
             
         }
         
-        #slider .flex-direction-nav .flex-next {/* background-position: 100% 0;*/ background: url('../../static/img/next.png') no-repeat; left: 26px; }
+        #slider .flex-direction-nav .flex-next {
+            background: url('../../static/img/next.png') no-repeat;
+            left: 26px;
+        }
 
-        #slider .flex-direction-nav .flex-prev {background: url('../../static/img/prev.png') no-repeat; left: 0px; }
+        #slider .flex-direction-nav .flex-prev {
+            background: url('../../static/img/prev.png') no-repeat;
+            left: 0px;
+        }
         
         #carousel {
-            width: 30%;            float: left;
+            width: 30%;
+            float: left;
         }
         
         #carousel .slides li {
@@ -63,23 +70,8 @@ float: left;
 
         #carousel .flex-direction-nav .flex-next {
             bottom: -40px;
-            /* left: 0; */
         }
         
-/*         #carousel .flex-direction-nav li:last-of-type:before {
-    content: "More views";
-    font-size: 80%;
-    color: #999;
-    padding: 0 0 0 7px;
-} */ /* SANJ is this ok or jquery  */
-        
-/*         #carousel .flex-direction-nav li:first-of-type:before {
-    content: "Less views";
-    font-size: 80%;
-    color: #999;
-    padding: 0 0 0 7px;
-} */ /* SANJ is this ok or jquery  */
-
         #carousel .flex-direction-nav a {
             margin: 0;
             bottom: 0;
@@ -180,7 +172,7 @@ $(document).ready(function() {
         <div class="floatLeft">
             <p>3 of 11 works</p>
         </div>
-        <div class="floatRight">
+        <div class="floatRight singleIcons">
             <span class="zoom">Zoom</span>
             <span class="downloadPdf">Download PDF</span>
         </div>
