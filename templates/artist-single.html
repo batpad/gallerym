@@ -6,19 +6,11 @@
         
     <style>
         
-        #slider .flex-direction-nav:after {
-            /* content: "| 2 of 12 works"; */
-            font-size: 80%;
-            position: absolute;
-            left: 40px;
-            bottom: 17px;
-        }
         
-        #slider {
-            padding: 0 40px 0 0;
-/*             width: 60%;
-float: left;
- */        }
+        
+        #slider .flex-direction-nav {
+            float: left;
+        }
 
         #slider .flex-direction-nav .flex-prev {
             /* bottom: -20px; */
@@ -29,14 +21,18 @@ float: left;
             top: auto;
         }
         
+        #carousel {
+            padding: 0 0 0 40px;
+        }
+        
         #carousel .flex-direction-nav .flex-next {
             background: url('../../static/img/nextdown.png') no-repeat;
-            left: 34px;
+            left: 75px;
         }
         
         #carousel .flex-direction-nav .flex-prev {
             background: url('../../static/img/prevup.png') no-repeat;
-            left: 34px;
+            left: 75px;
             
         }
         
@@ -103,7 +99,14 @@ $(document).ready(function() {
     controlNav: false,
     animationLoop: false,
     slideshow: false,
-    sync: "#carousel"
+    sync: "#carousel",
+    controlsContainer: ".flex-container",
+    start: function(slider) {
+        $('.total-slides').text(slider.count);
+      },
+      after: function(slider) {
+        $('.current-slide').text(slider.currentSlide+1);
+      }
   });
 });
 </script>
@@ -131,46 +134,47 @@ $(document).ready(function() {
 <div id="mainBar" class="col75">
     <h1 class="selectedHeading">Max Streicher</h1>
     
-    <div id="slider" class="flexslider col70">
-        <ul class="slides">
-          <li>
-            <img src="/static/img/dd.jpg" />
-          </li>
-          <li>
-            <img src="/static/img/bb.jpg" />
-          </li>
-          <li>
-            <img src="/static/img/c.jpg" />
-          </li>
-          <li>
-            <img src="/static/img/home-main.jpg" />
-          </li>
-          <!-- items mirrored twice, total of 12 -->
-        </ul>
-      </div>
-      <div id="carousel" class="flexslider col30">
-        <ul class="slides">
-          <li>
-            <img src="/static/img/dd.jpg" />
-          </li>
-          <li>
-            <img src="/static/img/bb.jpg" />
-          </li>
-          <li>
-            <img src="/static/img/c.jpg" />
-          </li>
-          <li>
-            <img src="/static/img/home-main.jpg" />
-          </li>
-
-          <!-- items mirrored twice, total of 12 -->
-        </ul> 
-</div>
-      <div class="clear"></div>
-      
+    <div class=”flex-container”> 
+        <div id="slider" class="flexslider col70">
+            <ul class="slides">
+              <li>
+                <img src="/static/img/dd.jpg" />
+              </li>
+              <li>
+                <img src="/static/img/bb.jpg" />
+              </li>
+              <li>
+                <img src="/static/img/c.jpg" />
+              </li>
+              <li>
+                <img src="/static/img/home-main.jpg" />
+              </li>
+              <!-- items mirrored twice, total of 12 -->
+            </ul>
+          </div>
+          <div id="carousel" class="flexslider col30">
+            <ul class="slides">
+              <li>
+                <img src="/static/img/dd.jpg" />
+              </li>
+              <li>
+                <img src="/static/img/bb.jpg" />
+              </li>
+              <li>
+                <img src="/static/img/c.jpg" />
+              </li>
+              <li>
+                <img src="/static/img/home-main.jpg" />
+              </li>
+    
+              <!-- items mirrored twice, total of 12 -->
+            </ul> 
+        </div> <!-- #carousel  -->
       <div id="slideControlBox" class="col70 smallestFont">
+
+
         <div class="floatLeft">
-            <p>3 of 11 works</p>
+            <p><span class="current-slide">1</span> of <span class="total-slides"></span> works</p>
         </div>
         <div class="floatRight singleIcons">
             <span class="zoom">Zoom</span>
@@ -179,6 +183,7 @@ $(document).ready(function() {
         <div class="clear"></div>
       </div> <!-- end slide control box  -->
       
+</div> <!-- /flex-container -->
       <div class="clear"></div>
       
       <div id="slideDescription" class="col70">

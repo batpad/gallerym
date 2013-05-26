@@ -17,7 +17,13 @@
             width: 18px;
             height: 15px;
             top: 62%;
-        } /* remove this later if using icon fonts  */   
+        }
+        
+        .flex-direction-nav .flex-disabled {
+            opacity: 0!important;
+        }
+        
+        /* remove this later if using icon fonts  */   
     </style>
     {% endblock %}
 
@@ -32,7 +38,7 @@
             itemWidth: 150,
             itemMargin: 5,
             minItems: 2,
-            maxItems: 2,
+            maxItems: 4,
             controlNav: false
         });
     });
