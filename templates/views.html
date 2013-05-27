@@ -20,17 +20,17 @@
         padding: 20px;
     }
 
-            #carousel .flex-direction-nav .flex-next {
+    #carousel .flex-direction-nav .flex-next {
             background: url('../../static/img/view-down.png') no-repeat;
-            left: 58px;
         }
         
         #carousel .flex-direction-nav .flex-prev {
-            background: url('../../static/img/view-up.png') no-repeat;
-            left: 58px;
-            
+            background: url('../../static/img/view-up.png') no-repeat;            
         }
-        
+
+    #carousel .flex-direction-nav .flex-prev, #carousel .flex-direction-nav .flex-next {
+        left: 92px;
+}
 /*         #slider .flex-direction-nav .flex-next {
     background: url('../../static/img/next.png') no-repeat;
     left: 26px;
@@ -99,7 +99,7 @@ $(document).ready(function() {
     controlNav: false,
     animationLoop: false,
     slideshow: false,
-    itemWidth: 130,
+    itemWidth: 120,
     itemMargin: 5,
     direction: 'vertical'
   });
