@@ -430,6 +430,7 @@ padding: 6px 110px 6px 0;
 .zoom:before, .downloadPdf:before {
 	font-size: 130%;
 	padding: 0 6px 0 0;
+	vertical-align: middle;
 }
 
 .zoom:before {
@@ -451,8 +452,15 @@ padding: 6px 110px 6px 0;
 	padding: 0 0 40px 0;
 }
 
+.works {
+	float: left;
+}
+
+.singleIcons {
+	float: right;
+}
+
 .singleIcons span {
-	vertical-align: top;
 	display: inline-block;
 }
 
@@ -473,6 +481,10 @@ padding: 6px 110px 6px 0;
 	padding: 16px 0 0 0;
 }
 
+.bioDownloadInfo p {
+	padding: 0 0 6px 0;
+}
+
 .anchorsCv, .anchorsExhibition {
 	padding: 0 0 40px 0;	
 	font-size: 90%;
@@ -485,9 +497,10 @@ padding: 6px 110px 6px 0;
 .anchorsCv a, .anchorsExhibition a {
 	margin: 0 12px 0 0;
 	color: inherit;
+	border-bottom: 2px solid transparent;
 }
 
-.anchorsExhibition a:hover, .anchorsExhibition:focus, .anchorsCv a:hover, .anchorsCv a:focus, .anchorsCV, .selectedAnchors {
+.anchorsExhibition a:hover, .anchorsExhibition:focus, .anchorsCv a:hover, .anchorsCv a:focus, .anchorsCv .selectedAnchors, .anchorsExhibition .selectedAnchors {
 	border-bottom: 2px solid #005494; /* sanjay for js for each anchor selected  */
 }
 
@@ -505,11 +518,17 @@ padding: 6px 110px 6px 0;
 }
 
 .linkExternal {
-	font-size: 150%;
-	padding: 0 0 0 4px;
-	line-height: 0.5;
 }
 
+.linkExternal:after {
+	content: '!';
+	font-family: 'icomoon';
+	font-size: 130%;
+	padding: 0 0 0 5px;
+	display: inline-block;
+	line-height: 1.2;
+	vertical-align: bottom;
+}
 /* .anchorInfo a:after, .linkExternal:after {
 	content: "some icon";
 	padding: 0 0 0 4px;
@@ -549,6 +568,16 @@ padding: 6px 110px 6px 0;
 	padding: 0 0 0 20px;
 }
 
+#carousel {
+	padding: 0 0 0 40px;
+
+}
+
+#carousel .flex-direction-nav .flex-prev, #carousel .flex-direction-nav .flex-next {
+	left: 75px;
+}
+
+
 /* MEDIA QUERIES */
 
 /* @media only screen and (min-width: 1101px) {
@@ -573,7 +602,7 @@ padding: 6px 110px 6px 0;
 		width: 48%;
 	}
 	
-	.homeSecondary, #homeSecondaryText, .homeCarousel {
+	.homeSecondary, #homeSecondaryText, .homeCarousel, .exibContent, .bioContent, .anchorContent, .bioDownloadInfo {
 		float: none;
 		width: 100%;
 	}
@@ -581,7 +610,22 @@ padding: 6px 110px 6px 0;
 	#homeSecondaryText {
 		margin: 30px 0 0 0;
 	}
-
+	
+	.exibContent, .bioContent {
+		padding-bottom: 20px;
+	}
+	
+	#contentMain {
+		padding: 10px 10px 10px 30px; 
+	}
+	
+	.exibContent {
+		padding-right: 0;
+	}
+/* .bioDownloadInfo {
+		border-top: none;
+	}
+	 */
 	/* .thumbnailBlock .thumbEach:nth-of-type(2n+1) {
 		clear: both;
 	} */
@@ -589,9 +633,13 @@ padding: 6px 110px 6px 0;
 
 @media only screen and (max-width: 720px) {
 
-.col25, .col30, .col33, .col75, .col70, .homeCarousel, .thumbnailBlock .thumbEach, .floatLeft, .floatRight, .paginationThumbs, #searchBlock {
+.col25, .col30, .col33, .col75, .col70, .homeCarousel, .thumbnailBlock .thumbEach, .floatLeft, .floatRight, .paginationThumbs, #searchBlock, #slideDescription {
 	width: 100%;
 	float: none;
+}
+
+#slideDescription {
+	padding-right: 0;
 }
 
 .paginationThumbs span:first-of-type {
@@ -602,10 +650,6 @@ padding: 6px 110px 6px 0;
 	padding: 10px;
 }
 
-.bioDownloadInfo {
-	border-top: none;
-}
-
 #sideBar, .sideBar {
 	max-width: 160px;
 }
@@ -614,10 +658,21 @@ padding: 6px 110px 6px 0;
 	padding: 10px 10px 0 10px;
 }
 
+#carousel {
+	padding: 0 0 0 20px;
+}
+
+#carousel .flex-direction-nav .flex-next, #carousel .flex-direction-nav .flex-prev {
+	left: 48px;
+}
+
+.bioContent, .anchorContent {
+	padding-right: 0;
+}
+
 }
 
 @media only screen and (max-width: 500px) {
-	
 	
 	#menu li {
 		display: block;
@@ -632,10 +687,22 @@ padding: 6px 110px 6px 0;
 		content: "";
 	}
 
+	.anchorsCv a, .anchorsExhibition a {
+		display: inline;
+		/* position: relative; */
+	} /* how to resolve the border bottom issue  */
+
+	.anchorsCv a:after, .anchorsExhibition a:after {
+		content:"\A";
+		white-space:pre;
+		line-height: 2.2;
+	}
+	
 	.footerLinks span {
 		padding: 0 20px 12px 0;
 		display: block;
 	}
+	
 }
 
 /* END MEDIA QUERIES */

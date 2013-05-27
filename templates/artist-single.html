@@ -6,7 +6,10 @@
         
     <style>
         
-        
+        #slider {
+            width: 70%;
+            float: left;
+        }
         
         #slider .flex-direction-nav {
             float: left;
@@ -21,18 +24,13 @@
             top: auto;
         }
         
-        #carousel {
-            padding: 0 0 0 40px;
-        }
         
         #carousel .flex-direction-nav .flex-next {
             background: url('../../static/img/nextdown.png') no-repeat;
-            left: 75px;
         }
         
         #carousel .flex-direction-nav .flex-prev {
             background: url('../../static/img/prevup.png') no-repeat;
-            left: 75px;
             
         }
         
@@ -61,11 +59,11 @@
         }
         
         #carousel .flex-direction-nav .flex-prev {
-            top: -36px;
+            top: -26px;
         }
 
         #carousel .flex-direction-nav .flex-next {
-            bottom: -40px;
+            bottom: -30px;
         }
         
         #carousel .flex-direction-nav a {
@@ -135,7 +133,7 @@ $(document).ready(function() {
     <h1 class="selectedHeading">Max Streicher</h1>
     
     <div class=”flex-container”> 
-        <div id="slider" class="flexslider col70">
+        <div id="slider" class="flexslider">
             <ul class="slides">
               <li>
                 <img src="/static/img/dd.jpg" />
@@ -170,13 +168,14 @@ $(document).ready(function() {
               <!-- items mirrored twice, total of 12 -->
             </ul> 
         </div> <!-- #carousel  -->
+        <div class="clear"></div>
       <div id="slideControlBox" class="col70 smallestFont">
 
 
-        <div class="floatLeft">
+        <div class="works">
             <p><span class="current-slide">1</span> of <span class="total-slides"></span> works</p>
         </div>
-        <div class="floatRight singleIcons">
+        <div class="singleIcons">
             <span class="zoom">Zoom</span>
             <span class="downloadPdf">Download PDF</span>
         </div>
@@ -197,7 +196,9 @@ $(document).ready(function() {
         </div> <!-- end smallest font  -->
       <br>
     
-The giants in their great mass heave and sign to the timed intervals of industrial blowers. Lying on their backs and sides, heads raised from the floor, legs stiffened, chests inflated, only to relax again, as if in some futile attempt to stand up on their feet.
+    <div>
+        <p>The giants in their great mass heave and sign to the timed intervals of industrial blowers. Lying on their backs and sides, heads raised from the floor, legs stiffened, chests inflated, only to relax again, as if in some futile attempt to stand up on their feet.</p>
+    </div>
       </div> <!-- end slide description  -->              
     
 </div> <!-- end main bar  -->
