@@ -6,19 +6,14 @@
         
     <style>
         
-        #slider .flex-direction-nav:after {
-            /* content: "| 2 of 12 works"; */
-            font-size: 80%;
-            position: absolute;
-            left: 40px;
-            bottom: 17px;
+        #slider {
+            width: 70%;
+            float: left;
         }
         
-        #slider {
-            padding: 0 40px 0 0;
-/*             width: 60%;
-float: left;
- */        }
+        #slider .flex-direction-nav {
+            float: left;
+        }
 
         #slider .flex-direction-nav .flex-prev {
             /* bottom: -20px; */
@@ -29,23 +24,29 @@ float: left;
             top: auto;
         }
         
+        
         #carousel .flex-direction-nav .flex-next {
             background: url('../../static/img/nextdown.png') no-repeat;
-            left: 34px;
         }
         
         #carousel .flex-direction-nav .flex-prev {
             background: url('../../static/img/prevup.png') no-repeat;
-            left: 34px;
             
         }
         
-        #slider .flex-direction-nav .flex-next {/* background-position: 100% 0;*/ background: url('../../static/img/next.png') no-repeat; left: 26px; }
+        #slider .flex-direction-nav .flex-next {
+            background: url('../../static/img/next.png') no-repeat;
+            left: 26px;
+        }
 
-        #slider .flex-direction-nav .flex-prev {background: url('../../static/img/prev.png') no-repeat; left: 0px; }
+        #slider .flex-direction-nav .flex-prev {
+            background: url('../../static/img/prev.png') no-repeat;
+            left: 0px;
+        }
         
         #carousel {
-            width: 30%;            float: left;
+            width: 30%;
+            float: left;
         }
         
         #carousel .slides li {
@@ -58,28 +59,13 @@ float: left;
         }
         
         #carousel .flex-direction-nav .flex-prev {
-            top: -36px;
+            top: -26px;
         }
 
         #carousel .flex-direction-nav .flex-next {
-            bottom: -40px;
-            /* left: 0; */
+            bottom: -30px;
         }
         
-/*         #carousel .flex-direction-nav li:last-of-type:before {
-    content: "More views";
-    font-size: 80%;
-    color: #999;
-    padding: 0 0 0 7px;
-} */ /* SANJ is this ok or jquery  */
-        
-/*         #carousel .flex-direction-nav li:first-of-type:before {
-    content: "Less views";
-    font-size: 80%;
-    color: #999;
-    padding: 0 0 0 7px;
-} */ /* SANJ is this ok or jquery  */
-
         #carousel .flex-direction-nav a {
             margin: 0;
             bottom: 0;
@@ -111,7 +97,14 @@ $(document).ready(function() {
     controlNav: false,
     animationLoop: false,
     slideshow: false,
-    sync: "#carousel"
+    sync: "#carousel",
+    controlsContainer: ".flex-container",
+    start: function(slider) {
+        $('.total-slides').text(slider.count);
+      },
+      after: function(slider) {
+        $('.current-slide').text(slider.currentSlide+1);
+      }
   });
 });
 </script>
@@ -139,68 +132,75 @@ $(document).ready(function() {
 <div id="mainBar" class="col75">
     <h1 class="selectedHeading">Max Streicher</h1>
     
-    <div id="slider" class="flexslider col70">
-        <ul class="slides">
-          <li>
-            <img src="/static/img/dd.jpg" />
-          </li>
-          <li>
-            <img src="/static/img/bb.jpg" />
-          </li>
-          <li>
-            <img src="/static/img/c.jpg" />
-          </li>
-          <li>
-            <img src="/static/img/home-main.jpg" />
-          </li>
-          <!-- items mirrored twice, total of 12 -->
-        </ul>
-      </div>
-      <div id="carousel" class="flexslider col30">
-        <ul class="slides">
-          <li>
-            <img src="/static/img/dd.jpg" />
-          </li>
-          <li>
-            <img src="/static/img/bb.jpg" />
-          </li>
-          <li>
-            <img src="/static/img/c.jpg" />
-          </li>
-          <li>
-            <img src="/static/img/home-main.jpg" />
-          </li>
-
-          <!-- items mirrored twice, total of 12 -->
-        </ul> 
-</div>
-      <div class="clear"></div>
-      
+    <div class=”flex-container”> 
+        <div id="slider" class="flexslider">
+            <ul class="slides">
+              <li>
+                <img src="/static/img/dd.jpg" />
+              </li>
+              <li>
+                <img src="/static/img/bb.jpg" />
+              </li>
+              <li>
+                <img src="/static/img/c.jpg" />
+              </li>
+              <li>
+                <img src="/static/img/home-main.jpg" />
+              </li>
+              <!-- items mirrored twice, total of 12 -->
+            </ul>
+          </div>
+          <div id="carousel" class="flexslider col30">
+            <ul class="slides">
+              <li>
+                <img src="/static/img/dd.jpg" />
+              </li>
+              <li>
+                <img src="/static/img/bb.jpg" />
+              </li>
+              <li>
+                <img src="/static/img/c.jpg" />
+              </li>
+              <li>
+                <img src="/static/img/home-main.jpg" />
+              </li>
+    
+              <!-- items mirrored twice, total of 12 -->
+            </ul> 
+        </div> <!-- #carousel  -->
+        <div class="clear"></div>
       <div id="slideControlBox" class="col70 smallestFont">
-        <div class="floatLeft">
-            <p>3 of 11 works</p>
+
+
+        <div class="works">
+            <p><span class="current-slide">1</span> of <span class="total-slides"></span> works</p>
         </div>
-        <div class="floatRight">
+        <div class="singleIcons">
             <span class="zoom">Zoom</span>
             <span class="downloadPdf">Download PDF</span>
         </div>
         <div class="clear"></div>
       </div> <!-- end slide control box  -->
       
+</div> <!-- /flex-container -->
       <div class="clear"></div>
       
       <div id="slideDescription" class="col70">
         <p>Glimpse of Thirst(1), 2012</p>
         <div class="smallestFont">
-          <p>Guys, what are the fields that come here?</p>
+          <p>Sculpture</p>  
           <p>Used fabric, jute, marbles, pine thorns, fiber glass, aluminium wire, thread</p>
           <p>36 x 30 x 30 inches(91 x 76 x 76cms)</p>
-          <p>Edition : Unique</p>
-          <p>Pedestial in exposed ply, height 42 x 22 x 22 inches</p>
+          <p>Theme</p>
+          <p>Attribution</p>
+          <!-- <p>Edition : Unique</p>
+          <p>Pedestial in exposed ply, height 42 x 22 x 22 inches</p> -->
         </div> <!-- end smallest font  -->
       <br>
     
-The giants in their great mass heave and sign to the timed intervals of industrial blowers. Lying on their backs and sides, heads raised from the floor, legs stiffened, chests inflated, only to relax again, as if in some futile attempt to stand up on their feet.
+    <div>
+        <p>The giants in their great mass heave and sign to the timed intervals of industrial blowers. Lying on their backs and sides, heads raised from the floor, legs stiffened, chests inflated, only to relax again, as if in some futile attempt to stand up on their feet.</p>
+    </div>
       </div> <!-- end slide description  -->              
     
 </div> <!-- end main bar  -->

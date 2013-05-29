@@ -85,6 +85,7 @@ urlpatterns += patterns('django.views.generic.simple',
     url(r'^contact$', 'direct_to_template', {'template': 'contact.html'}),
     url(r'^selected$', 'direct_to_template', {'template': 'selected.html'}),
     url(r'^single$', 'direct_to_template', {'template': 'single.html'}),
+    url(r'^views$', 'direct_to_template', {'template': 'views.html'}),
     
     # sitemap
 
