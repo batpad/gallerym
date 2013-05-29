@@ -59,6 +59,7 @@ class Artist(BaseModel):
     press_pdf = models.FileField(blank=True, upload_to='artist_press_pdfs/')
     image = models.ImageField(blank=True, upload_to='artist_images/')
     url = models.URLField(blank=True)
+    is_represented = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
 
     def get_absolute_url(self):
@@ -150,7 +151,7 @@ class ArtistWorkImage(BaseModel):
     image = models.ImageField(upload_to='work_images/')
     caption = models.CharField(max_length=512, blank=True)
     is_hires = models.BooleanField(default=True)
-    is_main = models.BooleanField(default=False, help_text='Is the main image for this work')
+    #is_main = models.BooleanField(default=False, help_text='Is the main image for this work')
     order = models.PositiveIntegerField()
 
 
@@ -197,6 +198,7 @@ class Exhibition(BaseModel):
     preview_date = models.DateField(blank=True, null=True)
     preview_start_time = models.TimeField(blank=True, null=True)
     preview_end_time = models.TimeField(blank=True, null=True)
+    description = models.TextField(blank=True)
     autopublish_date = models.DateField()
     curated_by = models.CharField(max_length=512, blank=True)
     image = models.ImageField(blank=True, upload_to='exhibition_images/')
@@ -266,6 +268,7 @@ class Event(BaseModel):
 class Publication(BaseModel):
     title = models.CharField(max_length=1024)
     author = models.CharField(max_length=1024, blank=True)
+    date = models.DateField(blank=True, null=True)
     editor = models.CharField(max_length=1024, blank=True)
     publisher = models.CharField(max_length=1024, blank=True)
     featured = models.BooleanField(default=False, help_text="display on front page?")
