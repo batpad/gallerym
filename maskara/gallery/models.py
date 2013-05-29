@@ -55,6 +55,8 @@ class PressRelease(BaseModel):
 class Artist(BaseModel):
     name = models.CharField(max_length=512)
     bio = models.TextField(blank=True)
+    bio_pdf = models.FileField(blank=True, upload_to='artist_bio_pdfs/')
+    press_pdf = models.FileField(blank=True, upload_to='artist_press_pdfs/')
     image = models.ImageField(blank=True, upload_to='artist_images/')
     url = models.URLField(blank=True)
     published = models.BooleanField(default=False)
@@ -63,7 +65,7 @@ class Artist(BaseModel):
         return "/artist/%i/" % self.id
 
     class Meta:
-        pass
+        ordering = ['name']
 
 #    def save(self, *args, **kwargs):
 #        super(Artist, self).save(*args, **kwargs)
@@ -71,6 +73,45 @@ class Artist(BaseModel):
    
     def __unicode__(self):
         return self.name
+
+class ArtistInfoBase(BaseModel):
+    artist = models.ForeignKey(Artist)
+    year = models.IntegerField(max_length=4)
+    text = models.TextField()
+
+    def __unicode__(self):
+        return "%s: %s" % (self.year, self.text,)
+
+    class Meta:
+        abstract = True
+
+class ArtistEducation(ArtistInfoBase):
+    pass
+
+class ArtistSoloExhib(ArtistInfoBase):
+    pass
+
+class ArtistGroupExhib(ArtistInfoBase):
+    pass
+
+class ArtistCollection(ArtistInfoBase):
+    pass
+
+class ArtistAward(ArtistInfoBase):
+    pass
+
+class ArtistPress(ArtistInfoBase):
+    link = models.URLField(blank=True, verify_exists=False)
+
+class ArtistNews(BaseModel):
+    artist = models.ForeignKey(Artist)
+    date = models.DateField(blank=True, null=True)
+    text = models.TextField()
+    link = models.URLField(blank=True, verify_exists=False)
+    image = models.FileField(blank=True, upload_to='artist_news/')
+
+    def __unicode__(self):
+        return self.text
 
 
 WORK_CATEGORIES = (
@@ -87,7 +128,8 @@ class ArtistWork(BaseModel):
     image = models.ImageField(upload_to='work_images/', blank=True)
     category = models.CharField(choices=WORK_CATEGORIES, max_length=64)
     code = models.CharField(max_length=128, blank=True)
-    size = models.CharField(max_length=1024, blank=True) #FIXME: change to DecimalField
+    size = models.DecimalField(max_digits=10, decimal_places=2, blank=True) #FIXME: change to DecimalField
+    size_text = models.CharField(max_length=1024, blank=True)
     material = models.CharField(max_length=1024, blank=True)
     year = models.IntegerField(max_length=4, blank=True, null=True)
     theme = models.TextField(blank=True)
@@ -95,8 +137,6 @@ class ArtistWork(BaseModel):
     price = models.CharField(max_length=128)
     published = models.BooleanField(default=False)
     order = models.PositiveIntegerField()
-
-    
 
     class Meta:
         ordering = ['order']
@@ -110,6 +150,7 @@ class ArtistWorkImage(BaseModel):
     image = models.ImageField(upload_to='work_images/')
     caption = models.CharField(max_length=512, blank=True)
     is_hires = models.BooleanField(default=True)
+    is_main = models.BooleanField(default=False, help_text='Is the main image for this work')
     order = models.PositiveIntegerField()
 
 
@@ -150,6 +191,7 @@ class ArtistPressRelease(PressRelease):
 
 class Exhibition(BaseModel):
     title = models.CharField(max_length=1024)
+    is_front_page = models.BooleanField(default=False, help_text='Should this be displayed on the front-page?')
     start_date = models.DateField()
     end_date = models.DateField()
     preview_date = models.DateField(blank=True, null=True)
@@ -197,6 +239,7 @@ class ExhibitionPressRelease(PressRelease):
 
 class Event(BaseModel):
     title = models.CharField(max_length=1024)
+    is_front_page = models.BooleanField(default=False, help_text='Should this be displayed on the front-page?')
     date = models.DateField()
     time_from = models.TimeField()
     time_to = models.TimeField()
@@ -226,6 +269,9 @@ class Publication(BaseModel):
     editor = models.CharField(max_length=1024, blank=True)
     publisher = models.CharField(max_length=1024, blank=True)
     featured = models.BooleanField(default=False, help_text="display on front page?")
+    artist = models.ForeignKey(Artist, blank=True, null=True)
+    exhibition = models.ForeignKey(Exhibition, blank=True, null=True)
+    event = models.ForeignKey(Event, blank=True, null=True)
     isbn = models.CharField(max_length=128, blank=True)
     image = models.ImageField(upload_to='publication_images/', blank=True)
     pdf = models.FileField(upload_to='publication_pdfs/', blank=True)

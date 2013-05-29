@@ -19,6 +19,30 @@ class ArtistReviewInline(admin.StackedInline):
     inlines = []
     sortable_field_name = 'order'
 
+    
+
+class ArtistEducationInline(admin.StackedInline):
+    model = ArtistEducation
+
+class ArtistSoloExhibInline(admin.StackedInline):
+    model = ArtistSoloExhib
+
+class ArtistGroupExhibInline(admin.StackedInline):
+    model = ArtistGroupExhib
+
+class ArtistCollectionInline(admin.StackedInline):
+    model = ArtistCollection
+
+class ArtistAwardInline(admin.StackedInline):
+    model = ArtistAward
+
+class ArtistPressInline(admin.StackedInline):
+    model = ArtistPress
+
+class ArtistNewsInline(admin.StackedInline):
+    model = ArtistNews
+
+
 
 class ArtistPressReleaseInline(admin.StackedInline):
     model = ArtistPressRelease
@@ -38,7 +62,7 @@ class BaseAdmin(admin.ModelAdmin):
      
 
 class ArtistAdmin(BaseAdmin):
-    inlines = [ArtistWorkInline, ArtistReviewInline, ArtistPressReleaseInline]
+    inlines = [ArtistWorkInline, ArtistReviewInline, ArtistPressReleaseInline, ArtistEducationInline, ArtistSoloExhibInline, ArtistGroupExhibInline, ArtistCollectionInline, ArtistAwardInline, ArtistPressInline, ArtistNewsInline]
 
 class ArtistWorkAdmin(admin.ModelAdmin):
     inlines = [ArtistWorkImageInline]
