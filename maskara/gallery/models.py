@@ -3,7 +3,7 @@ from maskara.base.models import BaseModel
 #from adminsortable.models import Sortable
 #from adminsortable.fields import models.ForeignKey
 from image_cropping import ImageRatioField
-from tasks import create_tiles, update_index
+#from tasks import create_tiles, update_index
 from os.path import basename
 from django.db.models.signals import post_save
 from django.contrib.admin.models import LogEntry
@@ -296,7 +296,7 @@ def do_update_index(*args, **kwargs):
     if sender not in [LogEntry]:
         update_index.delay()
 
-post_save.connect(do_update_index)
+#post_save.connect(do_update_index)
 
 # Create your models here.
 # ^^ They are above, mind turning your head up ? :P
