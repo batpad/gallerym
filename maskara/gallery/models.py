@@ -52,8 +52,18 @@ class PressRelease(BaseModel):
 
 
 
+class GalleryPerson(BaseModel):
+    name = models.CharField(max_length=512)
+    image = models.ImageField(upload_to='gallery_people/')
+    text = models.TextField(blank=True)
+
+    def __unicode__(self):
+        return self.name
+
 class Artist(BaseModel):
     name = models.CharField(max_length=512)
+    dob = models.DateField(blank=True, null=True)
+    birth_location = models.CharField(max_length=1024, blank=True)
     bio = models.TextField(blank=True)
     bio_pdf = models.FileField(blank=True, upload_to='artist_bio_pdfs/')
     press_pdf = models.FileField(blank=True, upload_to='artist_press_pdfs/')
@@ -79,6 +89,7 @@ class ArtistInfoBase(BaseModel):
     artist = models.ForeignKey(Artist)
     year = models.IntegerField(max_length=4)
     text = models.TextField()
+    link = models.URLField(blank=True, verify_exists=False)
 
     def __unicode__(self):
         return "%s: %s" % (self.year, self.text,)
@@ -102,7 +113,7 @@ class ArtistAward(ArtistInfoBase):
     pass
 
 class ArtistPress(ArtistInfoBase):
-    link = models.URLField(blank=True, verify_exists=False)
+    pass
 
 class ArtistNews(BaseModel):
     artist = models.ForeignKey(Artist)
@@ -127,6 +138,7 @@ class ArtistWork(BaseModel):
     artist = models.ForeignKey(Artist)
     title = models.CharField(max_length=1024)
     image = models.ImageField(upload_to='work_images/', blank=True)
+    is_selected = models.BooleanField(default=False)
     category = models.CharField(choices=WORK_CATEGORIES, max_length=64)
     code = models.CharField(max_length=128, blank=True)
     size = models.DecimalField(max_digits=10, decimal_places=2, blank=True) #FIXME: change to DecimalField
@@ -142,9 +154,9 @@ class ArtistWork(BaseModel):
     class Meta:
         ordering = ['order']
 
-
     def __unicode__(self):
         return self.title
+
 
 class ArtistWorkImage(BaseModel):
     work = models.ForeignKey(ArtistWork)
@@ -154,11 +166,8 @@ class ArtistWorkImage(BaseModel):
     #is_main = models.BooleanField(default=False, help_text='Is the main image for this work')
     order = models.PositiveIntegerField()
 
-
-
     class Meta:
         ordering = ['order']
-
 
     def __unicode__(self):
         return self.caption
@@ -178,16 +187,9 @@ class ArtistReview(Review):
     artist = models.ForeignKey("Artist")
 
 
-
-
-    
-
 class ArtistPressRelease(PressRelease):
     test = models.CharField(max_length=128)
     artist = models.ForeignKey("Artist")
-
-
-
 
 
 class Exhibition(BaseModel):
@@ -207,7 +209,6 @@ class Exhibition(BaseModel):
     featured_work = models.ManyToManyField("ArtistWork", blank=True, null=True)
     published = models.BooleanField(default=False)
 
-
     @property
     def class_name(self):
         return(self._meta.verbose_name)
@@ -223,20 +224,14 @@ class Exhibition(BaseModel):
 
 
 class ExhibitionReview(Review):
-    test = models.CharField(max_length=128)
     exhibition = models.ForeignKey(Exhibition)
-
-
 
 
 class ExhibitionPressRelease(PressRelease):
-    test = models.CharField(max_length=128)
     exhibition = models.ForeignKey(Exhibition)
-    
 
     class Meta:
         pass
-
 
 
 class Event(BaseModel):
@@ -264,6 +259,15 @@ class Event(BaseModel):
         return self.title
 
 
+class EventReview(Review):
+    event = models.ForeignKey(Event)
+
+
+class EventPressRelease(PressRelease):
+    event = models.ForeignKey(Event)
+
+    class Meta:
+        pass
 
 class Publication(BaseModel):
     title = models.CharField(max_length=1024)
