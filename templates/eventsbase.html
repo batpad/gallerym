@@ -16,8 +16,34 @@
     {% endblock %}
 
 <div id="mainBar" class="col75">
-    {% block mainbar %}    
+        
+    {% block events_info %}
+    
+    <div class="exibMain">
+        <h1>Glimpse of Thirst</h1>
+            <p>Shine Shivam</p>
+        <div class="smallestFont">
+            <p class="blue">January 11 to February 28, 2013</p>   
+            <p>Preview: January 10, 2013, 6:30pm-9.30pm</p>
+            <p>Location: Gallery Maskara</p>
+        </div>
+    </div> <!-- end exib main -->
+    
+    <div class="anchorsExhibition">
+        <a href="/events/current">Overview</a>
+        <a href="/events/event-name/works">Works</a>
+        <a href="/events/event-name/biography">Biography</a>  
+        <a href="/events/event-name/press">Press</a>
+        <a href="/events/event-name/publications">Publications</a>
+        <a href="/events/event-name/videos">Videos</a>
+    </div> <!-- end anchorsExhibition -->
     {% endblock %}
+    
+    {% block mainbar %}
+
+    {% endblock %}
+
+    
 </div> <!-- end main bar  -->
 
 {% endblock %}

@@ -16,6 +16,13 @@ $(document).ready(function(){
       $(this).addClass('selectedAnchors');
    });
    
+   $(".anchorsExhibition a").each(function() {   
+      if (this.href == window.location.href) {
+      $(this).addClass("selectedAnchors");
+   }
+   });
+   
+   
 /*   $('.anchorsExhibition a').click( function(e) {   
       $('.anchorsExhibition .selectedAnchors').removeClass('selectedAnchors');
       $(this).addClass('selectedAnchors');
