@@ -1,14 +1,10 @@
-{% extends 'artistbase.html' %}
+{% extends 'artistgallerybase.html' %}
 
 
 {% block extra_css %}
-    <link rel="stylesheet" href="/static/css/flexslider.css">
-        
+    {{ block.super }}    
     <style>
         
-        .selectedHeading+p {
-            padding: 0 0 30px 0;
-        }
         
         #slider {
             width: 70%;
@@ -36,16 +32,6 @@
         #carousel .flex-direction-nav .flex-prev {
             background: url('../../static/img/prevup.png') no-repeat;
             
-        }
-        
-        #slider .flex-direction-nav .flex-next {
-            background: url('../../static/img/next.png') no-repeat;
-            left: 26px;
-        }
-
-        #slider .flex-direction-nav .flex-prev {
-            background: url('../../static/img/prev.png') no-repeat;
-            left: 0px;
         }
         
         #carousel {
@@ -80,7 +66,7 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="/static/js/jquery.flexslider-min.js"></script>
+    {{ block.super }}    
 
 <script>
 $(document).ready(function() {
@@ -114,11 +100,11 @@ $(document).ready(function() {
 </script>
 {% endblock %}
 
+    {% block gallery_slider %}
 
-{% block mainbar %}
     <div class="col70">
         <h1 class="selectedHeading floatLeft">Max Streicher</h1>
-        <p class="smallerFont floatRight"><a href="">Images </a>/<a href=""> Videos</a></p>
+        <p class="smallerFont floatRight"><a href="/single/images">Images </a>/<a href="/single/videos"> Videos</a></p>
         <div class="clear"></div>
     </div>
 
@@ -175,24 +161,4 @@ $(document).ready(function() {
 </div> <!-- /flex-container -->
       <div class="clear"></div>
       
-      <div id="slideDescription" class="col70">
-        <p>Glimpse of Thirst(1), 2012</p>
-        <div class="smallestFont">
-          <p>Sculpture</p>  
-          <p>Used fabric, jute, marbles, pine thorns, fiber glass, aluminium wire, thread</p>
-          <p>36 x 30 x 30 inches(91 x 76 x 76cms)</p>
-          <p>Theme</p>
-          <p>Attribution</p>
-          <!-- <p>Edition : Unique</p>
-          <p>Pedestial in exposed ply, height 42 x 22 x 22 inches</p> -->
-        </div> <!-- end smallest font  -->
-      <br>
-    
-    <div>
-        <p>The giants in their great mass heave and sign to the timed intervals of industrial blowers. Lying on their backs and sides, heads raised from the floor, legs stiffened, chests inflated, only to relax again, as if in some futile attempt to stand up on their feet.</p>
-    </div>
-      </div> <!-- end slide description  -->              
-    
-</div> <!-- end main bar  -->
-            
 {% endblock %}

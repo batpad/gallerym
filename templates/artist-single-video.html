@@ -1,0 +1,95 @@
+{% extends 'artistgallerybase.html' %}
+
+
+{% block extra_css %}
+    {{ block.super }}    
+    <style>
+        
+        
+        #slider {
+            width: 70%;
+            float: left;
+        }
+        
+        #slider .flex-direction-nav {
+            float: left;
+        }
+
+        #slider .flex-direction-nav .flex-prev {
+            /* bottom: -20px; */
+        }
+
+        #slider .flex-direction-nav a {
+            bottom: 0;
+            top: auto;
+        }
+        
+        .sliderVideoWrap {
+            width: 70%;
+        }
+        
+    </style>    
+        
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}    
+
+<script src="/static/js/jquery.fitvids.js"></script>
+<script>
+$(document).ready(function() {
+  $('.flexslider')
+    .fitVids()
+    .flexslider({
+      animation: "slide",
+      useCSS: false,
+      animationLoop: false,
+      smoothHeight: true
+  });
+});
+</script>
+{% endblock %}
+
+    {% block gallery_slider %}
+
+    <div class="sliderVideoWrap">
+        <h1 class="selectedHeading floatLeft">Max Streicher</h1>
+        <p class="smallerFont floatRight"><a href="/single/images">Images </a>/<a href="/single/videos"> Videos</a></p>
+        <div class="clear"></div>
+
+    <div class=”flex-container”> 
+        <div id="sliderVideo" class="flexslider">
+            <ul class="slides">
+              <li>
+<iframe src="http://player.vimeo.com/video/5606758?color=ffffff" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+              </li>
+              <li>
+<iframe src="http://player.vimeo.com/video/5606758?color=ffffff" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+              </li>
+              <li>
+<iframe src="http://player.vimeo.com/video/5606758?color=ffffff" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+              </li>
+              <li>
+<iframe src="http://player.vimeo.com/video/5606758?color=ffffff" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+              </li>
+            </ul>
+        </div>
+      <div id="slideControlBox" class="smallestFont">
+
+
+        <div class="works">
+            <p><span class="current-slide">1</span> of <span class="total-slides"></span> works</p>
+        </div>
+        <div class="singleIcons">
+            <span class="zoom">Zoom</span>
+            <span class="downloadPdf">Download PDF</span>
+        </div>
+        <div class="clear"></div>
+      </div> <!-- end slide control box  -->
+      
+</div> <!-- /flex-container -->
+    </div> <!-- /slider video wrap  -->
+  
+      <div class="clear"></div>
+      
+{% endblock %}
