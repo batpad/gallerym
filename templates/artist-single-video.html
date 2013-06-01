@@ -5,28 +5,48 @@
     {{ block.super }}    
     <style>
         
-        
-        #slider {
-            width: 70%;
-            float: left;
-        }
-        
-        #slider .flex-direction-nav {
-            float: left;
-        }
-
-        #slider .flex-direction-nav .flex-prev {
-            /* bottom: -20px; */
-        }
-
-        #slider .flex-direction-nav a {
-            bottom: 0;
-            top: auto;
-        }
-        
         .sliderVideoWrap {
             width: 70%;
         }
+                
+        #sliderVideo .flex-direction-nav {
+            float: left;
+        }
+
+        #sliderVideo .flex-direction-nav li {
+            display: inline-block;
+        }
+
+/*         #sliderVideo .flex-direction-nav .flex-prev {
+    bottom: -20px;
+}
+ */
+        #sliderVideo .flex-direction-nav {
+            padding: 26px 0 0 0;
+        }
+        
+        #sliderVideo .flex-direction-nav a {
+            /*bottom: 0;
+            top: auto;*/
+            position: static;
+        }
+        
+        
+        #sliderVideo .flex-direction-nav .flex-next {
+            background: url('../../static/img/next.png') no-repeat;
+            /* left: 26px; */
+        }
+
+        #sliderVideo .flex-direction-nav .flex-prev {
+            background: url('../../static/img/prev.png') no-repeat;
+            /* left: 0px; */
+        }
+        
+        .works {
+            padding: 8px 0 0 0;
+        } /* make sure bottom paddding is equal between videos and image page  */
+        
+
         
     </style>    
         
@@ -42,7 +62,9 @@ $(document).ready(function() {
     .fitVids()
     .flexslider({
       animation: "slide",
+      controlNav: false,
       useCSS: false,
+      slideshow: false,
       animationLoop: false,
       smoothHeight: true
   });
@@ -61,16 +83,13 @@ $(document).ready(function() {
         <div id="sliderVideo" class="flexslider">
             <ul class="slides">
               <li>
-<iframe src="http://player.vimeo.com/video/5606758?color=ffffff" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                <iframe src="http://player.vimeo.com/video/5606758?color=ffffff" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
               </li>
               <li>
-<iframe src="http://player.vimeo.com/video/5606758?color=ffffff" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                <iframe src="http://player.vimeo.com/video/13776542?color=ffffff" width="500" height="209" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
               </li>
               <li>
-<iframe src="http://player.vimeo.com/video/5606758?color=ffffff" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-              </li>
-              <li>
-<iframe src="http://player.vimeo.com/video/5606758?color=ffffff" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                <iframe src="http://player.vimeo.com/video/31939621" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
               </li>
             </ul>
         </div>
