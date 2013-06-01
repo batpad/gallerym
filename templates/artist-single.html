@@ -1,10 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'artistbase.html' %}
 
 
 {% block extra_css %}
     <link rel="stylesheet" href="/static/css/flexslider.css">
         
     <style>
+        
+        .selectedHeading+p {
+            padding: 0 0 30px 0;
+        }
         
         #slider {
             width: 70%;
@@ -111,27 +115,13 @@ $(document).ready(function() {
 {% endblock %}
 
 
-{% block content %}
-
-<div id="sideBar" class="col25">
-    
-    <div class="sideBarTitles">
-        <p><a href="/selected">Selected Work</a></p>
-        <p><a href="/available">Available Work</a></p>
-        <p><a href="/exhibitions">Exhibitions</a></p>
-        <p><a href="/biography">Biography</a></p>
-        <p><a href="/cv">Curriculum Vitae</a></p>
-        <p><a href="/press">Press</a></p>
-        <p><a href="/publications">Publications</a></p>
-        <p><a href="/news">News</a></p>
-        <p><a href="/talks">Talks</a></p>
+{% block mainbar %}
+    <div class="col70">
+        <h1 class="selectedHeading floatLeft">Max Streicher</h1>
+        <p class="smallerFont floatRight"><a href="">Images </a>/<a href=""> Videos</a></p>
+        <div class="clear"></div>
     </div>
-    
-</div> <!-- end side bar  -->
 
-<div id="mainBar" class="col75">
-    <h1 class="selectedHeading">Max Streicher</h1>
-    
     <div class=”flex-container”> 
         <div id="slider" class="flexslider">
             <ul class="slides">
@@ -205,6 +195,4 @@ $(document).ready(function() {
     
 </div> <!-- end main bar  -->
             
-
-
 {% endblock %}

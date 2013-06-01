@@ -90,11 +90,11 @@ body {
 
 a {
   text-decoration: none;
-  color: #666;  /*6e9f06*/
+  color: #939598;  /*6e9f06*/
 }
 
 a:hover, a:focus, a:active {
-	color: #005494
+	color: #035595;
 }
 
 strong {
@@ -106,9 +106,9 @@ em {
 }
 
 
-h1, h2, h3, h4, h5, h6 {
+/*h1, h2, h3, h4, h5, h6 {
 	padding-bottom:10px;
-}
+}*/
 
 h6 {
 	font-size: 110%;
@@ -238,7 +238,7 @@ bottom: 2px;
 }
 
 .menu .selectedMenu, .menu li a:hover, .paginationThumbs span:hover, .blue, .linkExternal:hover, .pag-active {
-	color: #005494;
+	color: #035595;
 }
 
 #contentBlock {
@@ -328,6 +328,10 @@ bottom: 2px;
 
 .exibMain h1:first-of-type, .homeMain h1:first-of-type, .selectedHeading {
 	margin-top: -9px; /* hackish to maintain symmetry between tops of both columns  */
+}
+
+.exibMain h1:first-of-type+p {
+	margin-bottom: 10px;
 }
 
 .paginationThumbs {
@@ -505,7 +509,7 @@ padding: 6px 110px 6px 0;
 }
 
 .anchorsExhibition a:hover, .anchorsExhibition:focus, .anchorsCv a:hover, .anchorsCv a:focus, .anchorsCv .selectedAnchors, .anchorsExhibition .selectedAnchors {
-	border-bottom: 2px solid #005494; /* sanjay for js for each anchor selected  */
+	border-bottom: 2px solid #035595; /* sanjay for js for each anchor selected  */
 }
 
 .anchorDateBlock {
