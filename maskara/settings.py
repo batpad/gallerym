@@ -86,7 +86,7 @@ STATICFILES_DIRS = (
 )
 HAYSTACK_SITECONF = 'maskara.search_indexes'
 HAYSTACK_SEARCH_ENGINE = 'whoosh'
-HAYSTACK_WHOOSH_PATH = STATIC_ROOT = join(PROJECT_ROOT, 'whoosh.index')
+HAYSTACK_WHOOSH_PATH = join(PROJECT_ROOT, 'whoosh.index')
 
 # List of finder classes that know how to find static files in
 # various locations.
