@@ -1,0 +1,39 @@
+{% extends 'artistbase.html' %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="/static/css/flexslider.css">
+    <style>
+        .selectedHeading+p {
+            padding: 0 0 30px 0;
+        }        
+    </style>
+
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/jquery.flexslider-min.js"></script>
+{% endblock %}
+
+{% block mainbar %}
+    {% block gallery_slider %}
+    {% endblock %}
+
+      <div id="slideDescription" class="col70">
+        <p>Glimpse of Thirst(1), 2012</p>
+        <div class="smallestFont">
+          <p>Sculpture</p>  
+          <p>Used fabric, jute, marbles, pine thorns, fiber glass, aluminium wire, thread</p>
+          <p>36 x 30 x 30 inches(91 x 76 x 76cms)</p>
+          <p>Theme</p>
+          <p>Attribution</p>
+          <!-- <p>Edition : Unique</p>
+          <p>Pedestial in exposed ply, height 42 x 22 x 22 inches</p> -->
+        </div> <!-- end smallest font  -->
+      <br>
+    
+    <div>
+        <p>The giants in their great mass heave and sign to the timed intervals of industrial blowers. Lying on their backs and sides, heads raised from the floor, legs stiffened, chests inflated, only to relax again, as if in some futile attempt to stand up on their feet.</p>
+    </div>
+      </div> <!-- end slide description  -->              
+{% endblock %}
