@@ -9,11 +9,11 @@
             width: 70%;
         }
                 
-        #sliderVideo .flex-direction-nav {
+        .sliderVideo .flex-direction-nav {
             float: left;
         }
 
-        #sliderVideo .flex-direction-nav li {
+        .sliderVideo .flex-direction-nav li {
             display: inline-block;
         }
 
@@ -21,29 +21,29 @@
     bottom: -20px;
 }
  */
-        #sliderVideo .flex-direction-nav {
-            padding: 26px 0 0 0;
+        .sliderVideo .flex-direction-nav {
+            padding: 18px 0 0 0;
         }
         
-        #sliderVideo .flex-direction-nav a {
+        .sliderVideo .flex-direction-nav a {
             /*bottom: 0;
             top: auto;*/
             position: static;
         }
         
         
-        #sliderVideo .flex-direction-nav .flex-next {
+        .sliderVideo .flex-direction-nav .flex-next {
             background: url('../../static/img/next.png') no-repeat;
             /* left: 26px; */
         }
 
-        #sliderVideo .flex-direction-nav .flex-prev {
+        .sliderVideo .flex-direction-nav .flex-prev {
             background: url('../../static/img/prev.png') no-repeat;
             /* left: 0px; */
         }
         
         .works {
-            padding: 8px 0 0 0;
+            /* padding: 8px 0 0 0; */
         } /* make sure bottom paddding is equal between videos and image page  */
         
 
@@ -66,7 +66,15 @@ $(document).ready(function() {
       useCSS: false,
       slideshow: false,
       animationLoop: false,
-      smoothHeight: true
+      smoothHeight: true,
+          controlsContainer: ".flex-container",
+    start: function(slider) {
+        $('.total-slides').text(slider.count);
+      },
+      after: function(slider) {
+        $('.current-slide').text(slider.currentSlide+1);
+      }
+
   });
 });
 </script>
@@ -76,11 +84,11 @@ $(document).ready(function() {
 
     <div class="sliderVideoWrap">
         <h1 class="selectedHeading floatLeft">Max Streicher</h1>
-        <p class="smallerFont floatRight"><a href="/single/images">Images </a>/<a href="/single/videos"> Videos</a></p>
+        <p class="smallerFont floatRight"><a href="/single/images">Images </a>/<a href="/single/videos" class="blue"> Videos</a></p>
         <div class="clear"></div>
 
     <div class=”flex-container”> 
-        <div id="sliderVideo" class="flexslider">
+        <div class="sliderVideo flexslider">
             <ul class="slides">
               <li>
                 <iframe src="http://player.vimeo.com/video/5606758?color=ffffff" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
