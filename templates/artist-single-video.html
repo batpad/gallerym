@@ -1,0 +1,122 @@
+{% extends 'artistgallerybase.html' %}
+
+
+{% block extra_css %}
+    {{ block.super }}    
+    <style>
+        
+        .sliderVideoWrap {
+            width: 70%;
+        }
+                
+        .sliderVideo .flex-direction-nav {
+            float: left;
+        }
+
+        .sliderVideo .flex-direction-nav li {
+            display: inline-block;
+        }
+
+/*         #sliderVideo .flex-direction-nav .flex-prev {
+    bottom: -20px;
+}
+ */
+        .sliderVideo .flex-direction-nav {
+            padding: 18px 0 0 0;
+        }
+        
+        .sliderVideo .flex-direction-nav a {
+            /*bottom: 0;
+            top: auto;*/
+            position: static;
+        }
+        
+        
+        .sliderVideo .flex-direction-nav .flex-next {
+            background: url('../../static/img/next.png') no-repeat;
+            /* left: 26px; */
+        }
+
+        .sliderVideo .flex-direction-nav .flex-prev {
+            background: url('../../static/img/prev.png') no-repeat;
+            /* left: 0px; */
+        }
+        
+        .works {
+            /* padding: 8px 0 0 0; */
+        } /* make sure bottom paddding is equal between videos and image page  */
+        
+
+        
+    </style>    
+        
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}    
+
+<script src="/static/js/jquery.fitvids.js"></script>
+<script>
+$(document).ready(function() {
+  $('.flexslider')
+    .fitVids()
+    .flexslider({
+      animation: "slide",
+      controlNav: false,
+      useCSS: false,
+      slideshow: false,
+      animationLoop: false,
+      smoothHeight: true,
+          controlsContainer: ".flex-container",
+    start: function(slider) {
+        $('.total-slides').text(slider.count);
+      },
+      after: function(slider) {
+        $('.current-slide').text(slider.currentSlide+1);
+      }
+
+  });
+});
+</script>
+{% endblock %}
+
+    {% block gallery_slider %}
+
+    <div class="sliderVideoWrap">
+        <h1 class="selectedHeading floatLeft">Max Streicher</h1>
+        <p class="smallerFont floatRight"><a href="/single/images">Images </a>/<a href="/single/videos" class="blue"> Videos</a></p>
+        <div class="clear"></div>
+
+    <div class=”flex-container”> 
+        <div class="sliderVideo flexslider">
+            <ul class="slides">
+              <li>
+                <iframe src="http://player.vimeo.com/video/5606758?color=ffffff" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+              </li>
+              <li>
+                <iframe src="http://player.vimeo.com/video/13776542?color=ffffff" width="500" height="209" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+              </li>
+              <li>
+                <iframe src="http://player.vimeo.com/video/31939621" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+              </li>
+            </ul>
+        </div>
+      <div id="slideControlBox" class="smallestFont">
+
+
+        <div class="works">
+            <p><span class="current-slide">1</span> of <span class="total-slides"></span> works</p>
+        </div>
+        <div class="singleIcons">
+            <span class="zoom">Zoom</span>
+            <span class="downloadPdf">Download PDF</span>
+        </div>
+        <div class="clear"></div>
+      </div> <!-- end slide control box  -->
+      
+</div> <!-- /flex-container -->
+    </div> <!-- /slider video wrap  -->
+  
+      <div class="clear"></div>
+      
+{% endblock %}

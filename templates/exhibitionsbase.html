@@ -16,6 +16,28 @@
     {% endblock %}
 
 <div id="mainBar" class="col75">
+    {% block exib_info %}
+    <div class="exibMain">
+        <h1>Glimpse of Thirst</h1>
+            <p class="smallestFont">In collaboration with Geukens and De Vil, Belgium</p>
+            <p>Shine Shivam</p>
+        <div class="smallestFont">
+            <p class="blue">January 11 to February 28, 2013</p>   <!-- SANJ, make a provision for date for first also, incase December 11 2013 to Jan 11, 2014  -->
+            <p>Preview: January 10, 2013</p>
+            <p>Location: Gallery Maskara</p>
+        </div>
+    </div> <!-- end exib main  -->
+    
+    <div class="anchorsExhibition">
+        <a href="/exhibitions/current">Overview</a>
+        <a href="/exhibitions/exhib-name/works">Works</a>
+        <a href="/exhibitions/exhib-name/artists">Artists</a>  
+        <a href="/exhibitions/exhib-name/press">Press</a>
+        <a href="/exhibitions/exhib-name/publications">Publications</a>
+        <a href="/exhibitions/exhib-name/videos">Videos</a>
+    </div> <!-- end anchorsExhibition  -->    
+    {% endblock %}
+
     {% block mainbar %}    
     {% endblock %}
 </div> <!-- end main bar  -->
