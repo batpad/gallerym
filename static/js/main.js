@@ -28,4 +28,6 @@ $(document).ready(function(){
       $(this).addClass('selectedAnchors');
    });   
 */
+
+/*delete comments later*/
 });
