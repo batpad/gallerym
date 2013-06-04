@@ -177,12 +177,12 @@ textarea {
 	display: none; /* uses include adding class to hide pagination buttons  */
 }
 
-.pag-active {
-	font-weight: 600;
-}
-
 .fontIcon, .zoom:before, .downloadPdf:before {
 	font-family: 'icomoon';
+}
+
+.pag-active, .menu, .sideBarTitles a:hover, .sideBarTitles a:focus, .sideBarTitles .selectedSideBarTitles, .thumbEach, #mapContent p:first-of-type {
+	font-weight: 600;
 }
 
 #contentMain {
@@ -196,11 +196,6 @@ textarea {
 #logo {
 	padding: 40px 0;
 	display: inline-block;
-}
-
-.menu {
-	/* font-size: 90%; */
-	font-weight: 600;
 }
 
 .menu li {
@@ -238,7 +233,7 @@ bottom: 2px;
 	color: inherit;
 }
 
-.menu .selectedMenu, .menu li a:hover, .paginationThumbs span:hover, .blue, .linkExternal:hover, .pag-active {
+.menu .selectedMenu, .menu li a:hover, .paginationThumbs span:hover, .blue, .linkExternal:hover, .pag-active, .paginationThumbs .blue {
 	color: #035595;
 }
 
@@ -260,8 +255,11 @@ bottom: 2px;
 	color: #666;	
 }
 
+
+
+
 .sideBarTitles a:hover, .sideBarTitles a:focus, .sideBarTitles .selectedSideBarTitles {
-	font-weight: 600; /* add js to get selected one later  */
+	/* add js to get selected one later  */
 	color: inherit;
 }
 
@@ -331,9 +329,9 @@ bottom: 2px;
 	margin-top: -9px; /* hackish to maintain symmetry between tops of both columns  */
 }
 
-.exibMain h1:first-of-type+p {
-	margin-bottom: 10px;
-}
+/* .exibMain h1:first-of-type+p {
+	margin-bottom: 20px;
+} */
 
 .paginationThumbs {
 	float: right;
@@ -418,9 +416,10 @@ padding: 6px 110px 6px 0;
 	clear: both;
 } */ /* no clue how to remove padding from last row. firstly, we don't know how many there are in a row!  */
 
+
+
 .thumbEach {
 	font-size: 90%;
-	font-weight: 600;
 	padding: 0 24px 40px 0;
 	display: inline-block;
 	float: none;
@@ -562,10 +561,10 @@ padding: 6px 110px 6px 0;
 	font-size: 80%;
 }
 
-#mapContent p:first-of-type{
+
+#mapContent p:first-of-type {
 	font-size: 100%;
 	text-transform: uppercase;
-	font-weight: 600;
 	padding: 16px 0 0 0;
 }
 
