@@ -1,5 +1,5 @@
 $(document).ready(function(){
-   $(".menu a").each(function() {   
+   $(".menu li a").each(function() {   
       if (this.href == window.location.href) {
       $(this).addClass("selectedMenu");
    }

@@ -365,7 +365,6 @@ padding: 6px 110px 6px 0;
 #searchInputWrapper {
 	/* padding: 0 0 0 5px; */
 	border: 1px solid transparent;
-	font-size: 130%;	
 	position: relative;
 }
 
@@ -373,6 +372,7 @@ padding: 6px 110px 6px 0;
 	position: absolute;
 	left: 6px;
 	top: 5px;
+	font-size: 130%;		
 }
 
 /* #searchInputWrapper:before {
@@ -389,6 +389,7 @@ padding: 6px 110px 6px 0;
 #searchBlock input {
 	border: none;
 	padding: 4px 3px 4px 24px;
+	font-size: 100%;		
 }
 
 #searchBlock input:focus {
@@ -396,16 +397,29 @@ padding: 6px 110px 6px 0;
 }
 
 .footerBlock {
-	border-top: 2px solid #A7CF4F;
 	padding: 6px 0;
+}
+
+.footerBlock .menu {
+	padding: 6px 0 0 0;
+} /* figure the hiding on small devices later  */
+
+.footerMenuWrap {
+	border-bottom: 2px solid #A7CF4F;	
 }
 
 .footerLinks {
 	padding: 8px 4px;
+	font-size: 90%;
 }
 
 .footerLinks span {
-	padding: 0 20px 0 0;
+	padding: 0 0 0 20px;
+	line-height: 2;
+}
+
+.footerLinks span:first-of-type {
+	padding: 0;
 }
 
 .footerLinks a {
@@ -525,7 +539,17 @@ padding: 6px 110px 6px 0;
 	padding: 0 0 20px 24px;
 }
 
-.linkExternal {
+.publicationImg, .publicationDesc {
+	display: table-cell;
+	vertical-align: top;
+}
+
+.publicationImg img {
+	min-width: 150px;
+}
+
+.publicationDesc {
+	padding: 0 0 0 24px;	
 }
 
 .linkExternal:after {
@@ -628,6 +652,11 @@ padding: 6px 110px 6px 0;
 	.exibContent {
 		padding-right: 0;
 	}
+	
+	.anchorDate, .anchorInfo {
+		display: block;
+	}
+	
 /* .bioDownloadInfo {
 		border-top: none;
 	}
@@ -642,6 +671,14 @@ padding: 6px 110px 6px 0;
 .col25, .col30, .col33, .col75, .col70, .homeCarousel, .thumbnailBlock .thumbEach, .floatLeft, .floatRight, .paginationThumbs, #searchBlock, #slideDescription {
 	width: 100%;
 	float: none;
+}
+
+.publicationImg, .publicationDesc {
+	display: block;
+}
+
+.publicationDesc {
+	padding: 24px 0 0 0;
 }
 
 #slideDescription {
