@@ -33,7 +33,7 @@ html, body  {
 body {
 	background-color: #fff;
 	font-family: 'Open Sans', Arial, Helvetica, 'DejaVu Sans', sans-serif;
-	color: #2B2B2B;
+	color: #2d2d2c;
 	font-size: 14px;
 	line-height: 1.5;
 }
@@ -181,7 +181,7 @@ textarea {
 	font-family: 'icomoon';
 }
 
-.pag-active, .menu, .sideBarTitles a:hover, .sideBarTitles a:focus, .sideBarTitles .selectedSideBarTitles, .thumbEach, #mapContent p:first-of-type {
+.pag-active, .sideBarTitles a:hover, .sideBarTitles a:focus, .sideBarTitles .selectedSideBarTitles, .thumbEach, #mapContent p:first-of-type {
 	font-weight: 600;
 }
 
@@ -382,7 +382,7 @@ padding: 6px 110px 6px 0;
  */
 #searchInputWrapper input:hover, #searchInputWrapper input:focus {
 	outline: none;
-	border: 1px solid #A7CF4F;
+	border: 1px solid #bbb;
 	height: 28px;
 }
 
@@ -406,6 +406,7 @@ padding: 6px 110px 6px 0;
 
 .footerMenuWrap {
 	border-bottom: 2px solid #A7CF4F;	
+	padding: 0 0 2px 0;
 }
 
 .footerLinks {
