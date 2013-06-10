@@ -181,6 +181,11 @@ textarea {
 	font-family: 'icomoon';
 }
 
+.downloadPdf {
+	text-align: right;
+	display: block;
+}
+
 .pag-active, .sideBarTitles a:hover, .sideBarTitles a:focus, .sideBarTitles .selectedSideBarTitles, .thumbEach, #mapContent p:first-of-type {
 	font-weight: 600;
 }
