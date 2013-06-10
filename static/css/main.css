@@ -495,7 +495,7 @@ padding: 6px 110px 6px 0;
 	padding: 20px 0 40px;
 }
 
-.exibContent, .bioContent, .anchorContent {
+.exibContent, .bioContent, .anchorContent, .publicationDescMain {
 	padding: 0 40px 0 0;
 }
 
@@ -633,7 +633,7 @@ padding: 6px 110px 6px 0;
 		width: 48%;
 	}
 	
-	.homeSecondary, #homeSecondaryText, .homeCarousel, .exibContent, .bioContent, .anchorContent, .bioDownloadInfo, #aboutContent .col70 {
+	.homeSecondary, #homeSecondaryText, .homeCarousel, .exibContent, .publicationDescMain, .bioContent, .anchorContent, .bioDownloadInfo, #aboutContent .col70 {
 		float: none;
 		width: 100%;
 	}
@@ -642,7 +642,7 @@ padding: 6px 110px 6px 0;
 		margin: 30px 0 0 0;
 	}
 	
-	.exibContent, .bioContent {
+	.exibContent, .bioContent, .publicationDescMain {
 		padding-bottom: 20px;
 	}
 	
@@ -650,7 +650,7 @@ padding: 6px 110px 6px 0;
 		padding: 10px 10px 10px 30px; 
 	}
 
-	.exibContent {
+	.exibContent, .publicationDescMain {
 		padding-right: 0;
 	}
 	
