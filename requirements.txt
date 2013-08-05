@@ -1,11 +1,13 @@
 django==1.4.5
 django-grappelli
+django-filebrowser
 PIL
 django-mockups
 South
 django-image-cropping
 # -e git+git://github.com/Soaa-/django-nested-inlines.git#egg=django-nested-inlines
 django-celery
+django-chunks
 django-haystack==1.2.7
 Whoosh
 

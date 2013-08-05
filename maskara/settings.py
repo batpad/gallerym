@@ -10,6 +10,9 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 # This is the setting for title in Grappelli
 GRAPPELLI_ADMIN_TITLE ="Gallery Maskara"
+GRAPPELLI_INDEX_DASHBOARD = 'maskara.dashboard.CustomIndexDashboard'
+GRAPPELLI_AUTOCOMPLETE_LIMIT=10
+
 LOCAL_DEVELOPMENT = True
 
 ADMINS = (
@@ -61,7 +64,7 @@ USE_TZ = True
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT = join(PROJECT_ROOT, 'media')
-
+FILEBROWSER_DIRECTORY = 'files/'
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
@@ -137,6 +140,13 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.request",
+    "django.core.context_processors.i18n",
+    'django.contrib.messages.context_processors.messages',
+)
+
 ROOT_URLCONF = 'maskara.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
@@ -165,7 +175,10 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
 #    'nested_inlines',
+    'grappelli.dashboard',
     'grappelli',
+    'filebrowser',
+    'chunks',
     # Uncomment the next line to enable the admin:
     # 'adminsortable',
     'django.contrib.admin',

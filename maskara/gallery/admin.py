@@ -57,6 +57,11 @@ class ExhibitionPressReleaseInline(admin.StackedInline):
     sortable_field_name = 'order'
 
 class BaseAdmin(admin.ModelAdmin):
+    class Media:
+        js = [
+            '/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
+            '/static/js/tinymce_setup.js',
+        ]
     list_display = ('__unicode__', 'published',)
     list_editable = ('published',)
      

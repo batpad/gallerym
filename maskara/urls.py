@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.sitemaps import Sitemap
 
+from filebrowser.sites import site
 from maskara.sitemaps import *
 
 
@@ -21,6 +22,7 @@ sitemaps = {'artist': ArtistSitemap, 'event': EventSitemap, 'exhibition': Exhibi
 sitemaps = {'artist': ArtistSitemap, 'event': EventSitemap, 'exhibition': ExhibitionSitemap} 
 
 urlpatterns = patterns('',
+    
     # Examples:
     # url(r'^$', 'maskara.views.home', name='home'),
     # url(r'^maskara/', include('maskara.foo.urls')),
@@ -31,6 +33,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^grappelli/', include('grappelli.urls')),
 
+    url(r'^admin/filebrowser/', include(site.urls)),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),                    
 )

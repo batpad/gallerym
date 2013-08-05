@@ -7,7 +7,7 @@ from image_cropping import ImageRatioField
 from os.path import basename
 from django.db.models.signals import post_save
 from django.contrib.admin.models import LogEntry
-
+from filebrowser.fields import FileBrowseField
 
 
 class Review(BaseModel):
@@ -160,7 +160,8 @@ class ArtistWork(BaseModel):
 
 class ArtistWorkImage(BaseModel):
     work = models.ForeignKey(ArtistWork)
-    image = models.ImageField(upload_to='work_images/')
+    #image = models.ImageField(upload_to='work_images/')
+    image = FileBrowseField("Image", max_length=512, directory="artist_works", extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
     caption = models.CharField(max_length=512, blank=True)
     is_hires = models.BooleanField(default=True)
     #is_main = models.BooleanField(default=False, help_text='Is the main image for this work')
@@ -179,7 +180,7 @@ class ArtistWorkImage(BaseModel):
     def save(self):
         super(ArtistWorkImage, self).save()
         if self.is_hires:
-            create_tiles.delay(self.image.path)
+            pass #create_tiles.delay(self.image.path)
 
 
 class ArtistReview(Review):
