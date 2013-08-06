@@ -67,20 +67,46 @@ class BaseAdmin(admin.ModelAdmin):
      
 
 class ArtistAdmin(BaseAdmin):
-    inlines = [ArtistWorkInline, ArtistReviewInline, ArtistPressReleaseInline, ArtistEducationInline, ArtistSoloExhibInline, ArtistGroupExhibInline, ArtistCollectionInline, ArtistAwardInline, ArtistPressInline, ArtistNewsInline]
+    search_fields = ['name']
+    list_filter = ('is_represented', 'published',)
+    inlines = [ArtistWorkInline, ArtistEducationInline, ArtistReviewInline, ArtistSoloExhibInline, ArtistGroupExhibInline, ArtistAwardInline, ArtistCollectionInline, ArtistPressReleaseInline, ArtistPressInline, ArtistNewsInline]
 
-class ArtistWorkAdmin(admin.ModelAdmin):
+class ArtistWorkAdmin(BaseAdmin):
+    search_fields = ['title', 'artist__name']
+    raw_id_fields = ('artist',)
+    autocomplete_lookup_fields = {
+        'fk': ['artist']
+    }
     inlines = [ArtistWorkImageInline]
-    list_filter = ('artist',)
+    list_filter = ('artist', 'published',)
+    exclude = ('order',)
 
-class ExhibitionAdmin(ImageCroppingMixin, BaseAdmin):
+class EventAdmin(BaseAdmin):
+    search_fields = ['title'] 
+    list_filter = ('featured_artists', 'published',)
+    raw_id_fields = ('featured_artists',)
+    autocomplete_lookup_fields = {
+        'm2m': ['featured_artists']
+    }    
+
+class PublicationAdmin(BaseAdmin):
+    search_fields = ['title', 'author', 'editor', 'publisher', 'isbn']
+    list_filter = ('artist', 'exhibition', 'event', 'available', 'published',)
+
+class ExhibitionAdmin(BaseAdmin):
+    search_fields = ['title', 'description']
+    list_filter = ('featured_artists',)
+    raw_id_fields = ('featured_artists', 'featured_work',)
+    autocomplete_lookup_fields = {
+        'm2m': ['featured_artists', 'featured_work'],
+    }    
     inlines = [ExhibitionReviewInline, ExhibitionPressReleaseInline]
 
 
 admin.site.register(Artist, ArtistAdmin)
 admin.site.register(Exhibition, ExhibitionAdmin)
-admin.site.register(Event, BaseAdmin)
-admin.site.register(Publication, BaseAdmin)
+admin.site.register(Event, EventAdmin)
+admin.site.register(Publication, PublicationAdmin)
 admin.site.register(ArtistWork, ArtistWorkAdmin)
 #admin.site.register(ArtistReview, BaseAdmin)
 

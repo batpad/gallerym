@@ -7,6 +7,7 @@ from image_cropping import ImageRatioField
 from os.path import basename
 from django.db.models.signals import post_save
 from django.contrib.admin.models import LogEntry
+from django.utils.html import strip_tags
 from filebrowser.fields import FileBrowseField
 
 
@@ -77,6 +78,10 @@ class Artist(BaseModel):
     is_represented = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
 
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("id__iexact", "name__icontains",)
+
     def get_absolute_url(self):
         return "/artist/%i/" % self.id
 
@@ -97,7 +102,7 @@ class ArtistInfoBase(BaseModel):
     link = models.URLField(blank=True, verify_exists=False)
 
     def __unicode__(self):
-        return "%s: %s" % (self.year, self.text,)
+        return "%s: %s" % (self.year, strip_tags(self.text),)
 
     class Meta:
         abstract = True
@@ -129,7 +134,7 @@ class ArtistNews(BaseModel):
     #image = models.FileField(blank=True, upload_to='artist_news/')
 
     def __unicode__(self):
-        return self.text
+        return strip_tags(self.text)
 
 
 WORK_CATEGORIES = (
@@ -154,9 +159,24 @@ class ArtistWork(BaseModel):
     year = models.IntegerField(max_length=4, blank=True, null=True)
     theme = models.TextField(blank=True)
     attribution = models.TextField(blank=True)
-    price = models.CharField(max_length=128)
+    price = models.CharField(max_length=128, blank=True, null=True)
     published = models.BooleanField(default=False)
     order = models.PositiveIntegerField()
+
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("id__iexact", "title__icontains",)
+
+    def save(self, *args, **kwargs):
+        if self.order is None:
+            artist = self.artist
+            curr_works = ArtistWork.objects.order_by('-order').filter(artist=artist)
+            if curr_works.count() > 0:
+                new_order = curr_works[0].order + 1
+            else:
+                new_order = 0
+            self.order = new_order
+        super(ArtistWork, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ['order']
@@ -249,7 +269,8 @@ class Event(BaseModel):
     date = models.DateField()
     time_from = models.TimeField()
     time_to = models.TimeField()
-    featured_artist = models.ForeignKey(Artist, null=True, blank=True)
+    #featured_artist = models.ForeignKey(Artist, null=True, blank=True)
+    featured_artists = models.ManyToManyField(Artist, blank=True)
     image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
     #image = models.ImageField(blank=True, upload_to='event_images/')
     description = models.TextField(blank=True)
