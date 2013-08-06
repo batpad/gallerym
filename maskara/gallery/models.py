@@ -18,7 +18,8 @@ class Review(BaseModel):
     date = models.DateField(blank=True, null=True)
     description = models.TextField(blank=True)
     url = models.URLField(blank=True)
-    pdf = models.FileField(blank=True, upload_to='review_pdfs/')
+    pdf = FileBrowseField("Image", max_length=512, extensions=[".pdf"], blank=True, null=True)
+    #pdf = models.FileField(blank=True, upload_to='review_pdfs/')
     published = models.BooleanField(default=False)
     order = models.PositiveIntegerField()
     
@@ -35,10 +36,11 @@ class PressRelease(BaseModel):
     author = models.CharField(max_length=512, blank=True)
     publisher = models.CharField(max_length=1024)
     date = models.DateField(blank=True, null=True)
-    image = models.ImageField(blank=True, upload_to='pressrelease_images/')
+    image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
     description = models.TextField(blank=True)
     url = models.URLField(blank=True)
-    pdf = models.FileField(blank=True, upload_to='pressrelease_pdfs/')
+    pdf = FileBrowseField("Image", max_length=512, extensions=[".pdf"], blank=True, null=True)
+    #pdf = models.FileField(blank=True, upload_to='pressrelease_pdfs/')
     published = models.BooleanField(default=False)
     order = models.PositiveIntegerField()
 
@@ -54,7 +56,7 @@ class PressRelease(BaseModel):
 
 class GalleryPerson(BaseModel):
     name = models.CharField(max_length=512)
-    image = models.ImageField(upload_to='gallery_people/')
+    image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
     text = models.TextField(blank=True)
 
     def __unicode__(self):
@@ -65,9 +67,12 @@ class Artist(BaseModel):
     dob = models.DateField(blank=True, null=True)
     birth_location = models.CharField(max_length=1024, blank=True)
     bio = models.TextField(blank=True)
-    bio_pdf = models.FileField(blank=True, upload_to='artist_bio_pdfs/')
-    press_pdf = models.FileField(blank=True, upload_to='artist_press_pdfs/')
-    image = models.ImageField(blank=True, upload_to='artist_images/')
+    bio_pdf = FileBrowseField("PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
+    #bio_pdf = models.FileField(blank=True, upload_to='artist_bio_pdfs/')
+    #press_pdf = models.FileField(blank=True, upload_to='artist_press_pdfs/')
+    pdf = FileBrowseField("PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
+    image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
+    #image = models.ImageField(blank=True, upload_to='artist_images/')
     url = models.URLField(blank=True)
     is_represented = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
@@ -120,7 +125,8 @@ class ArtistNews(BaseModel):
     date = models.DateField(blank=True, null=True)
     text = models.TextField()
     link = models.URLField(blank=True, verify_exists=False)
-    image = models.FileField(blank=True, upload_to='artist_news/')
+    image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)    
+    #image = models.FileField(blank=True, upload_to='artist_news/')
 
     def __unicode__(self):
         return self.text
@@ -137,7 +143,8 @@ WORK_CATEGORIES = (
 class ArtistWork(BaseModel):
     artist = models.ForeignKey(Artist)
     title = models.CharField(max_length=1024)
-    image = models.ImageField(upload_to='work_images/', blank=True)
+    image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
+    #image = models.ImageField(upload_to='work_images/', blank=True)
     is_selected = models.BooleanField(default=False)
     category = models.CharField(choices=WORK_CATEGORIES, max_length=64)
     code = models.CharField(max_length=128, blank=True)
@@ -161,7 +168,7 @@ class ArtistWork(BaseModel):
 class ArtistWorkImage(BaseModel):
     work = models.ForeignKey(ArtistWork)
     #image = models.ImageField(upload_to='work_images/')
-    image = FileBrowseField("Image", max_length=512, directory="artist_works", extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
+    image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
     caption = models.CharField(max_length=512, blank=True)
     is_hires = models.BooleanField(default=True)
     #is_main = models.BooleanField(default=False, help_text='Is the main image for this work')
@@ -204,8 +211,9 @@ class Exhibition(BaseModel):
     description = models.TextField(blank=True)
     autopublish_date = models.DateField()
     curated_by = models.CharField(max_length=512, blank=True)
-    image = models.ImageField(blank=True, upload_to='exhibition_images/')
-    cropping = ImageRatioField('image', '430x360', size_warning=True)
+    image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
+    #image = models.ImageField(blank=True, upload_to='exhibition_images/')
+    #cropping = ImageRatioField('image', '430x360', size_warning=True)
     featured_artists = models.ManyToManyField("Artist", blank=True, null=True)
     featured_work = models.ManyToManyField("ArtistWork", blank=True, null=True)
     published = models.BooleanField(default=False)
@@ -242,7 +250,8 @@ class Event(BaseModel):
     time_from = models.TimeField()
     time_to = models.TimeField()
     featured_artist = models.ForeignKey(Artist, null=True, blank=True)
-    image = models.ImageField(blank=True, upload_to='event_images/')
+    image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
+    #image = models.ImageField(blank=True, upload_to='event_images/')
     description = models.TextField(blank=True)
     published = models.BooleanField(default=False)
     
@@ -281,8 +290,10 @@ class Publication(BaseModel):
     exhibition = models.ForeignKey(Exhibition, blank=True, null=True)
     event = models.ForeignKey(Event, blank=True, null=True)
     isbn = models.CharField(max_length=128, blank=True)
-    image = models.ImageField(upload_to='publication_images/', blank=True)
-    pdf = models.FileField(upload_to='publication_pdfs/', blank=True)
+    image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)    
+    #image = models.ImageField(upload_to='publication_images/', blank=True)
+    #pdf = models.FileField(upload_to='publication_pdfs/', blank=True)
+    pdf = FileBrowseField("PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
     available = models.BooleanField(default=True)
     published = models.BooleanField(default=False)
 
