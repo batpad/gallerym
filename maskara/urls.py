@@ -15,9 +15,9 @@ from django.contrib import admin
 admin.autodiscover()
 import settings
 from os.path import join
-sitemaps = {'exhibition': ExhibitionSitemap,'event':EventSitemap,'artist':ArtistSitemap} 
+#sitemaps = {'exhibition': ExhibitionSitemap,'event':EventSitemap,'artist':ArtistSitemap} 
 
-sitemaps = {'artist': ArtistSitemap, 'event': EventSitemap, 'exhibition': ExhibitionSitemap} 
+#sitemaps = {'artist': ArtistSitemap, 'event': EventSitemap, 'exhibition': ExhibitionSitemap} 
 
 sitemaps = {'artist': ArtistSitemap, 'event': EventSitemap, 'exhibition': ExhibitionSitemap} 
 

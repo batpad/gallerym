@@ -182,6 +182,7 @@ INSTALLED_APPS = (
     'grappelli',
     'filebrowser',
     'chunks',
+    'sortable',
     # Uncomment the next line to enable the admin:
     # 'adminsortable',
     'django.contrib.admin',

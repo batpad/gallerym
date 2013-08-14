@@ -9,6 +9,10 @@ from django.db.models.signals import post_save
 from django.contrib.admin.models import LogEntry
 from django.utils.html import strip_tags
 from filebrowser.fields import FileBrowseField
+from sortable.models import Sortable
+from django.core.exceptions import ValidationError
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes import generic
 
 
 class Review(BaseModel):
@@ -19,7 +23,7 @@ class Review(BaseModel):
     date = models.DateField(blank=True, null=True)
     description = models.TextField(blank=True)
     url = models.URLField(blank=True)
-    pdf = FileBrowseField("Image", max_length=512, extensions=[".pdf"], blank=True, null=True)
+    pdf = FileBrowseField("PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
     #pdf = models.FileField(blank=True, upload_to='review_pdfs/')
     published = models.BooleanField(default=False)
     order = models.PositiveIntegerField()
@@ -32,6 +36,24 @@ class Review(BaseModel):
         return self.title
 
 
+class Video(BaseModel):
+    title = models.CharField(max_length=1024)
+    video_file = FileBrowseField("Video", max_length=1024, extensions=['.mp4', '.m4v'], blank=True, null=True)
+    vimeo_id = models.CharField(max_length=128, blank=True)
+    order = models.IntegerField()
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    content_object = generic.GenericForeignKey('content_type', 'object_id')
+
+    def __unicode__(self):
+        return self.title
+
+    def clean(self):
+        if not (video_file or vimeo_id):
+            raise ValidationError("Please link to a video file or enter the vimeo id for the video")
+        if (video_file and vimeo_id):
+            raise ValidationError("Please enter only one of video file or vimeo id")
+
 class PressRelease(BaseModel):
     title = models.CharField(max_length=1024)
     author = models.CharField(max_length=512, blank=True)
@@ -40,7 +62,7 @@ class PressRelease(BaseModel):
     image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
     description = models.TextField(blank=True)
     url = models.URLField(blank=True)
-    pdf = FileBrowseField("Image", max_length=512, extensions=[".pdf"], blank=True, null=True)
+    pdf = FileBrowseField("PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
     #pdf = models.FileField(blank=True, upload_to='pressrelease_pdfs/')
     published = models.BooleanField(default=False)
     order = models.PositiveIntegerField()
@@ -65,10 +87,11 @@ class GalleryPerson(BaseModel):
 
 class Artist(BaseModel):
     name = models.CharField(max_length=512)
+    slug = models.SlugField(unique=True)
     dob = models.DateField(blank=True, null=True)
     birth_location = models.CharField(max_length=1024, blank=True)
     bio = models.TextField(blank=True)
-    bio_pdf = FileBrowseField("PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
+    bio_pdf = FileBrowseField("Bio PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
     #bio_pdf = models.FileField(blank=True, upload_to='artist_bio_pdfs/')
     #press_pdf = models.FileField(blank=True, upload_to='artist_press_pdfs/')
     pdf = FileBrowseField("PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
@@ -77,13 +100,14 @@ class Artist(BaseModel):
     url = models.URLField(blank=True)
     is_represented = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
+    videos = generic.GenericRelation("Video")
 
     @staticmethod
     def autocomplete_search_fields():
         return ("id__iexact", "name__icontains",)
 
     def get_absolute_url(self):
-        return "/artist/%i/" % self.id
+        return "/artist/%s/" % self.slug
 
     class Meta:
         ordering = ['name']
@@ -219,10 +243,30 @@ class ArtistPressRelease(PressRelease):
     test = models.CharField(max_length=128)
     artist = models.ForeignKey("Artist")
 
+class FrontPageItem(BaseModel, Sortable):
+    event = models.ForeignKey("Event", blank=True, null=True)
+    exhibition = models.ForeignKey("Exhibition", blank=True, null=True)
+
+    class Meta(Sortable.Meta):
+        pass
+
+    def clean(self):
+        if not (self.event or self.exhibition):
+            raise ValidationError("Requires either an event or exhibition")
+        if (self.event and self.exhibition):
+            raise ValidationError("Please chose only one of either an event or exhibition")
+
+    def __unicode__(self):
+        if (self.event):
+            return "Event: " + unicode(self.event)
+        else:
+            return "Exhibition: " + unicode(self.exhibition)
+
 
 class Exhibition(BaseModel):
     title = models.CharField(max_length=1024)
-    is_front_page = models.BooleanField(default=False, help_text='Should this be displayed on the front-page?')
+    slug = models.SlugField(unique=True)
+#    is_front_page = models.BooleanField(default=False, help_text='Should this be displayed on the front-page?')
     start_date = models.DateField()
     end_date = models.DateField()
     preview_date = models.DateField(blank=True, null=True)
@@ -243,7 +287,7 @@ class Exhibition(BaseModel):
         return(self._meta.verbose_name)
     
     def get_absolute_url(self):
-        return "/exhibition/%i/" % self.id
+        return "/exhibition/%s/" % self.slug
 
     class Meta:
         pass
@@ -265,7 +309,8 @@ class ExhibitionPressRelease(PressRelease):
 
 class Event(BaseModel):
     title = models.CharField(max_length=1024)
-    is_front_page = models.BooleanField(default=False, help_text='Should this be displayed on the front-page?')
+    slug = models.SlugField(unique=True)
+#    is_front_page = models.BooleanField(default=False, help_text='Should this be displayed on the front-page?')
     date = models.DateField()
     time_from = models.TimeField()
     time_to = models.TimeField()
@@ -281,7 +326,7 @@ class Event(BaseModel):
         return(self._meta.verbose_name)
 
     def get_absolute_url(self):
-        return "/event/%i/" % self.id
+        return "/event/%s/" % self.slug
 
     class Meta:
         pass
@@ -338,5 +383,3 @@ def do_update_index(*args, **kwargs):
 
 #post_save.connect(do_update_index)
 
-# Create your models here.
-# ^^ They are above, mind turning your head up ? :P
