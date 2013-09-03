@@ -87,7 +87,7 @@ class ArtistWorkAdmin(BaseAdmin):
         'fk': ['artist']
     }
     inlines = [ArtistWorkImageInline, VideoInline]
-    list_filter = ('artist', 'published',)
+    list_filter = ('artist', 'exhibition', 'event', 'published',)
     exclude = ('order',)
 
 class EventAdmin(BaseAdmin):
