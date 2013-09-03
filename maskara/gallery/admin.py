@@ -16,6 +16,10 @@ class ArtistWorkInline(admin.StackedInline):
     model = ArtistWork
     sortable_field_name = 'order'
 
+'''
+class ArtistNews(admin.StackedInline):
+    model = ArtistNews
+'''
 
 class ArtistReviewInline(admin.StackedInline):
     model = ArtistReview
@@ -74,7 +78,7 @@ class BaseAdmin(admin.ModelAdmin):
 class ArtistAdmin(BaseAdmin):
     search_fields = ['name']
     list_filter = ('is_represented', 'published',)
-    inlines = [ArtistWorkInline, ArtistEducationInline, ArtistReviewInline, ArtistSoloExhibInline, ArtistGroupExhibInline, ArtistAwardInline, ArtistCollectionInline, ArtistPressReleaseInline, ArtistPressInline, ArtistNewsInline, VideoInline]
+    inlines = [ArtistNewsInline, ArtistWorkInline, ArtistEducationInline, ArtistReviewInline, ArtistSoloExhibInline, ArtistGroupExhibInline, ArtistAwardInline, ArtistCollectionInline, ArtistPressReleaseInline, ArtistPressInline, ArtistNewsInline, VideoInline]
 
 class ArtistWorkAdmin(BaseAdmin):
     search_fields = ['title', 'artist__name']
@@ -82,16 +86,18 @@ class ArtistWorkAdmin(BaseAdmin):
     autocomplete_lookup_fields = {
         'fk': ['artist']
     }
-    inlines = [ArtistWorkImageInline]
+    inlines = [ArtistWorkImageInline, VideoInline]
     list_filter = ('artist', 'published',)
     exclude = ('order',)
 
 class EventAdmin(BaseAdmin):
     search_fields = ['title'] 
     list_filter = ('featured_artists', 'published',)
-    raw_id_fields = ('featured_artists',)
+    raw_id_fields = ('featured_artists', 'featured_work')
+    inlines = [VideoInline]
     autocomplete_lookup_fields = {
-        'm2m': ['featured_artists']
+        'm2m': ['featured_artists'],
+        'm2m': ['featured_work']
     }    
 
 class FrontPageItemAdmin(SortableAdmin):
@@ -114,7 +120,7 @@ class ExhibitionAdmin(BaseAdmin):
     autocomplete_lookup_fields = {
         'm2m': ['featured_artists', 'featured_work'],
     }    
-    inlines = [ExhibitionReviewInline, ExhibitionPressReleaseInline]
+    inlines = [ExhibitionReviewInline, ExhibitionPressReleaseInline, VideoInline]
 
 class ChunkAdmin(admin.ModelAdmin):
     class Media:

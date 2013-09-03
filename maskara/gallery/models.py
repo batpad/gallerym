@@ -15,7 +15,28 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
 
-class Review(BaseModel):
+class OrderableBase(BaseModel):
+
+    class Meta:
+        abstract = True
+
+    def save(self, *args, **kwargs):
+        if self.order:
+            return super(self, Orderable).save(*args, **kwargs)
+        else:
+            fk_field = self.fk_field
+            fk_obj = self.__getattribute__(fk_field)
+            qset = self.__class__.objects.filter(**{fk_field: fk_obj})
+            if qset.count() == 0:
+                self.order = 0
+            else:
+                last_order = qset.order_by('-order')[0].order
+                self.order = last_order + 1
+            return super(OrderableBase, self).save(*args, **kwargs)             
+
+
+class Review(OrderableBase):
+    old_id = models.IntegerField(blank=True, null=True)
     title = models.CharField(max_length=1024)
     author = models.CharField(max_length=1024, blank=True)
     source = models.CharField(max_length=1024, blank=True)
@@ -30,7 +51,7 @@ class Review(BaseModel):
     
     class Meta:
         abstract = True
-        ordering = ['order']
+        ordering = ['order', 'id']
     
     def __unicode__(self):
         return self.title
@@ -38,6 +59,8 @@ class Review(BaseModel):
 
 class Video(BaseModel):
     title = models.CharField(max_length=1024)
+    description = models.TextField(blank=True)
+    duration = models.IntegerField(help_text="in minutes", blank=True, null=True)
     video_file = FileBrowseField("Video", max_length=1024, extensions=['.mp4', '.m4v'], blank=True, null=True)
     vimeo_id = models.CharField(max_length=128, blank=True)
     order = models.IntegerField()
@@ -45,16 +68,20 @@ class Video(BaseModel):
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
+    class Meta:
+        ordering = ['order', 'id']
+
     def __unicode__(self):
         return self.title
 
     def clean(self):
-        if not (video_file or vimeo_id):
+        if not (self.video_file or self.vimeo_id):
             raise ValidationError("Please link to a video file or enter the vimeo id for the video")
-        if (video_file and vimeo_id):
+        if (self.video_file and self.vimeo_id):
             raise ValidationError("Please enter only one of video file or vimeo id")
 
-class PressRelease(BaseModel):
+class PressRelease(OrderableBase):
+    old_id = models.IntegerField(blank=True, null=True)
     title = models.CharField(max_length=1024)
     author = models.CharField(max_length=512, blank=True)
     publisher = models.CharField(max_length=1024)
@@ -69,7 +96,7 @@ class PressRelease(BaseModel):
 
     class Meta:
         abstract = True
-        ordering = ['order']
+        ordering = ['order', 'id']
 
 
     def __unicode__(self):
@@ -86,6 +113,7 @@ class GalleryPerson(BaseModel):
         return self.name
 
 class Artist(BaseModel):
+    old_id = models.IntegerField(blank=True, null=True)
     name = models.CharField(max_length=512)
     slug = models.SlugField(unique=True)
     dob = models.DateField(blank=True, null=True)
@@ -118,6 +146,19 @@ class Artist(BaseModel):
    
     def __unicode__(self):
         return self.name
+
+'''
+class ArtistNews(BaseModel):
+    artist = models.ForeignKey(Artist)
+    title = models.CharField(max_length=1024)
+    text = models.TextField(blank=True)
+    url = models.URLField(blank=True)
+    date = models.DateField()
+
+    def __unicode__(self):
+        return self.title
+'''
+
 
 class ArtistInfoBase(BaseModel):
     artist = models.ForeignKey(Artist)
@@ -170,6 +211,7 @@ WORK_CATEGORIES = (
 )
 
 class ArtistWork(BaseModel):
+    old_id = models.IntegerField(blank=True, null=True)
     artist = models.ForeignKey(Artist)
     title = models.CharField(max_length=1024)
     image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
@@ -177,7 +219,7 @@ class ArtistWork(BaseModel):
     is_selected = models.BooleanField(default=False)
     category = models.CharField(choices=WORK_CATEGORIES, max_length=64)
     code = models.CharField(max_length=128, blank=True)
-    size = models.DecimalField(max_digits=10, decimal_places=2, blank=True) #FIXME: change to DecimalField
+    size = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True) #FIXME: change to DecimalField
     size_text = models.CharField(max_length=1024, blank=True)
     material = models.CharField(max_length=1024, blank=True)
     year = models.IntegerField(max_length=4, blank=True, null=True)
@@ -186,6 +228,7 @@ class ArtistWork(BaseModel):
     price = models.CharField(max_length=128, blank=True, null=True)
     published = models.BooleanField(default=False)
     order = models.PositiveIntegerField()
+    videos = generic.GenericRelation("Video")
 
     @staticmethod
     def autocomplete_search_fields():
@@ -235,13 +278,15 @@ class ArtistWorkImage(BaseModel):
 
 
 class ArtistReview(Review):
-    test = models.CharField(max_length=128)
+    #test = models.CharField(max_length=128)
     artist = models.ForeignKey("Artist")
+    fk_field = 'artist'
 
 
 class ArtistPressRelease(PressRelease):
-    test = models.CharField(max_length=128)
+    #test = models.CharField(max_length=128)
     artist = models.ForeignKey("Artist")
+    fk_field = 'artist'
 
 class FrontPageItem(BaseModel, Sortable):
     event = models.ForeignKey("Event", blank=True, null=True)
@@ -264,6 +309,7 @@ class FrontPageItem(BaseModel, Sortable):
 
 
 class Exhibition(BaseModel):
+    old_id = models.IntegerField(blank=True, null=True)
     title = models.CharField(max_length=1024)
     slug = models.SlugField(unique=True)
 #    is_front_page = models.BooleanField(default=False, help_text='Should this be displayed on the front-page?')
@@ -281,6 +327,7 @@ class Exhibition(BaseModel):
     featured_artists = models.ManyToManyField("Artist", blank=True, null=True)
     featured_work = models.ManyToManyField("ArtistWork", blank=True, null=True)
     published = models.BooleanField(default=False)
+    videos = generic.GenericRelation("Video")
 
     @property
     def class_name(self):
@@ -298,16 +345,19 @@ class Exhibition(BaseModel):
 
 class ExhibitionReview(Review):
     exhibition = models.ForeignKey(Exhibition)
+    fk_field = 'exhibition'
 
 
 class ExhibitionPressRelease(PressRelease):
     exhibition = models.ForeignKey(Exhibition)
+    fk_field = 'exhibition'
 
     class Meta:
         pass
 
 
 class Event(BaseModel):
+    old_id = models.IntegerField(blank=True, null=True)
     title = models.CharField(max_length=1024)
     slug = models.SlugField(unique=True)
 #    is_front_page = models.BooleanField(default=False, help_text='Should this be displayed on the front-page?')
@@ -316,10 +366,12 @@ class Event(BaseModel):
     time_to = models.TimeField()
     #featured_artist = models.ForeignKey(Artist, null=True, blank=True)
     featured_artists = models.ManyToManyField(Artist, blank=True)
+    featured_work = models.ManyToManyField(ArtistWork, blank=True)
     image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
     #image = models.ImageField(blank=True, upload_to='event_images/')
     description = models.TextField(blank=True)
     published = models.BooleanField(default=False)
+    videos = generic.GenericRelation("Video")
     
     @property
     def class_name(self):
@@ -337,6 +389,7 @@ class Event(BaseModel):
 
 class EventReview(Review):
     event = models.ForeignKey(Event)
+    fk_field = 'event'
 
 
 class EventPressRelease(PressRelease):
@@ -346,6 +399,7 @@ class EventPressRelease(PressRelease):
         pass
 
 class Publication(BaseModel):
+    old_id = models.IntegerField(blank=True, null=True)
     title = models.CharField(max_length=1024)
     author = models.CharField(max_length=1024, blank=True)
     date = models.DateField(blank=True, null=True)
