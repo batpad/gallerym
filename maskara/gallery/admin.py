@@ -71,7 +71,7 @@ class BaseAdmin(admin.ModelAdmin):
             '/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
             '/static/js/tinymce_setup.js',
         ]
-    list_display = ('__unicode__', 'published',)
+    list_display = ('__unicode__', 'id', 'published',)
     list_editable = ('published',)
      
 

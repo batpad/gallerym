@@ -246,10 +246,10 @@ class ArtistWork(BaseModel):
         super(ArtistWork, self).save(*args, **kwargs)
 
     class Meta:
-        ordering = ['order']
+        ordering = ['artist', 'order']
 
     def __unicode__(self):
-        return self.title
+        return "%s: %s" % (self.artist.name, self.title,)
 
 
 class ArtistWorkImage(BaseModel):
