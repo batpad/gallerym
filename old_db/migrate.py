@@ -1,10 +1,14 @@
 from maskara.gallery import models as new_models
 import models as old_models
-from django.template.defaultfilters import slugify, linebreaks
+from django.template.defaultfilters import slugify as django_slugify, linebreaks
 import datetime
 import codecs
 #from datetime.datetime import fromtimestamp
 ERRORS = []
+
+def slugify(txt):
+    txt = txt[0:64]
+    return django_slugify(txt)
 
 def import_artists():
     for o in old_models.Artists.objects.using('old').all():

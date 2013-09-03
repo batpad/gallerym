@@ -10,5 +10,5 @@ django-image-cropping
 django-celery
 django-chunks
 django-haystack==1.2.7
-Whoosh
+Whoosh==2.3
 
