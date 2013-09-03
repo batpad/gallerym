@@ -6,8 +6,9 @@ import codecs
 #from datetime.datetime import fromtimestamp
 ERRORS = []
 
-def slugify(txt):
-    txt = txt[0:64]
+def slugify(txt, id=""):
+    old_id = str(id)
+    txt = txt[0:64] + "-" + old_id
     if txt == '':
         txt = ''.join([choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)') for i in range(15)])
     return django_slugify(txt)
@@ -17,7 +18,7 @@ def import_artists():
         data = {
             'old_id': o.id,
             'name': o.title,
-            'slug': slugify(o.title),
+            'slug': slugify(o.title, o.id),
             'bio': linebreaks(o.copy_text),
             'is_represented': True if o.is_gm_artist == 1 else False,
             'published': True if o.publish == 1 else False
