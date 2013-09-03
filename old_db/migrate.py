@@ -8,6 +8,8 @@ ERRORS = []
 
 def slugify(txt):
     txt = txt[0:64]
+    if txt == '':
+        txt = ''.join([choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)') for i in range(15)])
     return django_slugify(txt)
 
 def import_artists():
