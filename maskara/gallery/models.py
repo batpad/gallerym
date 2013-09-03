@@ -203,11 +203,12 @@ class ArtistNews(BaseModel):
 
 
 WORK_CATEGORIES = (
-    ('painting', 'Painting'),
-    ('sculpture', 'Sculpture'),
-    ('photography', 'Photography'),
-    ('video', 'Video'),
-    ('installation', 'Installation'),
+    ('0', 'Uncategorized'),
+    ('1', 'Painting'),
+    ('2', 'Sculpture'),
+    ('3', 'Photography'),
+    ('4', 'Video'),
+    ('5', 'Installation'),
 )
 
 class ArtistWork(BaseModel):

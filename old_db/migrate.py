@@ -60,6 +60,7 @@ def import_artist_works():
             'code': o.code,
             'size_text': o.size,
             'material': o.material,
+            'year': int(o.yr) if o.yr else None,
             'theme': linebreaks(o.theme),
             'attribution': linebreaks(o.attribution),
             'price': o.price,
