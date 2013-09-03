@@ -60,7 +60,7 @@ def import_artist_works():
             'code': o.code,
             'size_text': o.size,
             'material': o.material,
-            'year': int(o.yr) if o.yr else None,
+            'year': getYear(o.yr),
             'theme': linebreaks(o.theme),
             'attribution': linebreaks(o.attribution),
             'price': o.price,
@@ -74,6 +74,13 @@ def import_artist_works():
 
         print str(w.id) + ": " + w.title
 
+
+def getYear(yr):
+    try:
+        year = int(yr)
+    except:
+        year = None
+    return year
 
 def import_exhibitions():
     for o in old_models.ExDetails.objects.using('old').all():
