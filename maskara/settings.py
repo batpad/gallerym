@@ -72,7 +72,7 @@ USE_TZ = True
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT = join(PROJECT_ROOT, 'media')
-FILEBROWSER_DIRECTORY = ""
+FILEBROWSER_DIRECTORY = "files/"
 
 FILEBROWSER_MAX_UPLOAD_SIZE = 104857600
 FILEBROWSER_VERSIONS_BASEDIR = "auto_thumbnails/"

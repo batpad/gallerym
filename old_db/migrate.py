@@ -3,8 +3,13 @@ import models as old_models
 from django.template.defaultfilters import slugify as django_slugify, linebreaks
 import datetime
 import codecs
+import os
+from os.path import join
+from shutil import copyfile
+from maskara.settings import MEDIA_ROOT
 #from datetime.datetime import fromtimestamp
 ERRORS = []
+OLD_ASSETS_PATH = '/var/www/gallerymaskara.com/site/'
 
 def slugify(txt, id=""):
     old_id = str(id)
@@ -13,11 +18,25 @@ def slugify(txt, id=""):
         txt = ''.join([choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)') for i in range(15)])
     return django_slugify(txt)
 
+def get_asset(filename, new_path):
+    if filename.endswith("pdf"):
+        old_path = join(OLD_ASSETS_PATH, "pdf")
+    else:
+        old_path = join(OLD_ASSETS_PATH, "assets")
+    src = join(old_path, filename)
+    if not os.path.exists(src):
+        ERRORS.append("FILE NOT FOUND: " + src + "\n\n")
+        return ''    
+    dst = join(MEDIA_ROOT, 'files', new_path, filename)
+    copyfile(src, dst)
+    return join('files', new_path, filename)
+
 def import_artists():
     for o in old_models.Artists.objects.using('old').all():
         data = {
             'old_id': o.id,
             'name': o.title,
+            'image': get_asset(o.image, 'old_artist_images') if o.image != '' else '',
             'slug': slugify(o.title, o.id),
             'bio': linebreaks(o.copy_text),
             'is_represented': True if o.is_gm_artist == 1 else False,
@@ -36,6 +55,8 @@ def import_bios():
             ERRORS.append(error)
             continue
         artist.birth_location = o.birth
+        artist.bio_pdf = get_asset(o.pdf, 'artist_bio_pdfs') if o.pdf != '' else ''
+        artist.save()
         add_artist_data(artist, new_models.ArtistEducation, get_artist_data(o.edu))
         add_artist_data(artist, new_models.ArtistSoloExhib, get_artist_data(o.solo))
         add_artist_data(artist, new_models.ArtistGroupExhib, get_artist_data(o.grp))
@@ -56,6 +77,7 @@ def import_artist_works():
             'artist': artist,
             'old_id': o.id,
             'title': o.title,
+            'image': get_asset(o.image, 'old_artist_work_images') if o.image != '' else '',
             'category': o.cat,
             'code': o.code,
             'size_text': o.size,
@@ -123,6 +145,7 @@ def import_events():
             'old_id': o.id,
             'title': o.title,
             'slug': slugify(o.title),
+            'pdf': get_asset(o.pdf, 'event_pdfs') if o.pdf != '' else '',
             'date': fromtimestamp(o.date1),
             'time_from': get_time_from_string(o.time1),
             'time_to': get_time_from_string(o.time2),
@@ -145,6 +168,7 @@ def import_press():
         obj.title = o.title
         obj.author = o.author
         obj.publisher = o.publisher
+        obj.pdf = get_asset(o.pdf, "press_pdfs") if o.pdf != '' else ''
         obj.date = fromtimestamp(o.date)
         obj.description = linebreaks(o.copy_text)
         obj.url = o.url
@@ -168,6 +192,7 @@ def import_reviews():
         obj.title = o.title
         obj.author = o.author
         obj.source = o.source
+        obj.pdf = get_asset(o.pdf, "review_pdfs") if o.pdf else ''
         obj.translated_by = o.translated_by
         obj.date = fromtimestamp(o.date)
         obj.description = linebreaks(o.copy_text)
@@ -185,6 +210,7 @@ def import_publications():
             'title': o.title,
             'author': o.author,
             'editor': o.editor,
+            'pdf': get_asset(o.pdf, 'publication_pdfs') if o.pdf != '' else '',
             'publisher': o.publisher,
             'isbn': o.isbn,
             'available': True if o.availability == 1 else False,

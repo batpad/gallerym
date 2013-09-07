@@ -13,7 +13,7 @@ from sortable.models import Sortable
 from django.core.exceptions import ValidationError
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
-
+from easy_thumbnails.files import get_thumbnailer
 
 class OrderableBase(BaseModel):
 
@@ -209,6 +209,7 @@ WORK_CATEGORIES = (
     ('3', 'Photography'),
     ('4', 'Video'),
     ('5', 'Installation'),
+    ('6', 'Print'),
 )
 
 class ArtistWork(BaseModel):
@@ -218,6 +219,7 @@ class ArtistWork(BaseModel):
     image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
     #image = models.ImageField(upload_to='work_images/', blank=True)
     is_selected = models.BooleanField(default=False)
+    is_available = models.BooleanField(default=False)
     category = models.CharField(choices=WORK_CATEGORIES, max_length=64)
     code = models.CharField(max_length=128, blank=True)
     size = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True) #FIXME: change to DecimalField
@@ -234,6 +236,17 @@ class ArtistWork(BaseModel):
     @staticmethod
     def autocomplete_search_fields():
         return ("id__iexact", "title__icontains",)
+
+    def get_thumbnail(self):
+        if (self.image):
+            options = {'size': (60, 60), 'crop': True}
+            url = get_thumbnailer(self.image.path).get_thumbnail(options).url
+            return "<img src='%s' />" % url
+        else:
+            return ''
+
+    get_thumbnail.allow_tags = True
+    get_thumbnail.short_description = "Thumbnail"
 
     def save(self, *args, **kwargs):
         if self.order is None:
@@ -369,6 +382,7 @@ class Event(BaseModel):
     featured_artists = models.ManyToManyField(Artist, blank=True)
     featured_work = models.ManyToManyField(ArtistWork, blank=True)
     image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
+    pdf = FileBrowseField("PDF", max_length=1024, extensions=["*.pdf"], blank=True, null=True)
     #image = models.ImageField(blank=True, upload_to='event_images/')
     description = models.TextField(blank=True)
     published = models.BooleanField(default=False)

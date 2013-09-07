@@ -78,12 +78,14 @@ class BaseAdmin(admin.ModelAdmin):
 class ArtistAdmin(BaseAdmin):
     search_fields = ['name']
     list_display = BaseAdmin.list_display + ('is_represented',)
+    list_editable = ['published', 'is_represented']
     list_filter = ('is_represented', 'published',)
     inlines = [ArtistNewsInline, ArtistWorkInline, ArtistEducationInline, ArtistReviewInline, ArtistSoloExhibInline, ArtistGroupExhibInline, ArtistAwardInline, ArtistCollectionInline, ArtistPressReleaseInline, ArtistPressInline, ArtistNewsInline, VideoInline]
 
 class ArtistWorkAdmin(BaseAdmin):
     search_fields = ['title', 'artist__name']
-    list_display = BaseAdmin.list_display + ('code', 'category', 'year', 'is_selected',)
+    list_display = BaseAdmin.list_display + ('code', 'category', 'year', 'is_selected', 'is_available', 'get_thumbnail')
+    list_editable = ['published', 'category', 'is_selected', 'is_available']
     raw_id_fields = ('artist',)
     autocomplete_lookup_fields = {
         'fk': ['artist']
