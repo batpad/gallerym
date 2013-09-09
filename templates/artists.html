@@ -5,90 +5,20 @@
 <div id="sideBar" class="col25">
     
     <div class="sideBarTitles">
-        <p><a href="">All Artists</a></p>
-        <p><a href="artists/represented">Represented Artists</a></p>
+        <p><a href="/artists">All Artists</a></p>
+        <p><a href="/artists/represented">Represented Artists</a></p>
     </div>
     
 </div> <!-- end side bar  -->
 
 <div id="mainBar" class="col75">
     <div class="thumbnailBlock">
-        <a href="/selected" class="thumbEach col25">
-            <p class="ellipsis">Artist Name</p>
-            <img src="/static/img/news1.jpg" alt="">            
+        {% for a in artists %}
+        <a href="{{ a.url }}" class="thumbEach col25">
+            <p class="ellipsis">{{ a.name }}</p>
+            <img src="{{ a.image }}" alt="">            
         </a>
-
-        <a href="/selected" class="thumbEach col25">
-            <p class="ellipsis">Artist Name</p>
-            <img src="/static/img/news2.jpg" alt="">            
-        </a>
-
-        <a href="/selected" class="thumbEach col25">
-            <p class="ellipsis">Artist Name</p>
-            <img src="/static/img/news3.jpg" alt="">            
-       </a>
-        
-        <a href="/selected" class="thumbEach col25">
-            <p class="ellipsis">Artist Name</p>
-            <img src="/static/img/news1.jpg" alt="">            
-       </a>
-
-        <a href="/selected" class="thumbEach col25">
-            <p class="ellipsis">Artist Name</p>
-            <img src="/static/img/news1.jpg" alt="">            
-       </a>
-
-        <a href="/selected" class="thumbEach col25">
-            <p class="ellipsis">Artist Name</p>
-            <img src="/static/img/news2.jpg" alt="">            
-       </a>
-
-        <a href="/selected" class="thumbEach col25">
-            <p class="ellipsis">Artist Name</p>
-            <img src="/static/img/news3.jpg" alt="">            
-       </a>
-        
-        <a href="/selected" class="thumbEach col25">
-            <p class="ellipsis">Artist Name</p>
-            <img src="/static/img/news1.jpg" alt="">            
-       </a>
-
-        <a href="/selected" class="thumbEach col25">
-            <p class="ellipsis">Artist Name</p>
-            <img src="/static/img/news1.jpg" alt="">            
-       </a>
-
-        <a href="/selected" class="thumbEach col25">
-            <p class="ellipsis">Artist Name</p>
-            <img src="/static/img/news2.jpg" alt="">            
-       </a>
-
-        <a href="/selected" class="thumbEach col25">
-            <p class="ellipsis">Artist Name</p>
-            <img src="/static/img/news3.jpg" alt="">            
-       </a>
-        
-        <a href="/selected" class="thumbEach col25">
-            <p class="ellipsis">Artist Name</p>
-            <img src="/static/img/news1.jpg" alt="">            
-       </a>
-
-        <a href="/selected" class="thumbEach col25">
-            <p class="ellipsis">Artist Name</p>
-            <img src="/static/img/news1.jpg" alt="">            
-       </a>
-
-        <a href="/selected" class="thumbEach col25">
-            <p class="ellipsis">Artist Name</p>
-            <img src="/static/img/news2.jpg" alt="">            
-       </a>
-
-        <a href="/selected" class="thumbEach col25">
-            <p class="ellipsis">Artist Name</p>
-            <img src="/static/img/news3.jpg" alt="">            
-       </a>
-        
-
+        {% endfor %}
     </div> <!-- end thumbnail block  -->
     
     

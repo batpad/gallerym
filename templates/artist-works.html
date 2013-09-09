@@ -1,0 +1,28 @@
+{% extends 'artistbase.html' %}
+
+{% block mainbar %}    
+    <div id="selectedThumbs">
+        <h1 class="selectedHeading floatLeft">{{ artist.name }}</h1>
+
+        {% include 'includes/works_pagination.html' %}
+        
+        <div class="clear"></div>
+        
+        <div class="thumbnailBlock">
+            {% for item in page.object_list %}
+            <div class="thumbEach col25">
+                <a href="{{ item.get_absolute_url }}">
+                    <img src="{{ item.list_image }}" alt="{{ item.title }}">
+                </a>    
+            </div>
+            {% endfor %}
+
+    
+        </div> <!-- end thumbnail block  -->
+        
+        {% include 'includes/works_pagination.html' %}
+
+    </div> <!-- end selected thumbs  -->            
+{% endblock %}    
+    
+

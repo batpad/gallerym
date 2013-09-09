@@ -50,7 +50,7 @@
     
     <div class="sideBar col25">                
         <div class="sideBarTitles">
-            <p>Current Exhibition</p>
+            <p>Current {{ main_item_type }}</p>
         </div>
         
     </div> <!-- end side bar  -->
@@ -58,14 +58,16 @@
     <div class="mainBar col75">
         <div id="contentHome">
             <div class="homeMain">
-                <h1>Are The Limits Of My Language, The Limits Of My World?</h1>
-                    <p class="blue">Artist or Artists</p>
+                <h1><a href="{{ main_item.url }}">{{ main_item.title }}</a></h1>
+                    <p class="blue">{{ main_item.artists }}</p>
                 <div class="smallestFont">
-                    <p>Curated by (optional)</p>
-                    <p>Preview Date (optional)</p>
-                    <p>November 20 to December 29, 2012</p>
+                    {% for line in text_lines %}
+                    <p>{{ line }}</p>
+                    {% endfor %}
+                    <p>{{ main_item.start_date|date:"F d, Y" }} {% if main_item.end_date %} to {{ main_item.end_date|date:"F d, Y" }} {% endif %} 
+                    <!-- <p>November 20 to December 29, 2012</p> -->
                 </div>
-                <img src="/static/img/home-main.jpg" alt="home-main" id="homeMain">    
+                <img src="{{ main_item.large_image }}" alt="{{ main_item.title }}" id="homeMain">    
             </div> <!-- end home main  -->
         </div> <!-- end content home  -->
         
@@ -81,35 +83,22 @@
     </div>
 
     <div class="mainBar col75">
+        {% for item in items %}
         <div class="homeSecondary col33">
             <div class="smallestFont homeSecondaryText">
-                <p class="title ellipsis" title="Are The Limits Of My Language, The Limits of the world">Are The Limits Of My Language, The Limits of My World</p>
-                <p class="blue ellipsis">Artist</p>
-                <p class="ellipsis">Location: Gallery Maskara</p>
-                <p class="ellipsis">Date: December 11, 2012 - January 1, 2013</p>
-            </div>    
+                <p class="title ellipsis" title="{{ item.title }}">
+                    <a href="{{ item.url }}">{{ item.title }}</a>
+                </p>
+                <p class="blue ellipsis">{{ item.artists }}</p>
+                {% for line in lines %}
+                <p class="ellipsis">{{ line }}</p>
+                {% endfor %}
+                <p class="ellipsis">Date: {{ item.start_date|date:"F d, Y" }} {% if item.end_date %} - {{ item.end_date|date:"F d, Y" }} {% endif %}</p>
+            </div>
             <img src="/static/img/news1.jpg" alt="" class="homeSecondaryImg">
         </div> <!-- end home secondary  -->
 
-        <div class="homeSecondary col33">
-            <div class="smallestFont homeSecondaryText">
-                <p class="title ellipsis">Name of show</p>
-                <p class="blue ellipsis">Artist</p>
-                <p class="ellipsis">Location: Kochi, India</p>
-                <p class="ellipsis">Date: December 11, 2012 - January 1, 2013</p>
-            </div>    
-            <img src="/static/img/news2.jpg" alt="" class="homeSecondaryImg">
-        </div> <!-- end home secondary  -->
-
-        <div class="homeSecondary col33">
-            <div class="smallestFont homeSecondaryText">
-                <p class="title ellipsis">Name of show</p>
-                <p class="blue ellipsis">Artist</p>
-                <p class="ellipsis">Location: Kochi, India</p>
-                <p class="ellipsis">Date: December 11, 2012 - January 1, 2013</p>
-            </div>    
-            <img src="/static/img/news3.jpg" alt="" class="homeSecondaryImg">
-        </div> <!-- end home secondary  -->
+        {% endfor %}
 
     </div> <!-- end main bar  -->
 
@@ -126,28 +115,15 @@
         
         <div class="flexslider homeCarousel">
         <ul class="slides">
+            {% for p in publications %}
           <li>
             <div class="smallestFont">
-                <p>Gallery Maskara</p>
-                <p>Volume III</p>
+                <p>{{ p.publisher }}</p>
+                <p><a href="{{ p.url }}">{{ p.title }}</a></p>
             </div>
-            <img src="/static/img/catalogue1.jpg" />
+            <img src="{{ p.image }}" />
           </li>
-          <li>
-            <div class="smallestFont">
-                <p>Gallery Maskara</p>
-                <p>Volume III</p>
-            </div>
-            <img src="/static/img/catalogue2.jpg" />
-          </li>
-          <li>
-            <div class="smallestFont">
-                <p>Gallery Maskara</p>
-                <p>Volume III</p>
-            </div>
-            <img src="/static/img/catalogue1.jpg" />
-          </li>
-          <!-- items mirrored twice, total of 12 -->
+            {% endfor %}
         </ul>
       </div> <!-- end flexslider  -->
       

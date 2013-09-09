@@ -6,9 +6,9 @@
     <div id="sideBar" class="col25">
     
         <div class="sideBarTitles">
-        <p><a href="/exhibitions/current">Current Exhibition</a></p>
-        <p><a href="/exhibitions/upcoming">Upcoming Exhibitions</a></p>
-        <p><a href="/exhibitions/previous">Previous Exhibitions</a></p>
+            <p><a href="/exhibitions/current">Current Exhibition</a></p>
+            <p><a href="/exhibitions/upcoming">Upcoming Exhibitions</a></p>
+            <p><a href="/exhibitions/previous">Previous Exhibitions</a></p>
         </div>
      
     </div> <!-- end side bar  -->
@@ -18,24 +18,54 @@
 <div id="mainBar" class="col75">
     {% block exib_info %}
     <div class="exibMain">
-        <h1>Glimpse of Thirst</h1>
-            <p class="smallestFont">In collaboration with Geukens and De Vil, Belgium</p>
+        <h1>{{ exhibition.title }}</h1>
+            {% if exhibition.oneliner %}
+                <p class="smallestFont">{{ exhibition.oneliner }}</p>
+            {% endif %}
             <br>
-            <p>Shine Shivam</p>
+            <p>{{ exhibition.get_artists_string }}</p>
         <div class="smallestFont">
-            <p class="blue">January 11 to February 28, 2013</p>   <!-- SANJ, make a provision for date for first also, incase December 11 2013 to Jan 11, 2014  -->
-            <p>Preview: January 10, 2013</p>
+            {% if exhibition.is_same_year %}
+            <p class="blue">{{ exhibition.start_date|date:"F j" }} to {{ exhibition.end_date|date:"F j, Y" }}</p>
+            {% else %}   <!-- SANJ, make a provision for date for first also, incase December 11 2013 to Jan 11, 2014  -->
+            <p class="blue">{{ exhibition.start_date|date:"F j, Y" }} to {{ exhibition.end_date|date:"F j, Y" }}</p>
+            {% endif %}
+            
+            {% if exhibition.preview_date %}
+            <p>Preview: {{ exhibition.preview_date|date:"F j, Y" }}</p>
+            {% endif %}
+
+            {% if exhibition.location %}
             <p>Location: Gallery Maskara</p>
+            {% endif %}
+
         </div>
     </div> <!-- end exib main  -->
     
     <div class="anchorsExhibition">
-        <a href="/exhibitions/current">Overview</a>
-        <a href="/exhibitions/exhib-name/works">Works</a>
-        <a href="/exhibitions/exhib-name/artists">Artists</a>  
-        <a href="/exhibitions/exhib-name/press">Press</a>
-        <a href="/exhibitions/exhib-name/publications">Publications</a>
-        <a href="/exhibitions/exhib-name/videos">Videos</a>
+
+        <a href="{{ url }}/overview">Overview</a>
+
+        {% if exhibition.has_works %}
+        <a href="{{ url }}/works">Works</a>
+        {% endif %}
+
+        {% if exhibition.has_artists %}
+        <a href="{{ url }}/artists">Artists</a>
+        {% endif %}
+
+        {% if exhibition.has_press %}
+        <a href="{{ url }}/press">Press</a>
+        {% endif %}
+
+        {% if exhibition.has_publications %}
+        <a href="{{ url }}/publications">Publications</a>
+        {% endif %}
+
+        {% if exhibition.has_videos %}
+        <a href="{{ url }}/videos">Videos</a>
+        {% endif %}
+
     </div> <!-- end anchorsExhibition  -->    
     {% endblock %}
 

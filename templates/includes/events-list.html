@@ -1,0 +1,19 @@
+{% for e in events %}
+    <div class="exhibPrevEach">
+        <div class="col25">
+            <img src="{{ e.get_list_image }}" alt="{{ e.title }}">
+        </div>
+        <div class="col75 exhibPrevDesc">
+            <p>{{ e.date|date:"Y" }}</p>
+            <p><strong>{{ e.title }}</strong></p>
+            <p>{{ e.date|date:"l jS F" }}, {{ e.start_time|time:"P" }}{% if e.end_time %}-{{ e.end_time|time:"P" }}{% endif %}</p>
+            <!-- <p>Location: Gallery Maskara</p> -->
+            {% if e.location %}
+            <p>Location: {{ e.location }}</p>
+            {% endif %}
+            <a href="{{ e.get_absolute_url }}" class="smallerFont">View Event</a>
+        </div>
+    <div class="clear"></div>
+    </div> <!-- end exhib Prev Each -->
+{% endfor %}
+

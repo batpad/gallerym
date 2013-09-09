@@ -1,0 +1,12 @@
+{% if artist.bio_pdf or artist.url %}
+<div class="bioDownloadInfo col30 smallestFont">
+    {% if artist.bio_pdf %}
+    <p><a href="{{ artist.bio_pdf.url }}" target="_blank" class="downloadPdf">Download PDF</a></p>
+    {% endif %}
+    {% if artist.url %}
+    <p class="ellipsis"><a href={{ artist.url }}"">{{ artist.url }}</a></p>
+    {% endif %}
+
+</div> <!-- end bio download info  -->
+{% endif %}
+

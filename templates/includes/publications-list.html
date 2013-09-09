@@ -1,0 +1,26 @@
+
+{% for p in publications %}
+<div class="exhibPrevEach">
+    <div class="publicationImg">
+        <img src="{{ p.list_image }}" alt="{{ p.title }}">
+    </div>
+    <div class="publicationDesc">
+        {% if p.date %}
+        <p>{{ p.date|date:"F Y" }}</p>
+        {% endif %}
+        <p><strong>{{ p.title }}</strong></p>
+
+        {% if p.author %}
+        <p>Author: {{ p.author }}</p>
+        {% endif %}
+
+        <br>
+        {{ p.description|safe }}
+
+        {% if p.pdf %}
+        <a href="{{ p.pdf.url }}" class="smallerFont linkExternal" target="_blank">View Link</a>
+        {% endif %}
+
+    </div>
+</div> <!-- end exhib Prev Each -->
+{% endif %}

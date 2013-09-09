@@ -15,6 +15,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from easy_thumbnails.files import get_thumbnailer
 
+from maskara.base.managers import PublishedManager
+
 class OrderableBase(BaseModel):
 
     class Meta:
@@ -129,13 +131,28 @@ class Artist(BaseModel):
     is_represented = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
     videos = generic.GenericRelation("Video")
+    objects = PublishedManager()
 
     @staticmethod
     def autocomplete_search_fields():
         return ("id__iexact", "name__icontains",)
 
     def get_absolute_url(self):
-        return "/artist/%s/" % self.slug
+        return "/artist/%s" % self.slug
+
+    def get_list_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'url': self.get_absolute_url(),
+            'image': self.list_image()
+        }
+
+    def list_image(self):
+        return self.get_image({'size': ((150,150,)), 'crop': True, 'upscale': True})
+
+    def get_main_image(self):
+        return self.get_image({'size': (450,450), 'upscale': True})
 
     class Meta:
         ordering = ['name']
@@ -146,6 +163,49 @@ class Artist(BaseModel):
    
     def __unicode__(self):
         return self.name
+
+    def has_selected(self):
+        return self.artistwork_set.filter(is_selected=True).count() > 0
+
+    def has_available(self):
+        return self.artistwork_set.filter(is_available=True).count() > 0
+
+    def has_exhibitions(self):
+        return Exhibition.objects.filter(featured_artists=self).count() > 0
+
+    def has_education(self):
+        return self.artisteducation_set.count() > 0
+
+    def has_solo_exhibs(self):
+        return self.artistsoloexhib_set.count() > 0
+
+    def has_group_exhibs(self):
+        return self.artistgroupexhib_set.count() > 0
+
+    def has_collections(self):
+        return self.artistcollection_set.count() > 0
+
+    def has_awards(self):
+        return self.artistaward_set.count() > 0
+
+    def has_cv(self):
+        return self.has_education() or self.has_solo_exhibs() or self.has_group_exhibs() or self.has_collections() or self.has_awards()
+
+    def has_press(self):
+        return self.artistpress_set.count() > 0
+
+    def has_publications(self):
+        return self.publication_set.count() > 0
+
+    def has_news(self):
+        return self.artistnews_set.count() > 0
+
+    def has_videos(self):
+        return self.videos.count() > 0    
+
+
+
+    
 
 '''
 class ArtistNews(BaseModel):
@@ -168,6 +228,20 @@ class ArtistInfoBase(BaseModel):
 
     def __unicode__(self):
         return "%s: %s" % (self.year, strip_tags(self.text),)
+
+    @classmethod
+    def get_by_year(kls, artist):
+        years = {}
+        for obj in kls.objects.filter(artist=artist).order_by('year'):
+            year = obj.year
+            if year not in years.keys():
+                years[year] = []
+            item = {
+                'text': obj.text,
+                'link': obj.link
+            }            
+            years[year].append(item)
+        return years
 
     class Meta:
         abstract = True
@@ -237,16 +311,27 @@ class ArtistWork(BaseModel):
     def autocomplete_search_fields():
         return ("id__iexact", "title__icontains",)
 
+    def get_absolute_url(self):
+        return "/work/%s/%d" % (self.artist.slug, self.id,)
+
     def get_thumbnail(self):
+        '''
+            for admin view
+        '''
         if (self.image):
             options = {'size': (60, 60), 'crop': True}
-            url = get_thumbnailer(self.image.path).get_thumbnail(options).url
+            url = self.get_image(options)
+            #url = get_thumbnailer(self.image.path).get_thumbnail(options).url
             return "<img src='%s' />" % url
         else:
             return ''
 
     get_thumbnail.allow_tags = True
     get_thumbnail.short_description = "Thumbnail"
+
+    def list_image(self):
+        options = {'size': (152, 152)}
+        return self.get_image(options)
 
     def save(self, *args, **kwargs):
         if self.order is None:
@@ -315,6 +400,46 @@ class FrontPageItem(BaseModel, Sortable):
         if (self.event and self.exhibition):
             raise ValidationError("Please chose only one of either an event or exhibition")
 
+    def get_type(self):
+        if self.event:
+            return "Event"
+        elif self.exhibition:
+            return "Exhibition"
+        else:
+            raise
+
+    def get_data(self):
+        if self.event:
+            return self.get_event_data()
+        else:
+            return self.get_exhib_data()
+
+    def get_event_data(self):
+        return {
+            'id': self.event.id,
+            'url': self.event.get_absolute_url(),
+            'title': self.event.title,
+            'large_image': self.event.get_image({'size': (800,)}),
+            'thumb': self.event.get_image({'size': (150,150,), 'crop': True}),
+            'artists': self.event.get_artists_string(),
+            'start_date': self.event.date,
+            'end_date': None,
+            'text_lines': self.event.get_text_lines()
+        }
+
+    def get_exhib_data(self):
+        return {
+            'id': self.exhibition.id,
+            'url': self.exhibition.get_absolute_url(),
+            'title': self.exhibition.title,
+            'large_image': self.exhibition.get_image({'size': (800,)}),
+            'thumb': self.exhibition.get_image({'size': (150,150,), 'crop': True}),
+            'artists': self.exhibition.get_artists_string(),
+            'start_date': self.exhibition.start_date,
+            'end_date': self.exhibition.end_date,
+            'text_lines': self.exhibition.get_text_lines()
+        }
+
     def __unicode__(self):
         if (self.event):
             return "Event: " + unicode(self.event)
@@ -325,6 +450,8 @@ class FrontPageItem(BaseModel, Sortable):
 class Exhibition(BaseModel):
     old_id = models.IntegerField(blank=True, null=True)
     title = models.CharField(max_length=1024)
+    one_liner = models.CharField(max_length=512, blank=True)
+    location = models.CharField(max_length=255, default="Gallery Maskara")
     slug = models.SlugField(unique=True)
 #    is_front_page = models.BooleanField(default=False, help_text='Should this be displayed on the front-page?')
     start_date = models.DateField()
@@ -336,6 +463,8 @@ class Exhibition(BaseModel):
     autopublish_date = models.DateField()
     curated_by = models.CharField(max_length=512, blank=True)
     image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
+    pdf = FileBrowseField("PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
+    press_release = FileBrowseField("PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
     #image = models.ImageField(blank=True, upload_to='exhibition_images/')
     #cropping = ImageRatioField('image', '430x360', size_warning=True)
     featured_artists = models.ManyToManyField("Artist", blank=True, null=True)
@@ -346,15 +475,56 @@ class Exhibition(BaseModel):
     @property
     def class_name(self):
         return(self._meta.verbose_name)
-    
+
+    @classmethod
+    def get_current(kls):
+        return kls.objects.all().order_by('-start_date')[0]  
+ 
+    def get_artists_string(self):
+        return ", ".join([a.name for a in self.featured_artists.all()])
+
+    def is_same_year(self):
+        return self.start_date.year == self.end_date.year        
+
+    def get_text_lines(self):
+        lines = []
+        if self.curated_by:
+            lines.append("Curated by %s" % self.curated_by)
+        if self.preview_date:
+            dtformat = self.preview_date.strftime("%B %d, %Y")
+            lines.append("Preview Date %s" % dtformat)
+        return lines
+
+    def list_image(self):
+        return self.get_image({'size': (150,150,), 'crop': True, 'upscale': True})
+
+    def main_image(self):
+        return self.get_image({'size': (800,800,), 'upscale': True})
+ 
     def get_absolute_url(self):
-        return "/exhibition/%s/" % self.slug
+        return "/exhibition/%s" % self.slug
 
     class Meta:
         pass
 
     def __unicode__(self):
         return self.title
+
+    def has_works(self):
+        return self.featured_work.count() > 0
+
+    def has_artists(self):
+        return self.featured_artists.count() > 0
+
+    def has_press(self):
+        return self.exhibitionreview_set.count() > 0
+
+    def has_publications(self):
+        return self.publication_set.count() > 0
+
+    def has_videos(self):
+        return self.videos.count() > 0
+        
 
 
 class ExhibitionReview(Review):
@@ -374,6 +544,7 @@ class Event(BaseModel):
     old_id = models.IntegerField(blank=True, null=True)
     title = models.CharField(max_length=1024)
     slug = models.SlugField(unique=True)
+    location = models.CharField(max_length=512, default="Gallery Maskara", blank=True)
 #    is_front_page = models.BooleanField(default=False, help_text='Should this be displayed on the front-page?')
     date = models.DateField()
     time_from = models.TimeField()
@@ -383,23 +554,61 @@ class Event(BaseModel):
     featured_work = models.ManyToManyField(ArtistWork, blank=True)
     image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
     pdf = FileBrowseField("PDF", max_length=1024, extensions=["*.pdf"], blank=True, null=True)
+    press_release = FileBrowseField("PDF", max_length=1024, extensions=["*.pdf"], blank=True, null=True)
     #image = models.ImageField(blank=True, upload_to='event_images/')
     description = models.TextField(blank=True)
     published = models.BooleanField(default=False)
     videos = generic.GenericRelation("Video")
-    
+   
+    @classmethod
+    def get_current(kls):
+        return kls.objects.all().order_by('-date')[0]
+ 
     @property
     def class_name(self):
         return(self._meta.verbose_name)
 
+    def get_artists_string(self):
+        return ",".join([a.name for a in self.featured_artists.all()])
+
+    def get_list_image(self):
+        return self.get_image({'size': (188,188,)})
+
+    def main_image(self):
+        return self.get_image({'size': (800,800,)})
+
+    def get_text_lines(self):
+        lines = []
+        if self.location:
+            lines.append("Location: " + self.location)
+        return lines
+
     def get_absolute_url(self):
-        return "/event/%s/" % self.slug
+        return "/event/%s" % self.slug
 
     class Meta:
         pass
 
     def __unicode__(self):
         return self.title
+
+    def has_works(self):
+        return self.featured_work.count() > 0
+
+    def has_artists(self):
+        return self.featured_artists.count() > 0
+
+    '''
+    def has_press(self):
+        return self.exhibitionreview_set.count() > 0
+    '''
+
+    def has_publications(self):
+        return self.publication_set.count() > 0
+
+    def has_videos(self):
+        return self.videos.count() > 0
+
 
 
 class EventReview(Review):
@@ -416,6 +625,7 @@ class EventPressRelease(PressRelease):
 class Publication(BaseModel):
     old_id = models.IntegerField(blank=True, null=True)
     title = models.CharField(max_length=1024)
+    description = models.TextField(blank=True)
     author = models.CharField(max_length=1024, blank=True)
     date = models.DateField(blank=True, null=True)
     editor = models.CharField(max_length=1024, blank=True)
@@ -436,6 +646,20 @@ class Publication(BaseModel):
     def class_name(self):
         return(self._meta.verbose_name)
 
+    def get_frontpage_dict(self):
+        return {
+            'id': self.id,
+            'url': self.get_absolute_url(),
+            'publisher': self.publisher,
+            'title': self.title,
+            'image': self.list_image()
+        }
+
+    def list_image(self):
+        return self.get_image({'size': (102,152,)})
+
+    def get_absolute_url(self):
+        return "/publication/%d" % self.id
 
     class Meta:
         pass

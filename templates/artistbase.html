@@ -6,15 +6,41 @@
     <div id="sideBar" class="col25">
     
         <div class="sideBarTitles">
-            <p><a href="/selected">Selected Work</a></p>
-            <p><a href="/available">Available Work</a></p>
-            <p><a href="/exhibitions">Exhibitions</a></p>
-            <p><a href="/biography">Biography</a></p>
-            <p><a href="/cv">Curriculum Vitae</a></p>
-            <p><a href="/press">Press</a></p>
-            <p><a href="/publications">Publications</a></p>
-            <p><a href="/news">News</a></p>
-            <p><a href="/videos">Videos</a></p>
+
+            {% if artist.has_selected %}
+            <p><a href="{{ url }}/selected">Selected Work</a></p>
+            {% endif %}
+
+            {% if artist.has_available %}
+            <p><a href="{{ url }}/available">Available Work</a></p>
+            {% endif %}
+
+            {% if artist.has_exhibitions %}
+            <p><a href="{{ url }}/exhibitions">Exhibitions</a></p>
+            {% endif %}
+
+            <p><a href="{{ url }}/biography">Biography</a></p>
+
+            {% if artist.has_cv %}
+            <p><a href="{{ url }}/cv">Curriculum Vitae</a></p>
+            {% endif %}
+
+            {% if artist.has_press %}
+            <p><a href="{{ url }}/press">Press</a></p>
+            {% endif %}
+
+            {% if artist.has_publications %}
+            <p><a href="{{ url }}/publications">Publications</a></p>
+            {% endif %}
+
+            {% if artist.has_news %}
+            <p><a href="{{ url }}/news">News</a></p>
+            {% endif %}
+
+            {% if artist.has_videos %}
+            <p><a href="{{ url }}/videos">Videos</a></p>
+            {% endif %}
+
         </div>
      
     </div> <!-- end side bar  -->

@@ -1,23 +1,22 @@
 {% extends 'artistbase.html' %}
 
 {% block mainbar %}
-    <h1 class="selectedHeading">Max Streicher</h1>
+    <h1 class="selectedHeading">{{ artist.name }}</h1>
     <div class="smallestFont">
-        <p>1958 Born, Olds, Alberta, Canada</p>
+        <p>
+             {% if artist.dob %} {{ artist.dob|date:"Y" }} Born, {% endif %}
+             {% if artist.birth_location %}Olds, Alberta, Canada {% endif %}
+
+        </p>
     </div>
     
-    <img src="/static/img/artist.jpg" alt="" class="imgBio">
+    <img src="{{ artist.get_main_image }}" alt="{{ artist.name }}" class="imgBio">
     
     <div class="bioContent col70">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis aspernatur porro minus alias dignissimos et beatae repellat non quisquam optio ipsum dolorem nesciunt officia autem voluptas amet nisi fugit architecto.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi minus illo beatae quo ratione praesentium quas libero ullam vel numquam nihil veniam distinctio harum asperiores cum. Repudiandae fugiat ipsum nulla.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit quae qui harum tenetur dolorum ipsam vitae distinctio ducimus in eius iusto dignissimos consectetur ab obcaecati modi. Corrupti totam officia suscipit.</p>
+        {{ artist.bio|safe }}
     </div> <!-- end bio content -->
-    
-    <div class="bioDownloadInfo col30 smallestFont">
-        <p><a href="" class="downloadPdf">Download PDF</a></p>
-        <p class="ellipsis"><a href="">www.maxstreicher.com</a></p>
-        
-    </div> <!-- end bio download info  -->
+
+    {% include 'includes/artist-pdf-url.html' %}
+
     <div class="clear"></div>
 {% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'eventsbase.html' %}
+
+{% block mainbar %}
+
+<img src="{{ event.main_image }}" alt="{{ event.title }}" class="imgMainExib">    
+
+<div class="exibContent col75">
+    {{ event.description|safe }}
+</div> <!-- end bio content -->
+
+{% if event.press_release or event.pdf %}
+<div class="bioDownloadInfo col25 smallestFont">
+    {% if event.press_release %}
+    <p><a href="{{ event.press_release.url }}" class="downloadPdf">Download Press Release</a></p>
+    {% endif %}
+
+    {% if event.pdf %}
+    <p><a href="{{ event.pdf.url }}" class="downloadPdf">Download PDF</a></p>
+    {% endif %}
+
+</div> <!-- end bio download info  -->
+{% endif %}
+
+{% endblock %}

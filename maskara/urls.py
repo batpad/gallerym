@@ -39,6 +39,18 @@ urlpatterns = patterns('',
 )
 
 urlpatterns += patterns('maskara.gallery.views',
+    url(r'^$', 'home', name='home'),
+    url(r'^artists$', 'artists', name='artists'),
+    url(r'^artists/represented$', 'artists', {'represented': True }, name='represented_artists'),
+    url(r'^artist/(?P<slug>[\w\-]+)/(?P<view>[\w\-]*?)$', 'artist', name='artist'),
+    url(r'^exhibitions/current$', 'current_exhibition', name='current_exhibition'),
+    url(r'^exhibitions/upcoming$', 'exhibitions', {'when': 'upcoming'}, name='upcoming_exhibitions'),
+    url(r'^exhibitions/previous$', 'exhibitions', {'when': 'previous'}, name='previous_exhibitions'),
+    url(r'^exhibition/(?P<slug>[\w\-]+)/(?P<view>[\w\-]*?)$', 'exhibition', name='exhibition'),
+    url(r'^events/current$', 'current_event', name='current_event'),
+    url(r'^events/upcoming$', 'events', {'when': 'upcoming'}, name='upcoming_events'),
+    url(r'^events/previous$', 'events', {'when': 'previous'}, name='previous_events'),
+    url(r'^event/(?P<slug>[\w\-]+)/(?P<view>[\w\-]*?)$', 'event', name='event'),
     url(r'^test_work_image/(?P<id>[0-9]*)', 'artist_work_image')
 )
 

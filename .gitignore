@@ -6,9 +6,18 @@ maskara.dev
 bin
 include
 lib
+tmp/
+patches/
+src/
 dist
 local
 *~
+*.sw*
+data/
+maskara/media
+maskara/static
+import_errors.txt
+errors.txt
 *.pyc
 pip-log.txt
 start_server_maskara.bat
@@ -28,3 +37,4 @@ icomoon31778/
 External_Link.svg
 open-sans/
 External_Link-original-small.svg
+webkitBrightness

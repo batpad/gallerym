@@ -1,0 +1,19 @@
+{% load dict_extras %}
+{% for year in years.keys %}
+<div class="anchorDateBlock">
+    <div class="anchorDate">
+        <p>{{ year }}</p>
+    </div>
+    <div class="anchorInfo">
+        {% for item in years|access:year %}
+        <p> 
+            {{ item.text|safe }}
+            {% if item.link %}
+                <a href="{{ item.link }}" class="linkExternal fontIcon" target="_blank"></a>
+            {% endif %}
+        </p>
+        {% endfor %}
+    </div> <!-- end anchor info  -->
+
+</div> <!-- end anchor date block  -->    
+{% endfor %}

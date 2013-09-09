@@ -1,0 +1,13 @@
+{% extends 'exhibitionsbase.html' %}
+
+{% block mainbar %}    
+    <img src="{{ exhibition.main_image }}" alt="{{ exhibition.title }}" class="imgMainExib">    
+    
+    <div class="exibContent col75">
+        {{ exhibition.description }}
+    </div> <!-- end bio content -->
+
+    {% include 'includes/exhibition-press-pdf.html' %}
+
+    
+{% endblock %}

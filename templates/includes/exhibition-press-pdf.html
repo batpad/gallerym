@@ -1,0 +1,12 @@
+{% if exhibition.pdf or exhibition.press_release %}
+<div class="bioDownloadInfo col25 smallestFont">
+    {% if exhibition.press_release %}
+    <p><a href="{{ exhibition.press_release.url }}" class="downloadPdf">Download Press Release</a></p>
+    {% endif %}
+
+    {% if exhibition.pdf %}
+    <p><a href="{{ exhibition.pdf.url }}" class="downloadPdf">Download PDF</a></p>
+    {% endif %}
+
+</div> <!-- end bio download info  -->
+{% endif %}

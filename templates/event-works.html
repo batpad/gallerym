@@ -3,96 +3,13 @@
 {% block mainbar %}
 
 <div class="thumbnailBlock">
+    {% for work in works %}
     <div class="thumbEach col25">
-        <a href="/single">
-            <img src="/static/img/selected1.jpg" alt="">
+        <a href="{{ work.get_absolute_url }}">
+            <img src="{{ work.list_image }}" alt="{{ work.title }}">
         </a>    
     </div>
-
-    <div class="thumbEach col25">
-        <a href="/single">
-            <img src="/static/img/selected2.jpg" alt="">
-        </a>    
-    </div>
-
-    <div class="thumbEach col25">
-        <a href="/single">
-            <img src="/static/img/selected3.jpg" alt="">
-        </a>    
-    </div>
-    
-    <div class="thumbEach col25">
-        <a href="/single">
-            <img src="/static/img/selected1.jpg" alt="">
-        </a>    
-    </div>
-
-    <div class="thumbEach col25">
-        <a href="/single">
-            <img src="/static/img/selected2.jpg" alt="">
-        </a>    
-    </div>
-
-    <div class="thumbEach col25">
-        <a href="/single">
-            <img src="/static/img/selected3.jpg" alt="">
-        </a>    
-    </div>
-
-    <div class="thumbEach col25">
-        <a href="/single">
-            <img src="/static/img/selected1.jpg" alt="">
-        </a>    
-    </div>
-
-    <div class="thumbEach col25">
-        <a href="/single">
-            <img src="/static/img/selected2.jpg" alt="">
-        </a>    
-    </div>
-
-    <div class="thumbEach col25">
-        <a href="/single">
-            <img src="/static/img/selected3.jpg" alt="">
-        </a>    
-    </div>
-
-    <div class="thumbEach col25">
-        <a href="/single">
-            <img src="/static/img/selected1.jpg" alt="">
-        </a>    
-    </div>
-
-    <div class="thumbEach col25">
-        <a href="/single">
-            <img src="/static/img/selected2.jpg" alt="">
-        </a>    
-    </div>
-
-    <div class="thumbEach col25">
-        <a href="/single">
-            <img src="/static/img/selected3.jpg" alt="">
-        </a>    
-    </div>
-
-    <div class="thumbEach col25">
-        <a href="/single">
-            <img src="/static/img/selected1.jpg" alt="">
-        </a>    
-    </div>
-
-    <div class="thumbEach col25">
-        <a href="/single">
-            <img src="/static/img/selected2.jpg" alt="">
-        </a>    
-    </div>
-
-    <div class="thumbEach col25">
-        <a href="/single">
-            <img src="/static/img/selected3.jpg" alt="">
-        </a>    
-    </div>
-
+    {% endfor %}
 </div> <!-- end thumbnail block  -->
 
     

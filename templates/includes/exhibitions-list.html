@@ -1,0 +1,32 @@
+
+<div class="exhibitionPrevBlock">
+
+    {% for e in exhibitions %}
+    <div class="exhibPrevEach">
+        <div class="col25">
+            <img src="{{ e.list_image }}" alt="{{ e.title }}">
+        </div>
+        <div class="col75 exhibPrevDesc">
+            <p>{{ e.start_date|date:"Y" }}</p>
+            <p><strong>{{ e.title }}</strong></p>
+            {% if e.oneliner %}
+                <p>{{ e.onliner }}</p>
+            {% endif %}
+            {% if e.preview_date %}
+            <p>Preview: {{ e.preview_date|date:"l jS F" }}, 
+                {% if e.preview_start_time %}
+                    {{ e.preview_start_time|time:"P" }}
+                    {% if e.preview_end_time %}
+                    -{{ e.preview_end_time|time:"P" }}</p>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+            <p>Show Dates: {{ e.start_date|date:"l jS F" }} to {{ e.end_date|date:"l jS F" }}</p>
+            <p>Location: {{ e.location }}</p>
+            <a href="{{ e.get_absolute_url }}" class="smallerFont">View Exhibition</a>
+        </div>
+    <div class="clear"></div>
+    </div> <!-- end exhib Prev Each -->    
+    {% endfor %}   
+
+</div> <!-- end exhib Prev Block --> 

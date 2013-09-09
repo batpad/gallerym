@@ -1,0 +1,22 @@
+<div class="paginationThumbs smallestFont">
+    {% if paginator.num_pages > 1 %}
+        <span><a href="?page=1">First</a></span>
+
+        {% for p in paginator.page_range %}
+        <a href="?page={{ p }}">
+            <span {% ifequal p page.number %} class="blue" {% endifequal %}>
+                {{ p }}
+            </span>
+        </a>
+        {% endfor %}
+        {% if page.has_previous %}
+        <a href="?page={{ page.previous_page_number }}"><span class="prev-pag fontIcon">l</span></a>
+        {% endif %}
+        {% if page.has_next %}
+        <a href="?page={{ page.next_page_number }}"><span class="next-pag fontIcon">r</span></a>
+        {% endif %}
+        <span><a href="?page={{ paginator.num_pages }}">Last</a></span>
+    {% endif %}    
+
+</div> <!-- end pagination thumbs  -->
+
