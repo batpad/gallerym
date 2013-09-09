@@ -6,9 +6,9 @@
     <div id="sideBar" class="col25">
     
         <div class="sideBarTitles">
-        <p><a href="/events/current">Current Events</a></p>
-        <p><a href="/events/upcoming">Upcoming Events</a></p>
-        <p><a href="/events/previous">Previous Events</a></p>
+        <p><a {% if event.is_current %} class="selectedSideBarTitles" {% endif %}href="/events/current">Current Events</a></p>
+        <p><a {% if event.is_upcoming %} class="selectedSideBarTitles" {% endif %}href="/events/upcoming">Upcoming Events</a></p>
+        <p><a {% if event.is_previous %} class="selectedSideBarTitles" {% endif %}href="/events/previous">Previous Events</a></p>
         </div>
      
     </div> <!-- end side bar  -->

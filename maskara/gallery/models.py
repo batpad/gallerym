@@ -14,7 +14,7 @@ from django.core.exceptions import ValidationError
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from easy_thumbnails.files import get_thumbnailer
-
+import datetime
 from maskara.base.managers import PublishedManager
 
 class OrderableBase(BaseModel):
@@ -478,8 +478,24 @@ class Exhibition(BaseModel):
 
     @classmethod
     def get_current(kls):
-        return kls.objects.all().order_by('-start_date')[0]  
- 
+        now = datetime.datetime.now()
+        current_exhibs = kls.objects.filter(start_date__lte=now).filter(end_date__gte=now)
+        if current_exhibs.count() > 0:
+            return current_exhibs[0]
+        else:
+            return kls.objects.all().order_by('-start_date')[0]  
+
+    def is_current(self):
+        return self.id == Exhibition.get_current().id
+
+    def is_upcoming(self):
+        now = datetime.datetime.now().date()
+        return self.start_date > now and not self.is_current() 
+
+    def is_previous(self):
+        now = datetime.datetime.now().date()
+        return self.end_date < now and not self.is_current()
+
     def get_artists_string(self):
         return ", ".join([a.name for a in self.featured_artists.all()])
 
@@ -562,7 +578,22 @@ class Event(BaseModel):
    
     @classmethod
     def get_current(kls):
-        return kls.objects.all().order_by('-date')[0]
+        now = datetime.datetime.now()
+        if kls.objects.filter(date__gte=now).count() > 0:
+            return kls.objects.filter(date__gte=now).order_by('date')[0]
+        else:
+            return kls.objects.all().order_by('-date')[0]
+
+    def is_current(self):
+        return self.id == Event.get_current().id
+
+    def is_upcoming(self):
+        now = datetime.datetime.now().date()
+        return self.date > now and not self.is_current()
+
+    def is_previous(self):
+        now = datetime.datetime.now().date()
+        return self.date < now and not self.is_current()
  
     @property
     def class_name(self):

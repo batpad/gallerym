@@ -13,7 +13,8 @@ def home(request):
         'main_item': main_item.get_data(),
         'main_item_type': main_item.get_type(),
         'items': [item.get_data() for item in fp_items],
-        'publications': [p.get_frontpage_dict() for p in publications]
+        'publications': [p.get_frontpage_dict() for p in publications],
+        'title': 'Home'
     }
     return render(request, "index.html", context)
 
@@ -23,7 +24,12 @@ def artists(request, represented=False):
     if represented:
         qset = qset.filter(is_represented=True)
     artists = [a.get_list_dict() for a in qset]
-    return render(request, 'artists.html', {'artists': artists})
+    context = {
+        'artists': artists,
+        'menu': 'artists',
+        'title': 'All Artists' if not represented else 'Represented Artists'
+    }
+    return render(request, 'artists.html', context)
 
 '''
 def represented_artists(request):
@@ -35,7 +41,9 @@ def artist(request, slug, view=''):
     artist = get_object_or_404(Artist, slug=slug)
     context = {
         'artist': artist,
-        'url': artist.get_absolute_url()
+        'url': artist.get_absolute_url(),
+        'menu': 'artists',
+        'title': 'Artist: %s' % artist.name
     }
     works = None
 
@@ -102,7 +110,12 @@ def exhibitions(request, when='upcoming'):
         qset = qset.filter(start_date__gte=now).order_by('start_date')
     else:
         qset = qset.filter(start_date__lt=now).order_by('-start_date')
-    return render(request, 'exhibitions.html', {'exhibitions': qset})
+    context = {
+        'exhibitions': qset,
+        'menu': 'exhibitions',
+        'title': '%s Exhibitions' % when.title()
+    }
+    return render(request, 'exhibitions.html', context)
 
 def current_exhibition(request):
     exhib = Exhibition.get_current()
@@ -112,7 +125,9 @@ def exhibition(request, slug, view=''):
     exhibition = get_object_or_404(Exhibition, slug=slug)
     context = {
         'exhibition': exhibition,
-        'url': exhibition.get_absolute_url()
+        'url': exhibition.get_absolute_url(),
+        'menu': 'exhibitions',
+        'title': 'Exhibition: %s' % exhibition.title
     }
 
     if view == 'overview':
@@ -148,6 +163,11 @@ def events(request, when='upcoming'):
         qset = qset.filter(date__gte=now).order_by('date')
     else:
         qset = qset.filter(date__lt=now).order_by('-date')
+    context = {
+        'events': qset,
+        'menu': 'events',
+        'title': '%s Events' % when.title()
+    }
     return render(request, 'events.html', {'events': qset})
 
 def current_event(request):
@@ -158,7 +178,9 @@ def event(request, slug, view=''):
     event = get_object_or_404(Event, slug=slug)
     context = {
         'event': event,
-        'url': event.get_absolute_url()
+        'url': event.get_absolute_url(),
+        'menu': 'events',
+        'title': 'Event: %s' % event.title
     }
 
     if view == 'overview':

@@ -13,7 +13,9 @@ OLD_ASSETS_PATH = '/var/www/gallerymaskara.com/site/'
 
 def slugify(txt, id=""):
     old_id = str(id)
-    txt = txt[0:32] + "-" + old_id
+    txt = txt[0:32]
+    if old_id != '':
+        txt = txt + "-" + old_id
     if txt == '':
         txt = ''.join([choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)') for i in range(15)])
     return django_slugify(txt.strip())

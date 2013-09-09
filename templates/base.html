@@ -4,11 +4,11 @@
 
 <meta charset="utf-8">
 
-<title>Gallery Maskara: {% block extra_title %}{% endblock %}</title>
+<title>Gallery Maskara: {{ title }}</title>
 
 <meta name="keywords" content="Gallery Maskara">
-<meta name="title" content="CHANGE AS PER TITLE OF PAGE prefixed with company name"> 
-<meta name="description" content="ADD DETAILS HERE"> <!-- Sanj, give them control in the CMS if possible  -->
+<meta name="title" content="Gallery Maskara: {{ title }}"> 
+<meta name="description" content="Gallery Maskara"> <!-- Sanj, give them control in the CMS if possible  -->
 
 <meta http-equiv="X-UA-Compatible" content="chrome=1"> <!-- chrome frame -->
 
@@ -54,9 +54,9 @@
             </a> <!-- end logo  -->
             
             <ul class="menu">
-                <li><a href="/artists">Artists</a></li>
-                <li><a href="/exhibitions/current">Exhibitions</a></li>
-                <li><a href="/events/current">Events</a></li>
+                <li><a {% ifequal menu 'artists' %} class="selectedMenu" {% endifequal %} href="/artists">Artists</a></li>
+                <li><a {% ifequal menu 'exhibitions' %} class="selectedMenu" {% endifequal %} href="/exhibitions/current">Exhibitions</a></li>
+                <li><a {% ifequal menu 'events' %} class="selectedMenu" {% endifequal %} href="/events/current">Events</a></li>
                 <li><a href="/about">About</a></li>
                 <li><a href="/contact">Contact</a></li>
             </ul>
