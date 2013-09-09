@@ -16,7 +16,7 @@ def slugify(txt, id=""):
     txt = txt[0:32] + "-" + old_id
     if txt == '':
         txt = ''.join([choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)') for i in range(15)])
-    return django_slugify(txt)
+    return django_slugify(txt.strip())
 
 def get_asset(filename, new_path):
     if filename.endswith("pdf"):
