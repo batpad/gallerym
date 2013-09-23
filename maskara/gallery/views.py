@@ -214,6 +214,8 @@ def events(request, when='upcoming'):
     if when == 'current':
         qset = qset.filter(date__lte=now).filter(end_date__gte=now).order_by('date')
     if when == 'upcoming':
+        if not Event.has_upcoming():
+            return HttpResponseRedirect("/events/previous")
         qset = qset.filter(date__gte=now).order_by('date')
     elif when == 'previous':
         qset = qset.filter(date__lt=now).exclude(end_date__gte=now).order_by('-date')
@@ -223,12 +225,15 @@ def events(request, when='upcoming'):
         'kls': Event,
         'title': '%s Events' % when.title()
     }
-    return render(request, 'events.html', {'events': qset})
+    return render(request, 'events.html', context)
 
 def current_event(request):
     events = Event.get_current()
     if not events:
-        return HttpResponseRedirect("/events/upcoming")
+        if Event.has_upcoming():
+            return HttpResponseRedirect("/events/upcoming")
+        else:
+            return HttpResponseRedirect("/events/previous")
     else:
         if events.count() == 1:
             return HttpResponseRedirect(events[0].get_absolute_url())

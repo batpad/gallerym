@@ -8,6 +8,7 @@ from os.path import basename
 from django.db.models.signals import post_save
 from django.contrib.admin.models import LogEntry
 from django.utils.html import strip_tags
+from django.utils.safestring import mark_safe
 from filebrowser.fields import FileBrowseField
 from sortable.models import Sortable
 from django.core.exceptions import ValidationError
@@ -530,7 +531,7 @@ class Exhibition(BaseModel):
         return self.end_date < now and not self.is_current()
 
     def get_artists_string(self):
-        return ", ".join([a.name for a in self.featured_artists.all()])
+        return mark_safe(", ".join(["<a href='%s'>%s</a>" % (a.get_absolute_url(), a.name,) for a in self.featured_artists.all()]))
 
     def is_same_year(self):
         return self.start_date.year == self.end_date.year        
@@ -541,9 +542,9 @@ class Exhibition(BaseModel):
         #    lines.append("Curated by %s" % self.curated_by)
         if self.location:
             lines.append("Location: %s" % self.location)
-        if self.preview_date:
-            dtformat = self.preview_date.strftime("%B %d, %Y")
-            lines.append("Preview Date %s" % dtformat)
+        # if self.preview_date:
+        #     dtformat = self.preview_date.strftime("%B %d, %Y")
+        #     lines.append("Preview Date %s" % dtformat)
         return lines
 
     def list_image(self):
@@ -661,8 +662,8 @@ class Event(BaseModel):
     def class_name(self):
         return(self._meta.verbose_name)
 
-    def get_artists_string(self):
-        return ",".join([a.name for a in self.featured_artists.all()])
+   def get_artists_string(self):
+        return mark_safe(", ".join(["<a href='%s'>%s</a>" % (a.get_absolute_url(), a.name,) for a in self.featured_artists.all()]))
 
     def get_list_image(self):
         return self.get_image({'size': (188,188,)})
@@ -767,7 +768,7 @@ class Publication(BaseModel):
         }
 
     def list_image(self):
-        return self.get_image({'size': (102,152,)})
+        return self.get_image({'size': (150,200,)})
 
     def get_absolute_url(self):
         return "/publication/%d" % self.id
