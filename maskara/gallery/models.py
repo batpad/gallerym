@@ -662,7 +662,7 @@ class Event(BaseModel):
     def class_name(self):
         return(self._meta.verbose_name)
 
-   def get_artists_string(self):
+    def get_artists_string(self):
         return mark_safe(", ".join(["<a href='%s'>%s</a>" % (a.get_absolute_url(), a.name,) for a in self.featured_artists.all()]))
 
     def get_list_image(self):
