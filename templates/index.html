@@ -61,7 +61,7 @@
                 <h1><a href="{{ main_item.url }}">{{ main_item.title }}</a></h1>
                     <p class="blue">{{ main_item.artists }}</p>
                 <div class="smallestFont">
-                    {% for line in text_lines %}
+                    {% for line in main_item.text_lines %}
                     <p>{{ line }}</p>
                     {% endfor %}
                     <p>{{ main_item.start_date|date:"F d, Y" }} {% if main_item.end_date %} to {{ main_item.end_date|date:"F d, Y" }} {% endif %} 
@@ -89,11 +89,10 @@
                 <p class="title ellipsis" title="{{ item.title }}">
                     <a href="{{ item.url }}">{{ item.title }}</a>
                 </p>
-                <p class="blue ellipsis">{{ item.artists }}</p>
-                {% for line in lines %}
-                <p class="ellipsis">{{ line }}</p>
-                {% endfor %}
-                <p class="ellipsis">Date: {{ item.start_date|date:"F d, Y" }} {% if item.end_date %} - {{ item.end_date|date:"F d, Y" }} {% endif %}</p>
+                {% if item.artists %}
+                <p class="ellipsis">{{ item.artists }}</p>
+                {% endif %}
+                <p class="ellipsis">{{ item.start_date|date:"F d, Y" }} {% if item.end_date %} - {{ item.end_date|date:"F d, Y" }} {% endif %}</p>
             </div>
             <img src="/static/img/news1.jpg" alt="" class="homeSecondaryImg">
         </div> <!-- end home secondary  -->
@@ -117,9 +116,9 @@
         <ul class="slides">
             {% for p in publications %}
           <li>
-            <div class="smallestFont">
+            <div class="smallestFont homeCarouselText">
                 <!-- <p>{{ p.publisher }}</p> -->
-                <p><a href="{{ p.url }}">{{ p.title }}</a></p>
+                <p><a href="{{ p.url }}">{{ p.title|truncatechars:34 }}</a></p>
             </div>
             <img src="{{ p.image }}" />
           </li>

@@ -238,7 +238,7 @@ bottom: 2px;
 	color: inherit;
 }
 
-.menu .selectedMenu, .menu li a:hover, .paginationThumbs span:hover, .blue, .linkExternal:hover, .pag-active, .paginationThumbs .blue {
+.menu .selectedMenu, .menu li a:hover, .paginationThumbs span:hover, .blue, .linkExternal:hover, .pag-active, .paginationThumbs .blue, .homeSecondaryText p:nth-of-type(2), .homeSecondaryText p:nth-of-type(2) a {
 	color: #035595;
 }
 
@@ -284,6 +284,10 @@ bottom: 2px;
 	padding: 0px 0 40px 0;
 }
 
+.homeSecondaryText {
+	min-height: 60px;
+}
+
 .homeSecondary {
 	margin: 0 0.5% 0 0;
 	padding: 0 20px 0 0;	
@@ -302,6 +306,10 @@ bottom: 2px;
 
 .homeSecondary:last-of-type {
 	margin-right: 0;
+}
+
+.homeCarouselText {
+	min-height: 32px;
 }
 
 .homeCarousel {
@@ -494,6 +502,29 @@ padding: 6px 110px 6px 0;
 
 .singleIcons span:first-of-type {
 	padding: 0 10px 0 0;
+}
+
+.workPrev, .workNext {
+	font-size: 140%;
+	display: inline-block;
+	vertical-align: sub;
+}
+
+.workPrev {
+	padding: 0 12px 0 0;
+}
+
+.workNext {
+	padding: 0 4px 0 0;
+}
+
+.current-slide {
+	position: relative;
+}
+
+.current-slide:before {
+	content: "|";
+	padding: 0 6px 0 0;
 }
 
 .imgBio {

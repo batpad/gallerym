@@ -152,14 +152,14 @@ $(document).ready(function() {
 
 
         <div class="works">
-            <p><span class="current-slide">{{ work_index }}</span> of <span class="total-slides">{{ works_count }}</span> works</p>
             <p>
                 {% if previous_work %}
-                    <a href="{{ previous_work }}">Prev</a>
+                    <a href="{{ previous_work }}" class="fontIcon workPrev">l</a>
                 {% endif %}
                 {% if next_work %}
-                    <a href="{{ next_work }}">Next</a>
+                    <a href="{{ next_work }}" class="fontIcon workNext">r</a>
                 {% endif %}
+                <span><span class="current-slide">{{ work_index }}</span> of <span class="total-slides">{{ works_count }}</span> works</span>
             </p>
         </div>
         <div class="singleIcons">

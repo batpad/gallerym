@@ -339,7 +339,7 @@ class ArtistWork(BaseModel):
 
 
     def list_image(self):
-        options = {'size': (152, 152)}
+        options = {'size': (150, 200)}
         return self.get_image(options)
 
     def medium_image(self):
@@ -548,7 +548,7 @@ class Exhibition(BaseModel):
         return lines
 
     def list_image(self):
-        return self.get_image({'size': (150,150,), 'crop': True, 'upscale': True})
+        return self.get_image({'size': (190,140,), 'crop': True, 'upscale': True})
 
     def main_image(self):
         return self.get_image({'size': (800,800,), 'upscale': True})
@@ -666,7 +666,7 @@ class Event(BaseModel):
         return mark_safe(", ".join(["<a href='%s'>%s</a>" % (a.get_absolute_url(), a.name,) for a in self.featured_artists.all()]))
 
     def get_list_image(self):
-        return self.get_image({'size': (188,188,)})
+        return self.get_image({'size': (190,140,)})
 
     def main_image(self):
         return self.get_image({'size': (800,800,)})
