@@ -1,0 +1,175 @@
+{% extends 'gallerybase.html' %}
+
+
+{% block extra_css %}
+    {{ block.super }}    
+    <style>
+        
+        
+        #slider {
+            width: 70%;
+            float: left;
+        }
+        
+        #slider .flex-direction-nav {
+            float: left;
+        }
+
+        #slider .flex-direction-nav .flex-prev {
+            /* bottom: -20px; */
+        }
+
+        #slider .flex-direction-nav a {
+            bottom: 0;
+            top: auto;
+        }
+        
+        #slider .flex-direction-nav .flex-next {
+            background: url('../../static/img/next.png') no-repeat;
+            left: 26px;
+        }
+
+        #slider .flex-direction-nav .flex-prev {
+            background: url('../../static/img/prev.png') no-repeat;
+            left: 0px;
+        }
+
+        
+        #carousel .flex-direction-nav .flex-next {
+            background: url('../../static/img/nextdown.png') no-repeat;
+        }
+        
+        #carousel .flex-direction-nav .flex-prev {
+            background: url('../../static/img/prevup.png') no-repeat;
+            
+        }
+        
+        #carousel {
+            width: 30%;
+            float: left;
+        }
+        
+        #carousel .slides li {
+            float: none !important; /* see if important can be overriden later  */
+            margin: 0 0 20px 0;
+        }
+
+        #carousel .slides li {
+            cursor: pointer;
+        }
+        
+        #carousel .flex-direction-nav .flex-prev {
+            top: -26px;
+        }
+
+        #carousel .flex-direction-nav .flex-next {
+            bottom: -30px;
+        }
+        
+        #carousel .flex-direction-nav a {
+            margin: 0;
+            bottom: 0;
+            top: auto;
+        }
+    </style>    
+        
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}    
+
+<script>
+$(document).ready(function() {
+  // The slider being synced must be initialized first
+  $('#carousel').flexslider({
+    animation: "slide",
+    controlNav: false,
+    animationLoop: false,
+    slideshow: false,
+    itemWidth: 80,
+    itemMargin: 5,
+    asNavFor: '#slider',
+    direction: 'vertical'
+  });
+   
+  $('#slider').flexslider({
+    animation: "slide",
+    controlNav: false,
+    animationLoop: false,
+    slideshow: false,
+    sync: "#carousel",
+    controlsContainer: ".flex-container",
+    start: function(slider) {
+        $('.total-slides').text(slider.count);
+      },
+      after: function(slider) {
+        $('.current-slide').text(slider.currentSlide+1);
+      }
+  });
+});
+</script>
+{% endblock %}
+
+    {% block gallery_slider %}
+
+    <div class="col70">
+        {% if obj_title %}
+        <h1 class="selectedHeading floatLeft">{{ obj_title }}</h1>
+        {% endif %}
+        <p class="smallerFont floatRight"><a href="/single/images" class="blue">Images </a>/<a href="/single/videos"> Videos</a></p>
+        <div class="clear"></div>
+    </div>
+
+    <div class=”flex-container”> 
+        <div id="slider" class="flexslider">
+            <ul class="slides">
+              <li>
+                <img src="{{ work.medium_image }}" />
+              </li>
+              {% for img in work.artistworkimage_set.all %}
+              <li>
+                <img src="{{ img.medium_image }}" />
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div id="carousel" class="flexslider col30">
+            <ul class="slides">
+              <li>
+                <img src="{{ work.thumb }}" />
+              </li>
+              {% for img in work.artistworkimage_set.all %}
+              <li>
+                <img src="{{ img.thumb }}" />
+              </li>
+              {% endfor %}
+    
+              <!-- items mirrored twice, total of 12 -->
+            </ul> 
+        </div> <!-- #carousel  -->
+        <div class="clear"></div>
+      <div id="slideControlBox" class="col70 smallestFont">
+
+
+        <div class="works">
+            <p><span class="current-slide">{{ work_index }}</span> of <span class="total-slides">{{ works_count }}</span> works</p>
+            <p>
+                {% if previous_work %}
+                    <a href="{{ previous_work }}">Prev</a>
+                {% endif %}
+                {% if next_work %}
+                    <a href="{{ next_work }}">Next</a>
+                {% endif %}
+            </p>
+        </div>
+        <div class="singleIcons">
+            <span class="zoom">Zoom</span>
+            <span class="downloadPdf">Download PDF</span>
+        </div>
+        <div class="clear"></div>
+      </div> <!-- end slide control box  -->
+      
+</div> <!-- /flex-container -->
+      <div class="clear"></div>
+      
+{% endblock %}

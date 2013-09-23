@@ -6,8 +6,14 @@
     <div id="sideBar" class="col25">
     
         <div class="sideBarTitles">
+            {% if kls.get_current %}
             <p><a {% if exhibition.is_current %} class="selectedSideBarTitles" {% endif %}href="/exhibitions/current">Current Exhibition</a></p>
+            {% endif %}
+
+            {% if kls.has_upcoming %}
             <p><a {% if exhibition.is_upcoming %} class="selectedSideBarTitles" {% endif %}href="/exhibitions/upcoming">Upcoming Exhibitions</a></p>
+            {% endif %}
+
             <p><a {% if exhibition.is_previous %} class="selectedSideBarTitles" {% endif %}href="/exhibitions/previous">Previous Exhibitions</a></p>
         </div>
      

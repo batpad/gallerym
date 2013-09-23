@@ -16,6 +16,22 @@ class ArtistWorkInline(admin.StackedInline):
     model = ArtistWork
     sortable_field_name = 'order'
 
+class ExhibitionWorkInline(admin.StackedInline):
+    raw_id_fields = ('work',)
+    autocomplete_lookup_fields = {
+        'fk': ['work'],
+    }    
+    model = ExhibitionWork
+    sortable_field_name = 'order'
+
+class EventWorkInline(admin.StackedInline):
+    raw_id_fields = ('work',)
+    autocomplete_lookup_fields = {
+        'fk': ['work'],
+    }    
+    model = EventWork
+    sortable_field_name = 'order'
+
 '''
 class ArtistNews(admin.StackedInline):
     model = ArtistNews
@@ -91,18 +107,17 @@ class ArtistWorkAdmin(BaseAdmin):
         'fk': ['artist']
     }
     inlines = [ArtistWorkImageInline, VideoInline]
-    list_filter = ('artist', 'exhibition', 'event', 'category', 'published',)
+    list_filter = ('artist', 'exhibitionwork__exhibition', 'eventwork__event', 'category', 'published',)
     exclude = ('order',)
 
 class EventAdmin(BaseAdmin):
     search_fields = ['title'] 
     list_display = BaseAdmin.list_display + ('date', 'time_from', 'time_to',)
     list_filter = ('featured_artists', 'published',)
-    raw_id_fields = ('featured_artists', 'featured_work')
-    inlines = [VideoInline]
+    raw_id_fields = ('featured_artists',)
+    inlines = [EventWorkInline, VideoInline]
     autocomplete_lookup_fields = {
         'm2m': ['featured_artists'],
-        'm2m': ['featured_work']
     }    
 
 class FrontPageItemAdmin(SortableAdmin):
@@ -114,6 +129,16 @@ class FrontPageItemAdmin(SortableAdmin):
         'fk': ['event', 'exhibition']
     }
 
+class SpaceImageAdmin(SortableAdmin):
+    list_display = SortableAdmin.list_display + ('__unicode__',)
+    list_display_links = ('__unicode__', )
+    exclude = ('position',)
+
+class SpaceVideoAdmin(SortableAdmin):
+    list_display = SortableAdmin.list_display + ('__unicode__',)
+    list_display_links = ('__unicode__', )
+    exclude = ('position',)
+
 class PublicationAdmin(BaseAdmin):
     search_fields = ['title', 'author', 'editor', 'publisher', 'isbn']
     list_filter = ('artist', 'exhibition', 'event', 'available', 'published',)
@@ -122,11 +147,11 @@ class ExhibitionAdmin(BaseAdmin):
     search_fields = ['title', 'description']
     list_display = BaseAdmin.list_display + ('start_date', 'end_date',)
     list_filter = ('featured_artists',)
-    raw_id_fields = ('featured_artists', 'featured_work',)
+    raw_id_fields = ('featured_artists',)
     autocomplete_lookup_fields = {
-        'm2m': ['featured_artists', 'featured_work'],
+        'm2m': ['featured_artists'],
     }    
-    inlines = [ExhibitionReviewInline, ExhibitionPressReleaseInline, VideoInline]
+    inlines = [ExhibitionWorkInline, ExhibitionReviewInline, ExhibitionPressReleaseInline, VideoInline]
 
 class ChunkAdmin(admin.ModelAdmin):
     class Media:
@@ -143,6 +168,9 @@ admin.site.register(Event, EventAdmin)
 admin.site.register(Publication, PublicationAdmin)
 admin.site.register(ArtistWork, ArtistWorkAdmin)
 admin.site.register(FrontPageItem, FrontPageItemAdmin)
+admin.site.register(SpaceImage, SpaceImageAdmin)
+admin.site.register(SpaceVideo, SpaceVideoAdmin)
+admin.site.register(GalleryPerson)
 admin.site.unregister(Chunk)
 admin.site.register(Chunk, ChunkAdmin)
 #admin.site.register(ArtistReview, BaseAdmin)

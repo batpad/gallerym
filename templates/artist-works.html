@@ -11,13 +11,11 @@
         <div class="thumbnailBlock">
             {% for item in page.object_list %}
             <div class="thumbEach col25">
-                <a href="{{ item.get_absolute_url }}">
+                <a href="{{ artist.get_absolute_url }}/works/{{ item.id }}">
                     <img src="{{ item.list_image }}" alt="{{ item.title }}">
                 </a>    
             </div>
             {% endfor %}
-
-    
         </div> <!-- end thumbnail block  -->
         
         {% include 'includes/works_pagination.html' %}

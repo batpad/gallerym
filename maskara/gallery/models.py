@@ -24,7 +24,7 @@ class OrderableBase(BaseModel):
 
     def save(self, *args, **kwargs):
         if self.order:
-            return super(self, Orderable).save(*args, **kwargs)
+            return super(OrderableBase, self).save(*args, **kwargs)
         else:
             fk_field = self.fk_field
             fk_obj = self.__getattribute__(fk_field)
@@ -47,7 +47,6 @@ class Review(OrderableBase):
     description = models.TextField(blank=True)
     url = models.URLField(blank=True)
     pdf = FileBrowseField("PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
-    #pdf = models.FileField(blank=True, upload_to='review_pdfs/')
     published = models.BooleanField(default=False)
     order = models.PositiveIntegerField()
     
@@ -139,6 +138,9 @@ class Artist(BaseModel):
 
     def get_absolute_url(self):
         return "/artist/%s" % self.slug
+
+    def get_works(self):
+        return self.artistwork_set.all()
 
     def get_list_dict(self):
         return {
@@ -290,7 +292,7 @@ class ArtistWork(BaseModel):
     old_id = models.IntegerField(blank=True, null=True)
     artist = models.ForeignKey(Artist)
     title = models.CharField(max_length=1024)
-    image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
+    image = FileBrowseField("Image", help_text="not used, just for reference from old database", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
     #image = models.ImageField(upload_to='work_images/', blank=True)
     is_selected = models.BooleanField(default=False)
     is_available = models.BooleanField(default=False)
@@ -329,9 +331,20 @@ class ArtistWork(BaseModel):
     get_thumbnail.allow_tags = True
     get_thumbnail.short_description = "Thumbnail"
 
+
+    def thumb(self):
+        options = {'size': (60, 60)}
+        return self.get_image(options)
+
+
     def list_image(self):
         options = {'size': (152, 152)}
         return self.get_image(options)
+
+    def medium_image(self):
+        options = {'size': (800,800)}
+        return self.get_image(options)
+
 
     def save(self, *args, **kwargs):
         if self.order is None:
@@ -366,6 +379,14 @@ class ArtistWorkImage(BaseModel):
     def __unicode__(self):
         return self.caption
 
+    def thumb(self):
+        options = {'size': (60, 60), 'crop': True}
+        return self.get_image(options)       
+
+    def medium_image(self):
+        options = {'size': (800,800)}
+        return self.get_image(options)
+
     @property
     def tms_url(self):
         return "/media/tiles/%s/{z}/{x}/{y}.png" % basename(self.image.path)        
@@ -387,9 +408,11 @@ class ArtistPressRelease(PressRelease):
     artist = models.ForeignKey("Artist")
     fk_field = 'artist'
 
+
 class FrontPageItem(BaseModel, Sortable):
     event = models.ForeignKey("Event", blank=True, null=True)
     exhibition = models.ForeignKey("Exhibition", blank=True, null=True)
+    blurb = models.CharField(max_length=512, blank=True, default="Current Exhibition")
 
     class Meta(Sortable.Meta):
         pass
@@ -468,13 +491,17 @@ class Exhibition(BaseModel):
     #image = models.ImageField(blank=True, upload_to='exhibition_images/')
     #cropping = ImageRatioField('image', '430x360', size_warning=True)
     featured_artists = models.ManyToManyField("Artist", blank=True, null=True)
-    featured_work = models.ManyToManyField("ArtistWork", blank=True, null=True)
+    #featured_work = models.ManyToManyField("ArtistWork", blank=True, null=True)
+    exhibition_works = models.ManyToManyField("ArtistWork", through="ExhibitionWork", blank=True, null=True)
     published = models.BooleanField(default=False)
     videos = generic.GenericRelation("Video")
 
     @property
     def class_name(self):
         return(self._meta.verbose_name)
+
+    def get_works(self):
+        return [ew.work for ew in ExhibitionWork.objects.filter(exhibition=self).order_by('order')]
 
     @classmethod
     def get_current(kls):
@@ -483,10 +510,16 @@ class Exhibition(BaseModel):
         if current_exhibs.count() > 0:
             return current_exhibs[0]
         else:
-            return kls.objects.all().order_by('-start_date')[0]  
+            return None
+            #return kls.objects.all().order_by('-start_date')[0]  
+
+    @classmethod
+    def has_upcoming(kls):
+        now = datetime.datetime.now()
+        return kls.objects.filter(start_date__gt=now).count() > 0
 
     def is_current(self):
-        return self.id == Exhibition.get_current().id
+        return Exhibition.get_current() and self.id == Exhibition.get_current().id
 
     def is_upcoming(self):
         now = datetime.datetime.now().date()
@@ -504,8 +537,10 @@ class Exhibition(BaseModel):
 
     def get_text_lines(self):
         lines = []
-        if self.curated_by:
-            lines.append("Curated by %s" % self.curated_by)
+        #if self.curated_by:
+        #    lines.append("Curated by %s" % self.curated_by)
+        if self.location:
+            lines.append("Location: %s" % self.location)
         if self.preview_date:
             dtformat = self.preview_date.strftime("%B %d, %Y")
             lines.append("Preview Date %s" % dtformat)
@@ -527,7 +562,7 @@ class Exhibition(BaseModel):
         return self.title
 
     def has_works(self):
-        return self.featured_work.count() > 0
+        return ExhibitionWork.objects.filter(exhibition=self).count() > 0
 
     def has_artists(self):
         return self.featured_artists.count() > 0
@@ -541,6 +576,24 @@ class Exhibition(BaseModel):
     def has_videos(self):
         return self.videos.count() > 0
         
+
+class ExhibitionWork(BaseModel):
+    exhibition = models.ForeignKey(Exhibition)
+    work = models.ForeignKey("ArtistWork")
+    order = models.IntegerField()
+
+    def save(self, *args, **kwargs):
+        if self.order is None:
+            qset = ExhibitionWork.objects.filter(exhibition=self.exhibition).order_by('-order')
+            if qset.count() == 0:
+                self.order = 0
+            else:
+                last_order = qset[0].order
+                self.order = last_order + 1
+        return super(ExhibitionWork, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return unicode(self.work)
 
 
 class ExhibitionReview(Review):
@@ -563,11 +616,12 @@ class Event(BaseModel):
     location = models.CharField(max_length=512, default="Gallery Maskara", blank=True)
 #    is_front_page = models.BooleanField(default=False, help_text='Should this be displayed on the front-page?')
     date = models.DateField()
+    end_date = models.DateField(blank=True, null=True)
     time_from = models.TimeField()
     time_to = models.TimeField()
     #featured_artist = models.ForeignKey(Artist, null=True, blank=True)
     featured_artists = models.ManyToManyField(Artist, blank=True)
-    featured_work = models.ManyToManyField(ArtistWork, blank=True)
+    #featured_work = models.ManyToManyField(ArtistWork, blank=True)
     image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
     pdf = FileBrowseField("PDF", max_length=1024, extensions=["*.pdf"], blank=True, null=True)
     press_release = FileBrowseField("PDF", max_length=1024, extensions=["*.pdf"], blank=True, null=True)
@@ -580,9 +634,17 @@ class Event(BaseModel):
     def get_current(kls):
         now = datetime.datetime.now()
         if kls.objects.filter(date__gte=now).count() > 0:
-            return kls.objects.filter(date__gte=now).order_by('date')[0]
+            return kls.objects.filter(date__gte=now).order_by('date')
         else:
-            return kls.objects.all().order_by('-date')[0]
+            return None
+
+    @classmethod
+    def has_upcoming(kls):
+        now = datetime.datetime.now()
+        return kls.objects.filter(date__gt=now).count() > 0
+
+    def get_works(self):
+        return [ew.work for ew in EventWork.objects.filter(event=self).order_by('order')]
 
     def is_current(self):
         return self.id == Event.get_current().id
@@ -624,7 +686,7 @@ class Event(BaseModel):
         return self.title
 
     def has_works(self):
-        return self.featured_work.count() > 0
+        return EventWork.objects.filter(event=self).count() > 0
 
     def has_artists(self):
         return self.featured_artists.count() > 0
@@ -640,6 +702,24 @@ class Event(BaseModel):
     def has_videos(self):
         return self.videos.count() > 0
 
+
+class EventWork(BaseModel):
+    event = models.ForeignKey(Event)
+    work = models.ForeignKey("ArtistWork")
+    order = models.IntegerField()
+
+    def save(self, *args, **kwargs):
+        if self.order is None:
+            qset = EventWork.objects.filter(event=self.event).order_by('-order')
+            if qset.count() == 0:
+                self.order = 0
+            else:
+                last_order = qset[0].order
+                self.order = last_order + 1
+        return super(EventWork, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return unicode(self.work)
 
 
 class EventReview(Review):
@@ -700,10 +780,36 @@ class Publication(BaseModel):
         return self.title
 
 
+class SpaceImage(BaseModel, Sortable):
+    image = FileBrowseField("Image", max_length=1024, extensions=[".jpg", ".jpeg"])
+    caption = models.CharField(max_length=1024, blank=True)
+    displayed = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return self.caption
+
+
+class SpaceVideo(BaseModel, Sortable):
+    video_file = FileBrowseField("Video", max_length=1024, extensions=['.mp4', '.m4v'], blank=True, null=True)
+    vimeo_id = models.CharField(max_length=128, blank=True)
+    caption = models.CharField(max_length=1024, blank=True)
+    displayed = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return self.caption
+
+    def clean(self):
+        if not (self.video_file or self.vimeo_id):
+            raise ValidationError("Please link to a video file or enter the vimeo id for the video")
+        if (self.video_file and self.vimeo_id):
+            raise ValidationError("Please enter only one of video file or vimeo id")
+
+
 def do_update_index(*args, **kwargs):
     sender = kwargs['sender']
     if sender not in [LogEntry]:
         update_index.delay()
 
-#post_save.connect(do_update_index)
+
+
 

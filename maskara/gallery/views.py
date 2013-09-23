@@ -1,9 +1,8 @@
-# Create your views here.
 from models import *
 from django.shortcuts import render, get_object_or_404
 import datetime
 from django.core.paginator import Paginator
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 
 def home(request):
     main_item = FrontPageItem.objects.all()[0]
@@ -102,16 +101,63 @@ def artist_work_image(request, id):
     i = ArtistWorkImage.objects.get(pk=id)
     return render(request, 'test_leaflet.html', {'image': i})
 
+def work(request, object_type, slug, work_id):
+    context = {}
+    object_types = {
+        'artist': Artist,
+        'exhibition': Exhibition,
+        'event': Event
+    }
+    if object_type not in object_types:
+        raise Http404()
+    kls = object_types[object_type]
+    obj = kls.objects.get(slug=slug)
+    context[object_type] = obj
+    context['kls'] = kls
+    context['url'] = obj.get_absolute_url()
+    work = ArtistWork.objects.get(pk=work_id)
+    context['work'] = work
+    base_name = 'artist' if object_type == 'artist' else object_type + 's'
+    context['base_template'] = base_name + 'base.html'        
+    context['menu'] = object_type + 's'
+    if object_type == 'artist':
+        context['obj_title'] = obj.name
+
+    works_qset = obj.get_works()
+    try:
+        context['works_count'] = works_qset.count()
+    except:
+        context['works_count'] = len(works_qset)
+    for i, o in enumerate(works_qset):
+        if o.id == work.id:
+            work_index = i + 1
+    if not work_index:
+        raise Http404("this should never happen")
+    context['work_index'] = work_index
+    base_url = obj.get_absolute_url()
+    if work_index > 1:
+        previous_work = works_qset[work_index - 2]
+        context['previous_work'] = base_url + "/works/" + str(previous_work.id)
+    if work_index < context['works_count']:
+        next_work = works_qset[work_index]   
+        context['next_work'] = base_url + "/works/" + str(next_work.id)
+    return render(request, "work.html", context)  
+
+
+
 
 def exhibitions(request, when='upcoming'):
     now = datetime.datetime.now()
     qset = Exhibition.objects.filter(autopublish_date__lte=now)
     if when == 'upcoming':
+        if not Exhibition.has_upcoming():
+            return HttpResponseRedirect("/exhibitions/previous")
         qset = qset.filter(start_date__gte=now).order_by('start_date')
     else:
         qset = qset.filter(start_date__lt=now).order_by('-start_date')
     context = {
         'exhibitions': qset,
+        'kls': Exhibition,
         'menu': 'exhibitions',
         'title': '%s Exhibitions' % when.title()
     }
@@ -119,7 +165,12 @@ def exhibitions(request, when='upcoming'):
 
 def current_exhibition(request):
     exhib = Exhibition.get_current()
-    return HttpResponseRedirect(exhib.get_absolute_url())
+    if exhib:
+        return HttpResponseRedirect(exhib.get_absolute_url())
+    elif Exhibition.has_upcoming():
+        return HttpResponseRedirect("/exhibitions/upcoming")
+    else:
+        return HttpResponseRedirect("/exhibitions/previous")
 
 def exhibition(request, slug, view=''):
     exhibition = get_object_or_404(Exhibition, slug=slug)
@@ -127,6 +178,7 @@ def exhibition(request, slug, view=''):
         'exhibition': exhibition,
         'url': exhibition.get_absolute_url(),
         'menu': 'exhibitions',
+        'kls': Exhibition,
         'title': 'Exhibition: %s' % exhibition.title
     }
 
@@ -135,7 +187,7 @@ def exhibition(request, slug, view=''):
 
     elif view == 'works':
         template = 'exhibitions-works.html'
-        context['works'] = exhibition.featured_work.all()
+        context['works'] = exhibition.get_works()
 
     elif view == 'artists':
         template = 'exhibitions-artists.html'
@@ -159,20 +211,29 @@ def exhibition(request, slug, view=''):
 def events(request, when='upcoming'):
     now = datetime.datetime.now()
     qset = Event.objects.filter(published=True)
+    if when == 'current':
+        qset = qset.filter(date__lte=now).filter(end_date__gte=now).order_by('date')
     if when == 'upcoming':
         qset = qset.filter(date__gte=now).order_by('date')
-    else:
-        qset = qset.filter(date__lt=now).order_by('-date')
+    elif when == 'previous':
+        qset = qset.filter(date__lt=now).exclude(end_date__gte=now).order_by('-date')
     context = {
         'events': qset,
         'menu': 'events',
+        'kls': Event,
         'title': '%s Events' % when.title()
     }
     return render(request, 'events.html', {'events': qset})
 
 def current_event(request):
-    event = Event.get_current()
-    return HttpResponseRedirect(event.get_absolute_url())
+    events = Event.get_current()
+    if not events:
+        return HttpResponseRedirect("/events/upcoming")
+    else:
+        if events.count() == 1:
+            return HttpResponseRedirect(events[0].get_absolute_url())
+        else:
+            return events(request, when='current') 
 
 def event(request, slug, view=''):
     event = get_object_or_404(Event, slug=slug)
@@ -180,6 +241,7 @@ def event(request, slug, view=''):
         'event': event,
         'url': event.get_absolute_url(),
         'menu': 'events',
+        'kls': Event,
         'title': 'Event: %s' % event.title
     }
 
@@ -188,11 +250,16 @@ def event(request, slug, view=''):
 
     elif view == 'works':
         template = 'event-works.html'
-        context['works'] = event.featured_work.all()
+        context['works'] = event.get_works()
+
+    elif view == 'artists':
+        template = 'event-artists.html'
+        context['artists'] = event.featured_artists.all()
 
     elif view == 'publications':
         template = 'event-publications.html'
         context['publications'] = event.publication_set.all()
+
 
     else:
         return HttpResponseRedirect(context['url'] + "/overview")        

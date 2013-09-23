@@ -6,8 +6,14 @@
     <div id="sideBar" class="col25">
     
         <div class="sideBarTitles">
+        {% if kls.get_current %}
         <p><a {% if event.is_current %} class="selectedSideBarTitles" {% endif %}href="/events/current">Current Events</a></p>
+        {% endif %}
+
+        {% if kls.has_upcoming %}
         <p><a {% if event.is_upcoming %} class="selectedSideBarTitles" {% endif %}href="/events/upcoming">Upcoming Events</a></p>
+        {% endif %}
+
         <p><a {% if event.is_previous %} class="selectedSideBarTitles" {% endif %}href="/events/previous">Previous Events</a></p>
         </div>
      
@@ -44,7 +50,10 @@
         <a href="{{ url }}/works">Works</a>
         {% endif %}
 
-        <a href="{{ url }}/biography">Biography</a>  
+        {% if event.has_artists %}
+        <a href="{{ url }}/biography">Biography</a>
+        {% endif %}
+          
         <a href="{{ url }}/press">Press</a>
 
         {% if event.has_publications %}

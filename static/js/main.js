@@ -17,9 +17,9 @@ $(document).ready(function(){
    });
    
    $(".anchorsExhibition a").each(function() {   
-      if (this.href == window.location.href) {
-      $(this).addClass("selectedAnchors");
-   }
+      if (window.location.href.indexOf(this.href) != -1) {
+        $(this).addClass("selectedAnchors");
+      }
    });
    
    

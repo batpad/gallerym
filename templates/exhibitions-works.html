@@ -5,7 +5,7 @@
 
         {% for work in works %}
         <div class="thumbEach col25">
-            <a href="{{ work.get_absolute_url }}">
+            <a href="{{ exhibition.get_absolute_url}}/works/{{ work.id }}">
                 <img src="{{ work.list_image }}" alt="{{ work.title }}">
             </a>    
         </div>

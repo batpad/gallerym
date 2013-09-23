@@ -21,6 +21,7 @@ def slugify(txt, id=""):
     return django_slugify(txt.strip())
 
 def get_asset(filename, new_path):
+    new_path = join('Old Site', new_path)
     if filename.endswith("pdf"):
         old_path = join(OLD_ASSETS_PATH, "pdf")
     else:
@@ -94,7 +95,9 @@ def import_artist_works():
         w.save()
         if o.ex_id and o.ex_id != 0:
             exhib = new_models.Exhibition.objects.get(old_id=o.ex_id)
-            exhib.featured_work.add(w)
+            exhib_work = new_models.ExhibitionWork(exhibition=exhib, work=w)
+            exhib_work.save()
+            #exhib.featured_work.add(w)
 
         print str(w.id) + ": " + w.title
 

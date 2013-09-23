@@ -1,0 +1,42 @@
+{% extends base_template %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="/static/css/flexslider.css">
+    <style>
+        .selectedHeading+p {
+            padding: 20px 0 0 0;
+        }        
+    </style>
+
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/jquery.flexslider-min.js"></script>
+{% endblock %}
+
+{% block mainbar %}
+    {% block gallery_slider %}
+    {% endblock %}
+
+      <div id="slideDescription" class="col70">
+        <p>{{ work.title }}{% if work.year %}, {{ work.year }}{% endif %}</p>
+        <div class="smallestFont">
+          <p>{{ work.category }}</p>  
+          {% if work.material %}
+          <p>{{ work.material }}</p>
+          {% endif %}
+          {% if work.size_text %}
+          <p>{{ work.size_text }}</p>
+          {% endif %}
+          {% if work.attribution|striptags %}
+          <p>Attribution: {{ work.attribution|safe }}</p>
+          {% endif %}
+        </div> <!-- end smallest font  -->
+      <br>
+    
+        <div>
+          {{ work.theme|safe }}
+        </div>
+      </div> <!-- end slide description  -->              
+{% endblock %}
