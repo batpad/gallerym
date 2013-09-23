@@ -1,10 +1,142 @@
 {% extends 'aboutbase.html' %}
 
+{% block extra_js %}
+<script src="/static/js/jquery.flexslider-min.js"></script>
+<script>
+$(document).ready(function() {
+  // The slider being synced must be initialized first
+  $('#carousel').flexslider({
+    animation: "slide",
+    controlNav: false,
+    animationLoop: false,
+    slideshow: false,
+    itemWidth: 80,
+    itemMargin: 5,
+    asNavFor: '#slider',
+    direction: 'vertical'
+  });
+   
+  $('#slider').flexslider({
+    animation: "slide",
+    controlNav: false,
+    animationLoop: false,
+    slideshow: false,
+    sync: "#carousel",
+    controlsContainer: ".flex-container",
+    start: function(slider) {
+        $('.total-slides').text(slider.count);
+      },
+      after: function(slider) {
+        $('.current-slide').text(slider.currentSlide+1);
+      }
+  });
+});
+</script>
+
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/flexslider.css">
+<style>
+    .selectedHeading+p {
+        padding: 20px 40px 0 0;
+    }        
+
+    #slider {
+        width: 70%;
+        float: left;
+    }
+    
+    #slider .flex-direction-nav {
+        float: left;
+    }
+    
+    #slider .flex-direction-nav a {
+        bottom: 0;
+        top: auto;
+    }
+        
+    #carousel .flex-direction-nav .flex-next {
+        background: url('../../static/img/nextdown.png') no-repeat;
+    }
+    
+    #carousel .flex-direction-nav .flex-prev {
+        background: url('../../static/img/prevup.png') no-repeat;
+        
+    }
+    
+    #carousel {
+        width: 30%;
+        float: left;
+    }
+    
+    #carousel .slides li {
+        float: none !important; /* see if important can be overriden later  */
+        margin: 0 0 20px 0;
+    }
+    
+    #carousel .slides li {
+        cursor: pointer;
+    }
+    
+    #carousel .flex-direction-nav .flex-prev {
+        top: -26px;
+    }
+    
+    #carousel .flex-direction-nav .flex-next {
+        bottom: -30px;
+    }
+    
+    #carousel .flex-direction-nav a {
+        margin: 0;
+        bottom: 0;
+        top: auto;
+    }
+</style>    
+
+{% endblock %}
+
 {% block mainbar %}
 
     <div id="aboutContent">
-        <h1 class="selectedHeading">Space</h1>
-        <img src="/static/img/home-main.jpg" alt="" class="paddingBottom">
+        <!-- <img src="/static/img/home-main.jpg" alt="" class="paddingBottom"> -->
+        
+        <div class="col70">
+            <h1 class="selectedHeading floatLeft">Space</h1>
+            <p class="smallerFont floatRight"><a href="/single/images" class="blue">Images </a>/<a href="/single/videos"> Videos</a></p>
+            <div class="clear"></div>
+        </div>
+        
+        <div class="clear"></div>
+
+        <div class="flex-container paddingBottom"> 
+            <div id="slider" class="flexslider">
+                <ul class="slides">
+                  <li>
+                    <img src="/static/img/home-main.jpg" />
+                  </li>
+                  <li>
+                    <img src="/static/img/home-main.jpg" />
+                  </li>
+                  <li>
+                    <img src="/static/img/home-main.jpg" />
+                  </li>
+                </ul>
+            </div>
+            <div id="carousel" class="flexslider col30">
+                <ul class="slides">
+                  <li>
+                    <img src="/static/img/home-main.jpg" />
+                  </li>
+                  <li>
+                    <img src="/static/img/home-main.jpg" />
+                  </li>    
+                  <!-- items mirrored twice, total of 12 -->
+                </ul> 
+            </div> <!-- #carousel  -->
+            <div class="clear"></div>
+        </div>
+
         
         <div class="bioContent col70">
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga recusandae tempore itaque et eos quisquam temporibus dignissimos. Ea animi ut eveniet in. Quaerat reiciendis quo eligendi ad pariatur dolore laborum.</p>

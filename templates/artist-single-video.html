@@ -5,49 +5,59 @@
     {{ block.super }}    
     <style>
         
-        .sliderVideoWrap {
-            width: 70%;
-        }
-                
-        .sliderVideo .flex-direction-nav {
-            float: left;
-        }
+    .sliderVideoWrap {
+    }
+            
+    #slider {
+        width: 70%;
+        float: left;
+    }
+    
+    #slider .flex-direction-nav {
+        float: left;
+    }
 
-        .sliderVideo .flex-direction-nav li {
-            display: inline-block;
-        }
+    #slider .flex-direction-nav a {
+        bottom: 0;
+        top: auto;
+    }
+    
+    #carousel .flex-direction-nav .flex-next {
+        background: url('../../static/img/nextdown.png') no-repeat;
+    }
+    
+    #carousel .flex-direction-nav .flex-prev {
+        background: url('../../static/img/prevup.png') no-repeat;
+        
+    }
+    
+    #carousel {
+        width: 30%;
+        float: left;
+    }
+    
+    #carousel .slides li {
+        float: none !important; /* see if important can be overriden later  */
+        margin: 0 0 20px 0;
+    }
 
-/*         #sliderVideo .flex-direction-nav .flex-prev {
-    bottom: -20px;
-}
- */
-        .sliderVideo .flex-direction-nav {
-            padding: 18px 0 0 0;
-        }
-        
-        .sliderVideo .flex-direction-nav a {
-            /*bottom: 0;
-            top: auto;*/
-            position: static;
-        }
-        
-        
-        .sliderVideo .flex-direction-nav .flex-next {
-            background: url('../../static/img/next.png') no-repeat;
-            /* left: 26px; */
-        }
+    #carousel .slides li {
+        cursor: pointer;
+    }
+    
+    #carousel .flex-direction-nav .flex-prev {
+        top: -26px;
+    }
 
-        .sliderVideo .flex-direction-nav .flex-prev {
-            background: url('../../static/img/prev.png') no-repeat;
-            /* left: 0px; */
-        }
-        
-        .works {
-            /* padding: 8px 0 0 0; */
-        } /* make sure bottom paddding is equal between videos and image page  */
-        
-
-        
+    #carousel .flex-direction-nav .flex-next {
+        bottom: -30px;
+    }
+    
+    #carousel .flex-direction-nav a {
+        margin: 0;
+        bottom: 0;
+        top: auto;
+    }
     </style>    
         
 {% endblock %}
@@ -58,6 +68,17 @@
 <script src="/static/js/jquery.fitvids.js"></script>
 <script>
 $(document).ready(function() {
+  $('#carousel').flexslider({
+    animation: "slide",
+    controlNav: false,
+    animationLoop: false,
+    slideshow: false,
+    itemWidth: 80,
+    itemMargin: 5,
+    asNavFor: '#slider',
+    direction: 'vertical'
+  });
+       
   $('.flexslider')
     .fitVids()
     .flexslider({
@@ -67,14 +88,7 @@ $(document).ready(function() {
       slideshow: false,
       animationLoop: false,
       smoothHeight: true,
-          controlsContainer: ".flex-container",
-    start: function(slider) {
-        $('.total-slides').text(slider.count);
-      },
-      after: function(slider) {
-        $('.current-slide').text(slider.currentSlide+1);
-      }
-
+      sync: "#carousel"
   });
 });
 </script>
@@ -82,30 +96,51 @@ $(document).ready(function() {
 
     {% block gallery_slider %}
 
-    <div class="sliderVideoWrap">
+    <div class="col70">
         <h1 class="selectedHeading floatLeft">Max Streicher</h1>
         <p class="smallerFont floatRight"><a href="/single/images">Images </a>/<a href="/single/videos" class="blue"> Videos</a></p>
-        <div class="clear"></div>
-
+    </div>
+    
+    <div class="clear"></div>
     <div class=”flex-container”> 
-        <div class="sliderVideo flexslider">
+        <div id="slider" class="flexslider">
             <ul class="slides">
               <li>
                 <iframe src="http://player.vimeo.com/video/5606758?color=ffffff" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
               </li>
               <li>
-                <iframe src="http://player.vimeo.com/video/13776542?color=ffffff" width="500" height="209" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                <iframe src="http://player.vimeo.com/video/5606758?color=ffffff" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
               </li>
               <li>
-                <iframe src="http://player.vimeo.com/video/31939621" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                <iframe src="http://player.vimeo.com/video/5606758?color=ffffff" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
               </li>
+    
             </ul>
         </div>
-      <div id="slideControlBox" class="smallestFont">
+        <div id="carousel" class="flexslider col30">
+            <ul class="slides">
+              <li>
+                <img src="/static/img/home-main.jpg" />
+              </li>
+              <li>
+                <img src="/static/img/home-main.jpg" />
+              </li>
+              <li>
+                <img src="/static/img/home-main.jpg" />
+              </li>
+              <!-- items mirrored twice, total of 12 -->
+            </ul> 
+        </div> <!-- #carousel  -->
+        <div class="clear"></div>
+      <div id="slideControlBox" class="col70 smallestFont">
 
 
         <div class="works">
-            <p><span class="current-slide">1</span> of <span class="total-slides"></span> works</p>
+            <p>
+                    <a href="" class="fontIcon workPrev">l</a>
+                    <a href="" class="fontIcon workNext">r</a>
+                <span><span class="current-slide">1</span> of <span class="total-slides">4</span> works</span>
+            </p>
         </div>
         <div class="singleIcons">
             <span class="zoom">Zoom</span>
@@ -114,9 +149,7 @@ $(document).ready(function() {
         <div class="clear"></div>
       </div> <!-- end slide control box  -->
       
-</div> <!-- /flex-container -->
-    </div> <!-- /slider video wrap  -->
-  
-      <div class="clear"></div>
-      
+    </div> <!-- /flex-container -->
+    <div class="clear"></div>
+
 {% endblock %}

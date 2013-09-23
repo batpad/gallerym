@@ -4,8 +4,6 @@
 {% block extra_css %}
     {{ block.super }}    
     <style>
-        
-        
         #slider {
             width: 70%;
             float: left;
@@ -15,25 +13,10 @@
             float: left;
         }
 
-        #slider .flex-direction-nav .flex-prev {
-            /* bottom: -20px; */
-        }
-
         #slider .flex-direction-nav a {
             bottom: 0;
             top: auto;
         }
-        
-        #slider .flex-direction-nav .flex-next {
-            background: url('../../static/img/next.png') no-repeat;
-            left: 26px;
-        }
-
-        #slider .flex-direction-nav .flex-prev {
-            background: url('../../static/img/prev.png') no-repeat;
-            left: 0px;
-        }
-
         
         #carousel .flex-direction-nav .flex-next {
             background: url('../../static/img/nextdown.png') no-repeat;
@@ -97,14 +80,7 @@ $(document).ready(function() {
     controlNav: false,
     animationLoop: false,
     slideshow: false,
-    sync: "#carousel",
-    controlsContainer: ".flex-container",
-    start: function(slider) {
-        $('.total-slides').text(slider.count);
-      },
-      after: function(slider) {
-        $('.current-slide').text(slider.currentSlide+1);
-      }
+    sync: "#carousel"
   });
 });
 </script>
