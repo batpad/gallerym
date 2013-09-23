@@ -164,6 +164,8 @@ def import_events():
 def import_press():
     fromtimestamp = datetime.datetime.fromtimestamp
     for o in old_models.Press.objects.using('old').all():
+        if o.title.strip() == '':
+            continue
         if o.type == 'gm_exhibition':
             obj = new_models.ExhibitionPressRelease()
             obj.exhibition = new_models.Exhibition.objects.get(old_id = o.type_id)
