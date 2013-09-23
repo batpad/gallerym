@@ -647,7 +647,7 @@ class Event(BaseModel):
         return [ew.work for ew in EventWork.objects.filter(event=self).order_by('order')]
 
     def is_current(self):
-        return self.id == Event.get_current().id
+        return Event.get_current() and self.id == Event.get_current().id
 
     def is_upcoming(self):
         now = datetime.datetime.now().date()
