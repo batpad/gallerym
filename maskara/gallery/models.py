@@ -362,7 +362,7 @@ class ArtistWork(BaseModel):
         ordering = ['artist', 'order']
 
     def __unicode__(self):
-        return "%s: %s" % (self.artist.name, self.title,)
+        return "%d - %s: %s" % (self.id, self.artist.name, self.title,)
 
 
 class ArtistWorkImage(BaseModel):
