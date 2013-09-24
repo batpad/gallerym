@@ -348,7 +348,7 @@ class ArtistWork(BaseModel):
         return self.get_image(options)
 
     def medium_image(self):
-        options = {'size': (800,800)}
+        options = {'size': (800,600)}
         return self.get_image(options)
 
 
