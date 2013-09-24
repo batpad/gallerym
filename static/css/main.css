@@ -427,21 +427,39 @@ padding: 6px 110px 6px 0;
 }
 
 .footerLinks {
-	padding: 8px 4px;
+	/* padding: 4px; */
 	font-size: 90%;
 }
 
 .footerLinks span {
 	padding: 0 0 0 20px;
-	line-height: 2;
+	/* line-height: 2; */
+	display: inline-block;
 }
 
-.footerLinks span:first-of-type {
+.copyrightInfo {
+	padding: 6px 0 0 0;
+}
+
+/* .footerLinks span:first-of-type {
 	padding: 0;
 }
+ */
+.footerLinks .footerList {
+	background: #A7CF4F;
+	display: inline-block;
+	text-transform: uppercase;
+	padding: 2px 8px;
+	border: 4px solid #a7cf4f;
+	font-weight: 700;
+}
 
-.footerLinks a {
-	color: #777; /* change once default site link colour is approved  */
+.footerList .fontIcon {
+	font-size: 120%;
+	padding: 0 4px 0 0;
+	text-transform: lowercase;
+	vertical-align: middle;
+	font-weight: normal;
 }
 
 /* .thumbnailBlock .thumbEach:nth-of-type(4n+1) {
@@ -689,6 +707,10 @@ padding: 6px 110px 6px 0;
 	#contentMain {
 		padding: 10px 10px 10px 30px; 
 	}
+	
+	#footer {
+		padding-left: 30px;
+	}
 
 	.exibContent, .publicationDescMain {
 		padding-right: 0;
@@ -702,6 +724,14 @@ padding: 6px 110px 6px 0;
 		display: block;
 	}
 	
+	.footerLinks .termsLink {
+		padding-left: 0;
+	}
+	
+	
+	.copyrightInfo, .footerTerms {
+		float: none;
+	}
 /* .bioDownloadInfo {
 		border-top: none;
 	}
@@ -787,10 +817,22 @@ padding: 6px 110px 6px 0;
 	}
 	
 	.footerLinks span {
-		padding: 0 20px 12px 4px;
+		padding: 8px 20px 8px 4px;
 		display: block;
 	}
 	
+	.footerLinks .fontIcon {
+		display: inline-block;
+	}
+	
+	#searchBlock input {
+		width: 100%;
+	}
+	
+	.copyrightInfo {
+		padding-bottom: 8px;
+	}
+
 }
 
 /* END MEDIA QUERIES */

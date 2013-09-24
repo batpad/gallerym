@@ -9,8 +9,8 @@
  
 	.selecter-element { *left: -999999px; position: absolute; opacity: 0; }
 	.selecter { /* margin: 10px 0; */ position: relative; min-width: 220px; display: inline-block; /* max-width: 30%; display: block; */ z-index: 1; }
-	.selecter .selecter-selected { background: #fff url(../../static/img/down.png) no-repeat right center; border: 1px solid #ccc; cursor: pointer; display: block; margin: 0; overflow: hidden; position: relative; text-overflow: clip; z-index: 49; padding: 4px;}
-	.selecter .selecter-options { border: 1px solid #ccc; border-width: 0 1px 1px; background-color: #fefefe; border-radius: 0 0 3px 3px; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15); display: none; left: 0; margin: 0; max-height: 260px; overflow: auto; overflow-x: hidden; padding: 0; position: absolute; top: 100%; width: 100%; *width: auto; z-index: 50; }
+	.selecter .selecter-selected { background: #fff url(../../static/img/down-triangle.png) no-repeat 98.5% center; border: 1px solid #ddd; cursor: pointer; display: block; margin: 0; overflow: hidden; position: relative; text-overflow: clip; z-index: 49; padding: 4px;}
+	.selecter .selecter-options { border: 1px solid #ccc; border-width: 0 1px 1px; background-color: #fefefe; border-radius: 0 0 3px 3px; display: none; left: 0; margin: 0; max-height: 260px; overflow: auto; overflow-x: hidden; padding: 0; position: absolute; top: 100%; width: 100%; *width: auto; z-index: 50; }
 	.selecter .selecter-group { background: #fff; border-bottom: 1px solid #ccc; display: block; font-size: 11px; padding: 5px 10px 4px; text-transform: uppercase; }
 	.selecter .selecter-item { background: #fff; border-bottom: 1px solid #e3e3e3; color: #333; cursor: pointer; display: block; font-size: 13px; margin: 0; overflow: hidden; padding: 4px; text-overflow: ellipsis; width: 100%; }
 	.selecter .selecter-item.selected { background: #F9F9F9; }
@@ -52,7 +52,7 @@
 	.selecter.bottom.cover.open .selecter-options {}
 	
 	/* Multiple Select */
-	.selecter.multiple .selecter-options { border-width: 1px; box-shadow: none; display: block; position: static; width: 100%; }
+	.selecter.multiple .selecter-options { border-width: 1px; display: block; position: static; width: 100%; }
 	
 	/* 'Disabled' State */
 	.selecter.disabled .selecter-selected { background: #fff; border-color: #eee; color: #ccc; cursor: default; }
@@ -63,7 +63,7 @@
 	
 	/* Media Queries */
 	@media screen and (max-width: 740px) {
-		.selecter { max-width: 40%; }
+		/* .selecter { max-width: 40%; } */
 	}
 	@media screen and (max-width: 500px) {
 		.selecter { max-width: 100%; } 
