@@ -1,0 +1,70 @@
+/*
+ * Selecter Plugin [Formstone Library]
+ * @author Ben Plum
+ * @version 2.2.0
+ *
+ * Copyright © 2013 Ben Plum <mr@benplum.com>
+ * Released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
+ */
+ 
+	.selecter-element { *left: -999999px; position: absolute; opacity: 0; }
+	.selecter { /* margin: 10px 0; */ position: relative; min-width: 220px; display: inline-block; /* max-width: 30%; display: block; */ z-index: 1; }
+	.selecter .selecter-selected { background: #fff url(../../static/img/down.png) no-repeat right center; border: 1px solid #ccc; cursor: pointer; display: block; margin: 0; overflow: hidden; position: relative; text-overflow: clip; z-index: 49; padding: 4px;}
+	.selecter .selecter-options { border: 1px solid #ccc; border-width: 0 1px 1px; background-color: #fefefe; border-radius: 0 0 3px 3px; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15); display: none; left: 0; margin: 0; max-height: 260px; overflow: auto; overflow-x: hidden; padding: 0; position: absolute; top: 100%; width: 100%; *width: auto; z-index: 50; }
+	.selecter .selecter-group { background: #fff; border-bottom: 1px solid #ccc; display: block; font-size: 11px; padding: 5px 10px 4px; text-transform: uppercase; }
+	.selecter .selecter-item { background: #fff; border-bottom: 1px solid #e3e3e3; color: #333; cursor: pointer; display: block; font-size: 13px; margin: 0; overflow: hidden; padding: 4px; text-overflow: ellipsis; width: 100%; }
+	.selecter .selecter-item.selected { background: #F9F9F9; }
+	.selecter .selecter-item.disabled { color: #999; cursor: default; }
+	.selecter .selecter-item.first { border-radius: 0; } 
+	.selecter .selecter-item.last { border-radius: 0 0 2px 2px; border-bottom: 0; }
+	
+	@media screen and (min-width: 740px) {
+		.selecter .selecter-item:hover, 
+		.selecter .selecter-item.selected:hover { background-color: #f3f3f3; }
+		.selecter .selecter-item.disabled:hover { background-color: #fff; }
+		
+		.selecter:hover .selecter-selected { background-color: #fff; }
+		
+		.selecter.disabled .selecter-item:hover { background: #fff; }
+	}
+	
+	/* Open */
+	.selecter.open { z-index: 3; }
+	.selecter.open .selecter-selected { z-index: 51; }
+	
+	.selecter.open .selecter-selected, 
+	.selecter.focus .selecter-selected { background-color: #fff; }
+	
+	/* 'Cover' Positioning */
+	.selecter.cover .selecter-options { border-width: 1px; top: 0; }
+	.selecter.cover .selecter-options .selecter-item.first { border-radius: 3px 3px 0 0; }
+	.selecter.cover.open .selecter-selected { z-index: 49; }
+	
+	/* 'Bottom' Positioning */
+	.selecter.bottom .selecter-options { border-width: 1px 1px 0; bottom: 100%; top: auto; }
+	.selecter.bottom .selecter-item.last { border: none; }
+	.selecter.bottom.open .selecter-selected {}
+	.selecter.bottom.open .selecter-options {}
+	
+	/* 'Bottom' + 'Cover' Positioning */
+	.selecter.bottom.cover .selecter-options { bottom: 0; top: auto; }
+	.selecter.bottom.cover.open .selecter-selected {}
+	.selecter.bottom.cover.open .selecter-options {}
+	
+	/* Multiple Select */
+	.selecter.multiple .selecter-options { border-width: 1px; box-shadow: none; display: block; position: static; width: 100%; }
+	
+	/* 'Disabled' State */
+	.selecter.disabled .selecter-selected { background: #fff; border-color: #eee; color: #ccc; cursor: default; }
+	.selecter.disabled .selecter-options { background: #fff; border-color: #eee; }
+	.selecter.disabled .selecter-group,
+	.selecter.disabled .selecter-item { border-color: #eee; color: #ccc; cursor: default; }
+	.selecter.disabled .selecter-item.selected { background: #fafafa; }
+	
+	/* Media Queries */
+	@media screen and (max-width: 740px) {
+		.selecter { max-width: 40%; }
+	}
+	@media screen and (max-width: 500px) {
+		.selecter { max-width: 100%; } 
+	}
