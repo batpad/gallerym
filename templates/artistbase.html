@@ -19,6 +19,10 @@
             <p><a href="{{ url }}/exhibitions">Exhibitions</a></p>
             {% endif %}
 
+            {% if artist.has_events %}
+            <p><a href="{{ url }}/events">Events</a></p>
+            {% endif %}
+
             <p><a href="{{ url }}/biography">Biography</a></p>
 
             {% if artist.has_cv %}

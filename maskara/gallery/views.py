@@ -67,6 +67,10 @@ def artist(request, slug, view=''):
         template = 'artist-exhibitions.html'
         context['exhibitions'] = Exhibition.objects.filter(featured_artists=artist)
 
+    elif view == 'events':
+        template = 'artist-events.html'
+        context['events'] = artist.event_set.all()
+
     elif view == 'biography':
         template = 'artist-biography.html'
 
