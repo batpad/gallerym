@@ -98,11 +98,11 @@ a:hover, a:focus, a:active {
 	color: #035595;
 }
 
-strong {
+strong, b {
 	font-weight: 600;
 }
 
-em {
+em, i {
 	font-style: italic;
 }
 
@@ -667,6 +667,11 @@ padding: 6px 110px 6px 0;
 #carousel .flex-direction-nav .flex-prev, #carousel .flex-direction-nav .flex-next {
 	left: 35px;
 }
+
+.richtext p {
+	padding-bottom: 10px;
+}
+
 /* MEDIA QUERIES */
 
 /* @media only screen and (min-width: 1101px) {

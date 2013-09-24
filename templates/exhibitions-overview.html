@@ -3,8 +3,8 @@
 {% block mainbar %}    
     <img src="{{ exhibition.main_image }}" alt="{{ exhibition.title }}" class="imgMainExib">    
     
-    <div class="exibContent col75">
-        {{ exhibition.description }}
+    <div class="exibContent richtext col75">
+        {{ exhibition.description|safe }}
     </div> <!-- end bio content -->
 
     {% include 'includes/exhibition-press-pdf.html' %}
