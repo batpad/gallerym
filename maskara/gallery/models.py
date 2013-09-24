@@ -270,7 +270,8 @@ class ArtistPress(ArtistInfoBase):
 class ArtistNews(BaseModel):
     artist = models.ForeignKey(Artist)
     date = models.DateField(blank=True, null=True)
-    text = models.TextField()
+    title = models.CharField(max_length=512)
+    text = models.TextField(blank=True)
     link = models.URLField(blank=True, verify_exists=False)
     image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)    
     #image = models.FileField(blank=True, upload_to='artist_news/')
