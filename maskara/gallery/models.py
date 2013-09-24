@@ -299,6 +299,7 @@ class ArtistWork(BaseModel):
     title = models.CharField(max_length=1024)
     image = FileBrowseField("Image", help_text="not used, just for reference from old database", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
     #image = models.ImageField(upload_to='work_images/', blank=True)
+    pdf = FileBrowseField("PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
     is_selected = models.BooleanField(default=False)
     is_available = models.BooleanField(default=False)
     category = models.CharField(choices=WORK_CATEGORIES, max_length=64)
@@ -561,7 +562,7 @@ class Exhibition(BaseModel):
         return "/exhibition/%s" % self.slug
 
     class Meta:
-        pass
+        ordering = ['-start_date']
 
     def __unicode__(self):
         return self.title
@@ -685,7 +686,7 @@ class Event(BaseModel):
         return "/event/%s" % self.slug
 
     class Meta:
-        pass
+        ordering = ['-date']
 
     def __unicode__(self):
         return self.title
