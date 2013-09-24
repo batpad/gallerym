@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block extra_css %}
+<style>
+    .form {
+        font-size: 90%;
+    }
+    
+    .fieldBlock {
+        padding: 0 14px 10px 14px;
+    }
+    
+    .form label {
+        display: block;
+    }    
+
+    .form input[type="text"], .form input[type="email"], .form input[type="tel"], .form input[type="number"], select {
+        min-width: 220px;
+    }
+    
+    .requiredField:after {
+        content: '*';
+        color: #e5231b;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="col70">
+
+    <form action="#" class="form">
+        <div class="paddingBottom">
+            <div class="fieldWrap">
+                <div class="fieldBlock floatLeft">
+                    <label for="firstName" class="requiredField">First Name</label>
+                    <input type="text" id="firstName" name="firstName"> 
+                </div>
+          
+                <div class="fieldBlock floatLeft">
+                    <label for="lastName" class="requiredField">Last Name</label>
+                    <input type="text" id="lastName" name="lastName"> 
+                </div>
+                <div class="clear"></div>
+            </div> <!-- /fieldWrap -->
+    
+            <div class="fieldWrap">
+                <div class="fieldBlock col33">
+                    <label for="email" class="requiredField">Email</label>
+                    <input type="email" id="email" name="email"> 
+                </div>
+          
+                <div class="fieldBlock col33">
+                    <label for="tel">Tel No</label>
+                    <input type="tel" id="tel" name="tel"> 
+                </div>
+    
+                <div class="fieldBlock col33">
+                    <label for="cell">Cell No</label>
+                    <input type="tel" id="cell" name="cell"> 
+                </div>
+                <div class="clear"></div>
+            </div> <!-- /fieldWrap -->
+        </div> <!-- /paddingBottom  -->
+
+        <div class="fieldWrap">
+            <div class="fieldBlock">
+                <label for="address">Address</label>    
+                <input type="text" id="address" name="address" class="col65">
+                <div class="clear"></div>
+            </div>
+        </div> <!-- /fieldWrap  -->
+
+        <div class="fieldWrap">
+            <div class="fieldBlock col33">
+                <label for="street">Street</label>
+                <input type="text" id="street" name="street"> 
+            </div>
+      
+            <div class="fieldBlock col33">
+                <label for="city">City</label>
+                <input type="text" id="city" name="city"> 
+            </div>
+
+            <div class="fieldBlock col33">
+                <label for="zip">Zip</label>
+                <input type="text" id="zip" name="zip"> 
+            </div>
+            <div class="clear"></div>
+        </div> <!-- /fieldWrap -->
+
+        <div class="fieldWrap">
+            <div class="fieldBlock floatLeft">
+                <label for="state" class="">State</label>
+                <input type="text" id="state" name="state"> 
+            </div>
+      
+            <div class="fieldBlock floatLeft">
+                <label for="country" class="requiredField">Country</label>
+                <select id="country" name="country">
+                    <option value="">Alaska</option>
+                    <option value="">Albania</option>
+                    <option value="">India</option>
+                    <option value="">Sri Lanka</option>
+                </select>
+            </div>
+            <div class="clear"></div>
+        </div> <!-- /fieldWrap -->
+
+        <div class="fieldWrap">
+            <div class="fieldBlock">
+                <label for="country">Role</label>
+                <select id="country" name="country">
+                    <option value="">Collector</option>
+                    <option value="">Albania</option>
+                    <option value="">India</option>
+                    <option value="">Other</option>
+                </select>
+            </div>
+            <div class="clear"></div>
+        </div> <!-- /fieldWrap -->
+
+    </form>
+
+</div>
+
+{% endblock %}
