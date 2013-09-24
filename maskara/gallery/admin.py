@@ -6,6 +6,7 @@ from image_cropping import ImageCroppingMixin
 from sortable.admin import SortableAdmin
 from chunks.models import Chunk
 from django.contrib.contenttypes import generic
+from django import forms
 
 class ArtistWorkImageInline(admin.StackedInline):
     model = ArtistWorkImage
@@ -37,6 +38,7 @@ class ArtistNews(admin.StackedInline):
     model = ArtistNews
 '''
 
+
 class ArtistReviewInline(admin.StackedInline):
     model = ArtistReview
     inlines = []
@@ -46,19 +48,25 @@ class VideoInline(generic.GenericStackedInline):
     model = Video    
     sortable_field_name = 'order'
 
-class ArtistEducationInline(admin.StackedInline):
+class ArtistInfoForm(forms.ModelForm):
+    text = forms.CharField(widget=forms.TextInput(attrs={'style':'width:800px'}))
+
+class ArtistInfoInlineBase(admin.StackedInline):
+    form = ArtistInfoForm
+
+class ArtistEducationInline(ArtistInfoInlineBase):
     model = ArtistEducation
 
-class ArtistSoloExhibInline(admin.StackedInline):
+class ArtistSoloExhibInline(ArtistInfoInlineBase):
     model = ArtistSoloExhib
 
-class ArtistGroupExhibInline(admin.StackedInline):
+class ArtistGroupExhibInline(ArtistInfoInlineBase):
     model = ArtistGroupExhib
 
-class ArtistCollectionInline(admin.StackedInline):
+class ArtistCollectionInline(ArtistInfoInlineBase):
     model = ArtistCollection
 
-class ArtistAwardInline(admin.StackedInline):
+class ArtistAwardInline(ArtistInfoInlineBase):
     model = ArtistAward
 
 class ArtistPressInline(admin.StackedInline):
