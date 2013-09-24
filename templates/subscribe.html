@@ -1,13 +1,23 @@
 {% extends 'base.html' %}
 
 {% block extra_css %}
+<link rel="stylesheet" href="/static/css/jquery.fs.selecter.css">    
 <style>
-    .form {
+    .subscribeWrap {
         font-size: 90%;
     }
     
+    .selectedHeading h1 {
+        padding: 0 0 10px 0;
+    }
+
+    .form {
+        /* position: relative;
+        left: -14px; */
+    }
+    
     .fieldBlock {
-        padding: 0 14px 10px 14px;
+        padding: 10px 0;
     }
     
     .form label {
@@ -16,25 +26,73 @@
 
     .form input[type="text"], .form input[type="email"], .form input[type="tel"], .form input[type="number"], select {
         min-width: 220px;
+        border: 1px solid #ddd;
+        padding: 4px;
     }
     
-    .requiredField:after {
+    .form input[type="submit"] {
+        background: #005594;
+        border: none;
+        color: #fff;
+        padding: 2px 24px;
+    }
+    
+    .validation, .requiredField:after, .validationNote:before {
+        color: #e5231b;        
+    }
+    
+    .requiredField:after, .validationNote:before {
         content: '*';
-        color: #e5231b;
+        font-weight: 700;
+    }
+    
+    .validation {
+        background: #ddd;
+        padding: 10px;
+        
+    }
+    
+    .alertIcon {
+        font-size: 100%;
+        background: #e5231b;
+        color: #fff;
+        width: 21px;
+        height: 21px;
+        border-radius: 60px;
+        display: inline-block;
+        text-align: center;
+        line-height: 1.6;
+    }
+    
+    #address {
+        width: 62%;
     }
 </style>
 {% endblock %}
 
+{% block extra_js %}
+<script src="/static/js/jquery.fs.selecter.min.js"></script>
+<script>
+    $(document).ready(function(){
+       $("select").selecter(); 
+    });
+</script>
+{% endblock %}
+
 {% block content %}
 
-<div class="col70">
-
+<div class="col70 subscribeWrap">
+    <div class="selectedHeading">
+        <h1>Join our Mailing List</h1>
+        <p>Your contact information will enable us to send you updates on upcoming exhibitions and events.</p>
+    </div>
+    
     <form action="#" class="form">
         <div class="paddingBottom">
             <div class="fieldWrap">
                 <div class="fieldBlock floatLeft">
                     <label for="firstName" class="requiredField">First Name</label>
-                    <input type="text" id="firstName" name="firstName"> 
+                    <input type="text" id="firstName" name="firstName"><span class="alertIcon">!</span> 
                 </div>
           
                 <div class="fieldBlock floatLeft">
@@ -47,17 +105,17 @@
             <div class="fieldWrap">
                 <div class="fieldBlock col33">
                     <label for="email" class="requiredField">Email</label>
-                    <input type="email" id="email" name="email"> 
+                    <input type="email" id="email" name="email"> <span class="alertIcon">!</span>
                 </div>
           
                 <div class="fieldBlock col33">
-                    <label for="tel">Tel No</label>
-                    <input type="tel" id="tel" name="tel"> 
+                    <label for="tel">Tel no</label>
+                    <input type="tel" id="tel" name="tel"> <span class="alertIcon">!</span>
                 </div>
     
                 <div class="fieldBlock col33">
-                    <label for="cell">Cell No</label>
-                    <input type="tel" id="cell" name="cell"> 
+                    <label for="cell">Cell no</label>
+                    <input type="tel" id="cell" name="cell"> <span class="alertIcon">!</span>
                 </div>
                 <div class="clear"></div>
             </div> <!-- /fieldWrap -->
@@ -66,7 +124,7 @@
         <div class="fieldWrap">
             <div class="fieldBlock">
                 <label for="address">Address</label>    
-                <input type="text" id="address" name="address" class="col65">
+                <input type="text" id="address" name="address"><span class="alertIcon">!</span>
                 <div class="clear"></div>
             </div>
         </div> <!-- /fieldWrap  -->
@@ -74,17 +132,17 @@
         <div class="fieldWrap">
             <div class="fieldBlock col33">
                 <label for="street">Street</label>
-                <input type="text" id="street" name="street"> 
+                <input type="text" id="street" name="street"> <span class="alertIcon">!</span>
             </div>
       
             <div class="fieldBlock col33">
                 <label for="city">City</label>
-                <input type="text" id="city" name="city"> 
+                <input type="text" id="city" name="city"> <span class="alertIcon">!</span>
             </div>
 
             <div class="fieldBlock col33">
                 <label for="zip">Zip</label>
-                <input type="text" id="zip" name="zip"> 
+                <input type="text" id="zip" name="zip"> <span class="alertIcon">!</span>
             </div>
             <div class="clear"></div>
         </div> <!-- /fieldWrap -->
@@ -92,7 +150,7 @@
         <div class="fieldWrap">
             <div class="fieldBlock floatLeft">
                 <label for="state" class="">State</label>
-                <input type="text" id="state" name="state"> 
+                <input type="text" id="state" name="state"> <span class="alertIcon">!</span>
             </div>
       
             <div class="fieldBlock floatLeft">
@@ -102,26 +160,31 @@
                     <option value="">Albania</option>
                     <option value="">India</option>
                     <option value="">Sri Lanka</option>
-                </select>
+                </select><span class="alertIcon">!</span>
             </div>
             <div class="clear"></div>
         </div> <!-- /fieldWrap -->
 
         <div class="fieldWrap">
             <div class="fieldBlock">
-                <label for="country">Role</label>
-                <select id="country" name="country">
+                <label for="role">Role</label>
+                <select id="role" name="role">
                     <option value="">Collector</option>
                     <option value="">Albania</option>
                     <option value="">India</option>
                     <option value="">Other</option>
-                </select>
+                </select><span class="alertIcon">!</span>
             </div>
             <div class="clear"></div>
         </div> <!-- /fieldWrap -->
-
-    </form>
-
+        <br>
+        <div class="validationNote">Mandatory information required.</div>
+        <br>
+        <p>Your right to privacy is a concern for us and in keeping with our policy, all personal data provided will be kept confidential and will not be shared with any third party.</p>
+        <br>
+        <input type="submit" value="SIGN UP" class="marginBottom">
+    <div class="validation">Validation errors occured. Please confirm all mandatory information required has been filled in correctly.</div>
 </div>
+    </form>
 
 {% endblock %}
