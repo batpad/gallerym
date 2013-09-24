@@ -452,6 +452,7 @@ padding: 6px 110px 6px 0;
 	padding: 2px 8px;
 	border: 4px solid #a7cf4f;
 	font-weight: 700;
+	color: inherit;
 }
 
 .footerList .fontIcon {
