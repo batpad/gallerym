@@ -204,6 +204,7 @@ INSTALLED_APPS = (
     'maskara.gallery',
     'maskara.base',
     'mockups',
+    'sorl.thumbnail',
     'easy_thumbnails',
     'image_cropping',
     'south',
@@ -250,6 +251,8 @@ from easy_thumbnails.conf import settings as thumbnail_settings
 THUMBNAIL_PROCESSORS = (
     'image_cropping.thumbnail_processors.crop_corners',
 ) + thumbnail_settings.THUMBNAIL_PROCESSORS
+
+THUMBNAIL_BASEDIR = 'easy_thumbs'
 
 try:
     from local_settings import *

@@ -176,6 +176,9 @@ class Artist(BaseModel):
     def has_exhibitions(self):
         return Exhibition.objects.filter(featured_artists=self).count() > 0
 
+    def has_events(self):
+        return self.event_set.count() > 0
+
     def has_education(self):
         return self.artisteducation_set.count() > 0
 
@@ -270,23 +273,24 @@ class ArtistPress(ArtistInfoBase):
 class ArtistNews(BaseModel):
     artist = models.ForeignKey(Artist)
     date = models.DateField(blank=True, null=True)
-    text = models.TextField()
+    title = models.CharField(max_length=512)
+    text = models.TextField(blank=True)
     link = models.URLField(blank=True, verify_exists=False)
     image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)    
     #image = models.FileField(blank=True, upload_to='artist_news/')
 
     def __unicode__(self):
-        return strip_tags(self.text)
+        return self.title
 
 
 WORK_CATEGORIES = (
-    ('0', 'Uncategorized'),
-    ('1', 'Painting'),
-    ('2', 'Sculpture'),
-    ('3', 'Photography'),
-    ('4', 'Video'),
-    ('5', 'Installation'),
-    ('6', 'Print'),
+    ('0', 'Painting'),
+    ('1', 'Sculpture'),
+    ('2', 'Photography'),
+    ('3', 'Video'),
+    ('4', 'Installation'),
+    ('5', 'Print'),
+    ('6', 'Uncategorized'),
 )
 
 class ArtistWork(BaseModel):
@@ -315,7 +319,7 @@ class ArtistWork(BaseModel):
         return ("id__iexact", "title__icontains",)
 
     def get_absolute_url(self):
-        return "/work/%s/%d" % (self.artist.slug, self.id,)
+        return "/artist/%s/works/%d" % (self.artist.slug, self.id,)
 
     def get_thumbnail(self):
         '''

@@ -4,8 +4,8 @@
     <h1 class="selectedHeading">{{ artist.name }}</h1>
     <div class="smallestFont">
         <p>
-             {% if artist.dob %} {{ artist.dob|date:"Y" }} Born, {% endif %}
-             {% if artist.birth_location %}Olds, Alberta, Canada {% endif %}
+             {% comment %}{% if artist.dob %} {{ artist.dob|date:"Y" }} Born, {% endif %}{% endcomment %}
+             {% if artist.birth_location %}{{ artist.birth_location }}{% endif %}
         </p>
     </div>
     
