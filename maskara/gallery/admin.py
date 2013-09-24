@@ -96,7 +96,7 @@ class ArtistAdmin(BaseAdmin):
     list_display = BaseAdmin.list_display + ('is_represented',)
     list_editable = ['published', 'is_represented']
     list_filter = ('is_represented', 'published',)
-    inlines = [ArtistNewsInline, ArtistWorkInline, ArtistEducationInline, ArtistReviewInline, ArtistSoloExhibInline, ArtistGroupExhibInline, ArtistAwardInline, ArtistCollectionInline, ArtistPressReleaseInline, ArtistPressInline, ArtistNewsInline, VideoInline]
+    inlines = [ArtistNewsInline, ArtistWorkInline, ArtistEducationInline, ArtistReviewInline, ArtistSoloExhibInline, ArtistGroupExhibInline, ArtistAwardInline, ArtistCollectionInline, ArtistPressReleaseInline, ArtistPressInline, VideoInline]
 
 class ArtistWorkAdmin(BaseAdmin):
     search_fields = ['title', 'artist__name']

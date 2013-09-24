@@ -277,7 +277,7 @@ class ArtistNews(BaseModel):
     #image = models.FileField(blank=True, upload_to='artist_news/')
 
     def __unicode__(self):
-        return strip_tags(self.text)
+        return self.title
 
 
 WORK_CATEGORIES = (
