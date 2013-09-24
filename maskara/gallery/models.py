@@ -319,7 +319,7 @@ class ArtistWork(BaseModel):
         return ("id__iexact", "title__icontains",)
 
     def get_absolute_url(self):
-        return "/work/%s/%d" % (self.artist.slug, self.id,)
+        return "/artist/%s/works/%d" % (self.artist.slug, self.id,)
 
     def get_thumbnail(self):
         '''
