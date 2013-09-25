@@ -284,7 +284,4 @@ def previous_exhibitions(request):
 '''
 
 
-def subscribe(request):
-    return render(request, "subscribe.html")
-
 

@@ -35,6 +35,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/filebrowser/', include(site.urls)),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^subscribe$', 'subscribers.views.subscribe', name='subscribe'),
     url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),                    
 )
 
@@ -53,7 +54,6 @@ urlpatterns += patterns('maskara.gallery.views',
     url(r'^events/previous$', 'events', {'when': 'previous'}, name='previous_events'),
     url(r'^event/(?P<slug>[\w\-]+)/(?P<view>[\w\-]*?)$', 'event', name='event'),
     url(r'^test_work_image/(?P<id>[0-9]*)', 'artist_work_image'),
-    url(r'^subscribe$', 'subscribe', name='subscribe'),
 )
 
 urlpatterns += patterns('django.views.generic.simple', 

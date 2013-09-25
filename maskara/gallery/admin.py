@@ -69,8 +69,10 @@ class ArtistCollectionInline(ArtistInfoInlineBase):
 class ArtistAwardInline(ArtistInfoInlineBase):
     model = ArtistAward
 
+'''
 class ArtistPressInline(admin.StackedInline):
     model = ArtistPress
+'''
 
 class ArtistNewsInline(admin.StackedInline):
     model = ArtistNews
@@ -104,7 +106,7 @@ class ArtistAdmin(BaseAdmin):
     list_display = BaseAdmin.list_display + ('is_represented',)
     list_editable = ['published', 'is_represented']
     list_filter = ('is_represented', 'published',)
-    inlines = [ArtistNewsInline, ArtistWorkInline, ArtistEducationInline, ArtistReviewInline, ArtistSoloExhibInline, ArtistGroupExhibInline, ArtistAwardInline, ArtistCollectionInline, ArtistPressReleaseInline, ArtistPressInline, VideoInline]
+    inlines = [ArtistNewsInline, ArtistWorkInline, ArtistEducationInline, ArtistReviewInline, ArtistSoloExhibInline, ArtistGroupExhibInline, ArtistAwardInline, ArtistCollectionInline, ArtistPressReleaseInline, VideoInline]
 
 class ArtistWorkAdmin(BaseAdmin):
     search_fields = ['title', 'artist__name']
