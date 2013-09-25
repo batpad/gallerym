@@ -118,7 +118,8 @@
         <p>Your contact information will enable us to send you updates on upcoming exhibitions and events.</p>
     </div>
     
-    <form action="#" class="form">
+    <form action="" class="form" method="POST">
+        {% csrf_token %}
         <div class="paddingBottom">
             <div class="fieldWrap">
                 <div class="fieldBlock floatLeft">

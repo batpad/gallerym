@@ -124,7 +124,8 @@ class Artist(BaseModel):
     bio_pdf = FileBrowseField("Bio PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
     #bio_pdf = models.FileField(blank=True, upload_to='artist_bio_pdfs/')
     #press_pdf = models.FileField(blank=True, upload_to='artist_press_pdfs/')
-    pdf = FileBrowseField("PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
+    pdf = FileBrowseField("Press PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
+    #press_pdf = FileBrowseField("Press PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
     image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
     #image = models.ImageField(blank=True, upload_to='artist_images/')
     url = models.URLField(blank=True)
@@ -251,6 +252,7 @@ class ArtistInfoBase(BaseModel):
 
     class Meta:
         abstract = True
+        ordering = ['-year']
 
 class ArtistEducation(ArtistInfoBase):
     pass
@@ -267,8 +269,10 @@ class ArtistCollection(ArtistInfoBase):
 class ArtistAward(ArtistInfoBase):
     pass
 
+'''
 class ArtistPress(ArtistInfoBase):
     pass
+'''
 
 class ArtistNews(BaseModel):
     artist = models.ForeignKey(Artist)
@@ -492,8 +496,8 @@ class Exhibition(BaseModel):
     autopublish_date = models.DateField()
     curated_by = models.CharField(max_length=512, blank=True)
     image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
-    pdf = FileBrowseField("PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
-    press_release = FileBrowseField("PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
+    pdf = FileBrowseField("Press Reviews PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
+    press_release = FileBrowseField("Press Release PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
     #image = models.ImageField(blank=True, upload_to='exhibition_images/')
     #cropping = ImageRatioField('image', '430x360', size_warning=True)
     featured_artists = models.ManyToManyField("Artist", blank=True, null=True)
@@ -629,8 +633,8 @@ class Event(BaseModel):
     featured_artists = models.ManyToManyField(Artist, blank=True)
     #featured_work = models.ManyToManyField(ArtistWork, blank=True)
     image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
-    pdf = FileBrowseField("PDF", max_length=1024, extensions=["*.pdf"], blank=True, null=True)
-    press_release = FileBrowseField("PDF", max_length=1024, extensions=["*.pdf"], blank=True, null=True)
+    pdf = FileBrowseField("Press Reviews PDF", max_length=1024, extensions=["*.pdf"], blank=True, null=True)
+    press_release = FileBrowseField("Press Release PDF", max_length=1024, extensions=["*.pdf"], blank=True, null=True)
     #image = models.ImageField(blank=True, upload_to='event_images/')
     description = models.TextField(blank=True)
     published = models.BooleanField(default=False)

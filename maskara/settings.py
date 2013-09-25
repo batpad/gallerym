@@ -203,6 +203,7 @@ INSTALLED_APPS = (
     'haystack',
     'maskara.gallery',
     'maskara.base',
+    'subscribers',
     'mockups',
     'sorl.thumbnail',
     'easy_thumbnails',

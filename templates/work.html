@@ -19,11 +19,11 @@
         }
         
         #carousel .flex-direction-nav .flex-next {
-            background: url('../../static/img/nextdown.png') no-repeat;
+            background: url('/static/img/nextdown.png') no-repeat;
         }
         
         #carousel .flex-direction-nav .flex-prev {
-            background: url('../../static/img/prevup.png') no-repeat;
+            background: url('/static/img/prevup.png') no-repeat;
             
         }
         
@@ -92,7 +92,9 @@ $(document).ready(function() {
         {% if obj_title %}
         <h1 class="selectedHeading floatLeft">{{ obj_title }}</h1>
         {% endif %}
+        {% if work.artist.has_videos %}
         <p class="smallerFont floatRight"><a href="/single/images" class="blue">Images </a>/<a href="/single/videos"> Videos</a></p>
+        {% endif %}
         <div class="clear"></div>
     </div>
 
@@ -139,8 +141,11 @@ $(document).ready(function() {
             </p>
         </div>
         <div class="singleIcons">
-            <span class="zoom">Zoom</span>
-            <span class="downloadPdf">Download PDF</span>
+            <!-- <span class="zoom">Zoom</span> -->
+
+            {% if work.pdf %}
+            <span class="downloadPdf"><a href="{{ work.pdf.url }}" target="_blank">Download PDF</a></span>
+            {% endif %}
         </div>
         <div class="clear"></div>
       </div> <!-- end slide control box  -->
