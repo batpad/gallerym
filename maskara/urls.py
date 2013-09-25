@@ -53,7 +53,8 @@ urlpatterns += patterns('maskara.gallery.views',
     url(r'^events/upcoming$', 'events', {'when': 'upcoming'}, name='upcoming_events'),
     url(r'^events/previous$', 'events', {'when': 'previous'}, name='previous_events'),
     url(r'^event/(?P<slug>[\w\-]+)/(?P<view>[\w\-]*?)$', 'event', name='event'),
-    url(r'^test_work_image/(?P<id>[0-9]*)', 'artist_work_image'),
+#   url(r'^test_work_image/(?P<id>[0-9]*)', 'artist_work_image'),
+    url(r'^zoom/(?P<id>[0-9]*)', 'zoom'),
 )
 
 urlpatterns += patterns('django.views.generic.simple', 

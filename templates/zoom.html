@@ -1,0 +1,68 @@
+<html>
+<head>
+    <link rel="stylesheet" 
+          href="http://cdn.leafletjs.com/leaflet-0.4/leaflet.css" /> 
+    <script src="/static/js/jquery-1.8.3.min.js"></script>
+</head>
+<style>
+body,html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#map {
+    width: 80%;
+    height: 100%;
+    float: left;
+}
+
+#thumbnails {
+    float: left;
+    width: 18%;
+}
+
+</style>
+<body>
+    <div id="map"></div>
+    <div id="thumbnails">
+        {% for z in zoomables %}
+        <div class="thumbContainer">
+            <img src="{{ z.thumb }}" />
+        </div>
+        {% endfor %}
+    </div>
+ 
+    <script src="http://cdn.leafletjs.com/leaflet-0.4/leaflet.js"></script>
+
+    <script>
+        function getTileLayer(zoomable) {
+            return L.tileLayer(zoomable.tms_url, {
+                minZoom: 2,
+                maxZoom: 6,
+                continuousWorld: true,
+                noWrap: true,
+                attribution: 'gdal2tiles and coffee :-)',
+                tms: true                
+            })
+        }
+
+        var ZOOMABLES = {{ zoomables_json|safe }};
+        var map = L.map('map').setView([0, 0], 2);
+        var activeLayer = getTileLayer(ZOOMABLES[0]);
+        activeLayer.addTo(map);
+
+        $(function() {
+            $('.thumbContainer').click(function() {
+                var index = $(this).index();
+                map.removeLayer(activeLayer);
+                activeLayer = getTileLayer(ZOOMABLES[index]);
+                activeLayer.addTo(map);
+            });
+        });
+
+
+    </script>
+</body>
+</html>

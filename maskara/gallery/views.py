@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 import datetime
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect, Http404
+import json
 
 def home(request):
     main_item = FrontPageItem.objects.all()[0]
@@ -104,6 +105,16 @@ def artist(request, slug, view=''):
 def artist_work_image(request, id):
     i = ArtistWorkImage.objects.get(pk=id)
     return render(request, 'test_leaflet.html', {'image': i})
+
+def zoom(request, id):
+    work = get_object_or_404(ArtistWork, pk=id)
+    d = work.get_zoom_dict()
+    context = {
+        'zoomables': d,
+        'zoomables_json': json.dumps(d)
+    }
+    return render(request, "zoom.html", context)
+
 
 def work(request, object_type, slug, work_id):
     context = {}

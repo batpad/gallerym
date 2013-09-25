@@ -199,7 +199,8 @@ class Artist(BaseModel):
         return self.has_education() or self.has_solo_exhibs() or self.has_group_exhibs() or self.has_collections() or self.has_awards()
 
     def has_press(self):
-        return self.artistpress_set.count() > 0
+        return False
+        #return self.artistpress_set.count() > 0
 
     def has_publications(self):
         return self.publication_set.count() > 0
@@ -326,6 +327,15 @@ class ArtistWork(BaseModel):
     def get_absolute_url(self):
         return "/artist/%s/works/%d" % (self.artist.slug, self.id,)
 
+    def get_zoom_url(self):
+        return "/zoom/%d" % self.id
+
+    def get_zoomables_qset(self):
+        return self.artistworkimage_set.filter(is_hires=True).filter(is_tiled=True)
+
+    def get_zoom_dict(self):
+        return [i.get_dict() for i in self.get_zoomables_qset()]
+
     def get_thumbnail(self):
         '''
             for admin view
@@ -341,6 +351,8 @@ class ArtistWork(BaseModel):
     get_thumbnail.allow_tags = True
     get_thumbnail.short_description = "Thumbnail"
 
+    def has_zoom(self):
+        return self.get_zoomables_qset().count() > 0
 
     def thumb(self):
         options = {'size': (60, 60)}
@@ -382,6 +394,8 @@ class ArtistWorkImage(BaseModel):
     is_hires = models.BooleanField(default=True)
     #is_main = models.BooleanField(default=False, help_text='Is the main image for this work')
     order = models.PositiveIntegerField()
+    is_tiled = models.BooleanField(editable=False, default=False)
+
 
     class Meta:
         ordering = ['order']
@@ -389,9 +403,24 @@ class ArtistWorkImage(BaseModel):
     def __unicode__(self):
         return self.caption
 
+    def get_dict(self):
+        return {
+            'id': self.id,
+            'tms_url': self.tms_url,
+            'caption': self.caption,
+            'thumb': self.zoom_thumb()
+        }
+
     def thumb(self):
         options = {'size': (60, 60), 'crop': True}
         return self.get_image(options)       
+
+    def zoom_thumb(self):
+        options = {'size': (180, 180)}
+        return self.get_image(options)
+
+    def has_zoom(self):
+        return self.is_hires and self.is_tiled
 
     def medium_image(self):
         options = {'size': (800,800)}
@@ -399,12 +428,12 @@ class ArtistWorkImage(BaseModel):
 
     @property
     def tms_url(self):
-        return "/media/tiles/%s/{z}/{x}/{y}.png" % basename(self.image.path)        
+        return "/media/tiles/%d/{z}/{x}/{y}.png" % self.id        
 
     def save(self):
         super(ArtistWorkImage, self).save()
         if self.is_hires:
-            pass #create_tiles.delay(self.image.path)
+            pass #create_tiles.delay(self)
 
 
 class ArtistReview(Review):
