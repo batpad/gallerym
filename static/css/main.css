@@ -181,7 +181,7 @@ textarea {
 	display: none; /* uses include adding class to hide pagination buttons  */
 }
 
-.fontIcon, .zoom:before, .downloadPdf:before {
+.fontIcon, .zoom:before, .downloadPdf:before, .downloadPdfIcon:before, .linkExternal:after, .linkExternalIcon:before {
 	font-family: 'icomoon';
 }
 
@@ -497,9 +497,17 @@ padding: 6px 110px 6px 0;
 	line-height: 1.2;
 }
 
-.downloadPdf:before {
+.downloadPdfIcon {
+	padding: 0 10px 0 10px;	
+}
+
+.downloadPdf:before, .downloadPdfIcon:before {
 	content: "\61";
-	line-height: 1.1;
+	line-height: 1;
+}
+
+.downloadPdfIcon:before {
+	padding: 0 6px 0 0;
 }
 
 #slideDescription {
@@ -613,12 +621,18 @@ padding: 6px 110px 6px 0;
 }
 
 .linkExternal:after {
-	content: '!';
-	font-family: 'icomoon';
-	font-size: 130%;
-	padding: 0 0 0 5px;
+	padding: 0 0 0 5px;	
+}
+
+
+.linkExternalIcon:before {
+	
+}
+.linkExternal:after, .linkExternalIcon:before {
+	content: '$';
+	font-size: 230%;
 	display: inline-block;
-	line-height: 1.2;
+	line-height: 0.7;
 	vertical-align: bottom;
 }
 /* .anchorInfo a:after, .linkExternal:after {
