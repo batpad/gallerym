@@ -85,7 +85,7 @@ def artist(request, slug, view=''):
    
     elif view == 'press':
         template = 'artist-press.html'
-        context['years'] = ArtistPress.get_by_year(artist) 
+        context['press'] = artist.get_press() 
    
     elif view == 'publications':
         template = 'artist-publications.html'
@@ -209,6 +209,7 @@ def exhibition(request, slug, view=''):
         context['artists'] = exhibition.featured_artists.all()
 
     elif view == 'press':
+        context['press'] = exhibition.get_press()
         template = 'exhibitions-press.html'
 
     elif view == 'publications':
@@ -280,6 +281,9 @@ def event(request, slug, view=''):
         template = 'event-publications.html'
         context['publications'] = event.publication_set.all()
 
+    elif view == 'press':
+        template = 'event-press.html'
+        context['press'] = event.get_press()
 
     else:
         return HttpResponseRedirect(context['url'] + "/overview")        

@@ -33,6 +33,10 @@ class EventWorkInline(admin.StackedInline):
     model = EventWork
     sortable_field_name = 'order'
 
+
+class EventReviewInline(admin.StackedInline):
+    model = EventReview
+
 '''
 class ArtistNews(admin.StackedInline):
     model = ArtistNews
@@ -41,8 +45,8 @@ class ArtistNews(admin.StackedInline):
 
 class ArtistReviewInline(admin.StackedInline):
     model = ArtistReview
-    inlines = []
-    sortable_field_name = 'order'
+    #inlines = []
+    #sortable_field_name = 'order'
 
 class VideoInline(generic.GenericStackedInline):
     model = Video    
@@ -85,7 +89,7 @@ class ArtistPressReleaseInline(admin.StackedInline):
 
 class ExhibitionReviewInline(admin.StackedInline):
     model = ExhibitionReview
-    sortable_field_name = 'order'
+    #sortable_field_name = 'order'
 
 class ExhibitionPressReleaseInline(admin.StackedInline):
     model = ExhibitionPressRelease
@@ -125,7 +129,7 @@ class EventAdmin(BaseAdmin):
     list_display = BaseAdmin.list_display + ('date', 'time_from', 'time_to',)
     list_filter = ('featured_artists', 'published',)
     raw_id_fields = ('featured_artists',)
-    inlines = [EventWorkInline, VideoInline]
+    inlines = [EventWorkInline, EventReviewInline, VideoInline]
     autocomplete_lookup_fields = {
         'm2m': ['featured_artists'],
     }    

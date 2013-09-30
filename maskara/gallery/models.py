@@ -38,22 +38,24 @@ class OrderableBase(BaseModel):
             return super(OrderableBase, self).save(*args, **kwargs)             
 
 
-class Review(OrderableBase):
+class Review(BaseModel):
     old_id = models.IntegerField(blank=True, null=True)
     title = models.CharField(max_length=1024)
+    date = models.DateField()
     author = models.CharField(max_length=1024, blank=True)
     source = models.CharField(max_length=1024, blank=True)
     translated_by = models.CharField(max_length=1024, blank=True)
-    date = models.DateField(blank=True, null=True)
     description = models.TextField(blank=True)
     url = models.URLField(blank=True)
     pdf = FileBrowseField("PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
     published = models.BooleanField(default=False)
-    order = models.PositiveIntegerField()
+    display_on_artists = models.BooleanField(default=True, help_text="Display on artists' press pages?")
+    display_on_about = models.BooleanField(default=False, help_text="Display on main gallery about press?")
+#    order = models.PositiveIntegerField()
     
     class Meta:
         abstract = True
-        ordering = ['order', 'id']
+        ordering = ['-date', 'id']
     
     def __unicode__(self):
         return self.title
@@ -144,6 +146,17 @@ class Artist(BaseModel):
     def get_works(self):
         return self.artistwork_set.all()
 
+    def get_press(self):
+        own_press = list(self.artistreview_set.filter(published=True))
+        exhibs = self.exhibition_set.all()
+        exhib_press = list(ExhibitionReview.objects.filter(published=True).filter(exhibition__in=exhibs).filter(display_on_artists=True))
+        events = self.event_set.all()
+        event_press = list(EventReview.objects.filter(published=True).filter(event__in=events).filter(display_on_artists=True))
+        all_press = own_press + exhib_press + event_press
+        all_press.sort(lambda x,y: 1 if x.date > y.date else -1)
+        return all_press
+
+
     def get_list_dict(self):
         return {
             'id': self.id,
@@ -199,7 +212,7 @@ class Artist(BaseModel):
         return self.has_education() or self.has_solo_exhibs() or self.has_group_exhibs() or self.has_collections() or self.has_awards()
 
     def has_press(self):
-        return False
+        return len(self.get_press()) > 0
         #return self.artistpress_set.count() > 0
 
     def has_publications(self):
@@ -542,6 +555,9 @@ class Exhibition(BaseModel):
     def get_works(self):
         return [ew.work for ew in ExhibitionWork.objects.filter(exhibition=self).order_by('order')]
 
+    def get_press(self):
+        return self.exhibitionreview_set.filter(published=True)
+
     @classmethod
     def get_current(kls):
         now = datetime.datetime.now()
@@ -607,7 +623,7 @@ class Exhibition(BaseModel):
         return self.featured_artists.count() > 0
 
     def has_press(self):
-        return self.exhibitionreview_set.count() > 0
+        return self.exhibitionreview_set.filter(published=True).count() > 0
 
     def has_publications(self):
         return self.publication_set.count() > 0
@@ -718,6 +734,9 @@ class Event(BaseModel):
     def get_absolute_url(self):
         return "/event/%s" % self.slug
 
+    def get_press(self):
+        return self.eventpress_set.filter(published=True)
+
     class Meta:
         ordering = ['-date']
 
@@ -730,10 +749,10 @@ class Event(BaseModel):
     def has_artists(self):
         return self.featured_artists.count() > 0
 
-    '''
+    
     def has_press(self):
-        return self.exhibitionreview_set.count() > 0
-    '''
+        return self.eventreview_set.filter(published=True).count() > 0
+    
 
     def has_publications(self):
         return self.publication_set.count() > 0

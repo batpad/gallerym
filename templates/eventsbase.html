@@ -54,7 +54,9 @@
         <a href="{{ url }}/biography">Biography</a>
         {% endif %}
           
+        {% if event.has_press %}
         <a href="{{ url }}/press">Press</a>
+        {% endif %}
 
         {% if event.has_publications %}
         <a href="{{ url }}/publications">Publications</a>
