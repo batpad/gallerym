@@ -3,7 +3,9 @@ from django.shortcuts import render, get_object_or_404
 import datetime
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect, Http404
+from django.contrib.contenttypes.models import ContentType
 import json
+from haystack.query import SearchQuerySet
 
 def home(request):
     main_item = FrontPageItem.objects.all()[0]
@@ -18,6 +20,26 @@ def home(request):
     }
     return render(request, "index.html", context)
 
+def search(request):
+    q = request.GET.get("q", "")
+    search_model = request.GET.get("in", None)
+    if search_model:
+        is_single_model = True
+        try:
+            model_class = ContentType.objects.get_by_natural_key('gallery', search_model)
+        except:
+            raise Http404("Tried to search for a type that does not exist, mis-typed in= parameter")
+        search_models = [model_class]
+    else:
+        is_single_model = False
+        search_models = [Artist, Event, Exhibition, ArtistWork, Publication]
+    context = {}
+    for model in search_models:
+        model_name = model._meta.module_name
+        qset = SearchQuerySet().filter(content=q).models(*[model])
+        page_count = 40 if is_single_model else 5
+        context[model_name] = Paginator(qset, page_count)
+    return render(request, "search.html", context)
 
 def artists(request, represented=False):
     qset = Artist.objects.published()

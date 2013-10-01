@@ -2,6 +2,3 @@
 {{object.material}} 
 {{object.theme}} 
 {{object.code}} 
-
-
-

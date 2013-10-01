@@ -41,6 +41,7 @@ urlpatterns = patterns('',
 
 urlpatterns += patterns('maskara.gallery.views',
     url(r'^$', 'home', name='home'),
+    url(r'^search$', 'search', name='search'),
     url(r'^artists$', 'artists', name='artists'),
     url(r'^artists/represented$', 'artists', {'represented': True }, name='represented_artists'),
     url(r'^(?P<object_type>[\w]+)/(?P<slug>[\w\-]+)/works/(?P<work_id>[0-9]*)$', 'work', name='work'),
@@ -110,7 +111,7 @@ urlpatterns += patterns('django.views.generic.simple',
     # sitemap
 
     # Search (haystack)                    
-    url(r'^search/', include('haystack.urls')),
+    #url(r'^search/', include('haystack.urls')),
 #    url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps})
 
                     

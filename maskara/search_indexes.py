@@ -10,8 +10,7 @@ class ArtistIndex(indexes.SearchIndex):
 class ArtistWorkIndex(indexes.SearchIndex):
     text = indexes.CharField(document=True, use_template=True)
     title = indexes.CharField(model_attr='title')
-    size = indexes.CharField(model_attr='size')
-    theme = indexes.CharField(model_attr='theme')
+    #theme = indexes.CharField(model_attr='theme')
     
     def get_model(self):
         return ArtistWork
