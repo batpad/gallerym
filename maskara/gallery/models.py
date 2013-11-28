@@ -153,7 +153,7 @@ class Artist(BaseModel):
         events = self.event_set.all()
         event_press = list(EventReview.objects.filter(published=True).filter(event__in=events).filter(display_on_artists=True))
         all_press = own_press + exhib_press + event_press
-        all_press.sort(lambda x,y: 1 if x.date > y.date else -1)
+        all_press.sort(lambda x,y: -1 if x.date > y.date else 1)
         return all_press
 
 
