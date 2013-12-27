@@ -507,7 +507,7 @@ class FrontPageItem(BaseModel, Sortable):
             'id': self.exhibition.id,
             'url': self.exhibition.get_absolute_url(),
             'title': self.exhibition.title,
-            'large_image': self.exhibition.get_image({'size': (800,)}),
+            'large_image': self.exhibition.get_image({'size': (800,600,)}),
             'thumb': self.exhibition.get_image({'size': (150,150,), 'crop': True}),
             'artists': self.exhibition.get_artists_string(),
             'start_date': self.exhibition.start_date,
