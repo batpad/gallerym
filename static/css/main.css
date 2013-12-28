@@ -410,7 +410,7 @@ padding: 6px 110px 6px 0;
 }
 
 #searchBlock input {
-	border: none;
+	border: 1px solid transparent;
 	padding: 4px 3px 4px 24px;
 	font-size: 100%;		
 }
@@ -686,7 +686,7 @@ padding: 6px 110px 6px 0;
 }
 
 #carousel .flex-direction-nav .flex-prev, #carousel .flex-direction-nav .flex-next {
-	left: 35px;
+	left: 24px;
 }
 
 .richtext p {
