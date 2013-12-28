@@ -101,9 +101,11 @@ $(document).ready(function() {
     <div class=”flex-container”> 
         <div id="slider" class="flexslider">
             <ul class="slides">
+              {% if not work.artistworkimage_set.all %}
               <li>
                 <img src="{{ work.medium_image }}" />
               </li>
+              {% endif %}
               {% for img in work.artistworkimage_set.all %}
               <li>
                 <img src="{{ img.medium_image }}" />
@@ -113,9 +115,11 @@ $(document).ready(function() {
           </div>
           <div id="carousel" class="flexslider col30">
             <ul class="slides">
+              {% if not work.artistworkimage_set.all %}
               <li>
                 <img src="{{ work.thumb }}" />
               </li>
+              {% endif %}
               {% for img in work.artistworkimage_set.all %}
               <li>
                 <img src="{{ img.thumb }}" />
