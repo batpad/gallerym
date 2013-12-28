@@ -154,6 +154,7 @@ def work(request, object_type, slug, work_id):
     context['url'] = obj.get_absolute_url()
     work = ArtistWork.objects.get(pk=work_id)
     context['work'] = work
+    context['has_slides'] = work.artistworkimage_set.all().count() > 1
     base_name = 'artist' if object_type == 'artist' else object_type + 's'
     context['base_template'] = base_name + 'base.html'        
     context['menu'] = object_type + 's'
