@@ -57,8 +57,8 @@
                 <li><a {% ifequal menu 'artists' %} class="selectedMenu" {% endifequal %} href="/artists">Artists</a></li>
                 <li><a {% ifequal menu 'exhibitions' %} class="selectedMenu" {% endifequal %} href="/exhibitions/current">Exhibitions</a></li>
                 <li><a {% ifequal menu 'events' %} class="selectedMenu" {% endifequal %} href="/events/current">Events</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/contact">Contact</a></li>
+                <li><a {% ifequal menu 'about' %} class="selectedMenu" {% endifequal %} href="/about">About</a></li>
+                <li><a {% ifequal menu 'contact' %} class="selectedMenu" {% endifequal %} href="/contact">Contact</a></li>
             </ul>
         
         </div> <!-- end header block  -->
