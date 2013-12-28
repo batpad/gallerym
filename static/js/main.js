@@ -11,11 +11,13 @@ $(document).ready(function(){
    }
    });
 
+   $('.anchorsCv a').eq(0).addClass('selectedAnchors');
+
    $('.anchorsCv a').click( function(e) {   
       $('.anchorsCv .selectedAnchors').removeClass('selectedAnchors');
       $(this).addClass('selectedAnchors');
    });
-   
+      
    $(".anchorsExhibition a").each(function() {   
       if (window.location.href.indexOf(this.href) != -1) {
         $(this).addClass("selectedAnchors");

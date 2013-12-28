@@ -31,35 +31,35 @@
 
         {% if artist.has_education %}
         <div id="anchorEducation">
-            <h3>Education</h3>        
+            <div class="headingSecondary">Education</div>        
             {% include 'includes/year-groups.html' with years=education %}
         </div>
         {% endif %}
 
         {% if artist.has_solo_exhibs %}
         <div id="anchorExibSolo">
-            <h3>Solo Exhibitions</h3>        
+            <div class="headingSecondary">Solo Exhibitions</div>        
             {% include 'includes/year-groups.html' with years=solo_exhibs %}
         </div>
         {% endif %}
 
         {% if artist.has_group_exhibs %}
         <div id="anchorExibGroup">
-            <h3>Group Exhibitions</h3>
+            <div class="headingSecondary">Group Exhibitions</div>
             {% include 'includes/year-groups.html' with years=group_exhibs %}
         </div> <!-- end anchor exib group -->
         {% endif %}        
 
         {% if artist.has_collections %}
         <div id="anchorCollections">
-            <h3>Collections</h3>
+            <div class="headingSecondary">Collections</div>
             {% include 'includes/year-groups.html' with years=collections %}
         </div> <!-- end anchor collections -->
         {% endif %}            
 
         {% if artist.has_awards %}
         <div id="anchorAwards">
-            <h3>Awards</h3>
+            <div class="headingSecondary">Awards</div>
             {% include 'includes/year-groups.html' with years=awards %}
         </div> <!-- end anchor awards -->
         {% endif %}        
