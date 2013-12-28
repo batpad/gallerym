@@ -266,6 +266,9 @@ def events(request, when='upcoming'):
     }
     return render(request, 'events.html', context)
 
+def credits(request):
+    return render(request, 'credits.html')
+
 def current_event(request):
     events = Event.get_current()
     if not events:

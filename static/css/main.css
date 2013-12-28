@@ -618,9 +618,13 @@ padding: 6px 110px 6px 0;
 	vertical-align: top;
 }
 
-.publicationImg img {
-	min-width: 150px;
+.publicationImg {
+	width: 160px;	
 }
+
+/* .publicationImg img {
+	min-width: 150px;
+} */
 
 .publicationDesc {
 	padding: 0 0 0 24px;	
@@ -674,6 +678,7 @@ padding: 6px 110px 6px 0;
 
 .exhibPrevEach {
 	padding: 0 0 50px 0;
+	display: table;
 }
 
 .exhibPrevDesc {
@@ -761,7 +766,7 @@ padding: 6px 110px 6px 0;
 	float: none;
 }
 
-.publicationImg, .publicationDesc {
+.exhibPrevEach, .publicationImg, .publicationDesc {
 	display: block;
 }
 
