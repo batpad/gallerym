@@ -36,6 +36,7 @@ urlpatterns = patterns('',
     url(r'^admin/filebrowser/', include(site.urls)),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^subscribe$', 'subscribers.views.subscribe', name='subscribe'),
+    url(r'^subscribe_thanks$', 'subscribers.views.subscribe_thanks', name='subscribe_thanks'),
     url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),                    
 )
 

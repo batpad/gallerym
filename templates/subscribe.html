@@ -124,12 +124,12 @@
             <div class="fieldWrap">
                 <div class="fieldBlock floatLeft">
                     <label for="firstName" class="requiredField">First Name</label>
-                    <input type="text" id="firstName" name="firstName">
+                    <input type="text" id="firstName" name="firstName" required>
                 </div>
           
                 <div class="fieldBlock floatLeft">
                     <label for="lastName" class="requiredField">Last Name</label>
-                    <input type="text" id="lastName" name="lastName">
+                    <input type="text" id="lastName" name="lastName" required>
                 </div>
                 <div class="clear"></div>
             </div> <!-- /fieldWrap -->
@@ -137,7 +137,7 @@
             <div class="fieldWrap">
                 <div class="fieldBlock floatLeft">
                     <label for="email" class="requiredField">Email</label>
-                    <input type="email" id="email" name="email"> <span class="alertIcon"><span>!</span></span>
+                    <input type="email" id="email" name="email" required> <!-- <span class="alertIcon"><span>!</span></span> -->
                 </div>
           
                 <div class="fieldBlock floatLeft">
@@ -187,19 +187,6 @@
             <div class="fieldBlock floatLeft">
                 <label for="country" class="requiredField">Country</label>
                 <select id="country" name="country">
-                    <option value="">Alaska</option>
-                    <option value="">Albania</option>
-                    <option value="">India</option>
-                    <option value="">Sri Lanka</option>
-                </select>
-            </div>
-            <div class="clear"></div>
-        </div> <!-- /fieldWrap -->
-
-        <div class="fieldWrap">
-            <div class="fieldBlock">
-                <label for="role">Role</label>
-                <select id="role" name="role">
                     <option value="Afghanistan">Afghanistan</option> 
                     <option value="Albania">Albania</option> 
                     <option value="Algeria">Algeria</option> 
@@ -443,13 +430,24 @@
             </div>
             <div class="clear"></div>
         </div> <!-- /fieldWrap -->
+
+        <div class="fieldWrap">
+            <div class="fieldBlock">
+                <label for="role">Role</label>
+                <select id="role" name="role">
+                    <option value="Artist">Artist</option>
+                    <option value="Curator">Curator</option>
+                </select>
+            </div>
+            <div class="clear"></div>
+        </div> <!-- /fieldWrap -->
         <br>
-        <div class="validationNote">Mandatory information required.</div>
+        <div class="validationNote" {% if not errors %}style="display:none;"{% endif %}>Mandatory information required.</div>
         <br>
         <p>Your right to privacy is a concern for us and in keeping with our policy, all personal data provided will be kept confidential and will not be shared with any third party.</p>
         <br>
         <input type="submit" value="SIGN UP" class="marginBottom">
-    <div class="validation">Validation errors occured. Please confirm all mandatory information required has been filled in correctly.</div>
+    <div class="validation" {% if not errors %}style="display:none;"{% endif %}>Validation errors occured. Please confirm all mandatory information required has been filled in correctly.</div>
 </div>
     </form>
 

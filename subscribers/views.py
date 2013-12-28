@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from models import Subscriber
 from forms import SubscriberForm
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 
 def subscribe(request):
+    errors = None
     if request.POST:
         d = request.POST
         subscriber_data = {
@@ -25,9 +26,12 @@ def subscribe(request):
         #import pdb;pdb.set_trace()
         if subscriber_form.is_valid():
             subscriber_form.save()
-            return HttpResponse("saved")
+            return HttpResponseRedirect("/subscribe_thanks")
         else:
-            return HttpResponse("error")
+            errors = subscriber_form.errors
             #return render(request, "subscribe.html", {'form': subscriber_form})
 
-    return render(request, "subscribe.html")
+    return render(request, "subscribe.html", {'errors': errors})
+
+def subscribe_thanks(request):
+    return render(request, "subscribe_thanks.html")
