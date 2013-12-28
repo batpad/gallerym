@@ -113,7 +113,9 @@ $(document).ready(function() {
               {% endfor %}
             </ul>
           </div>
+        {% if has_slides %}
           <div id="carousel" class="flexslider col30">
+
             <ul class="slides">
               {% if not work.artistworkimage_set.all %}
               <li>
@@ -129,6 +131,7 @@ $(document).ready(function() {
               <!-- items mirrored twice, total of 12 -->
             </ul> 
         </div> <!-- #carousel  -->
+        {% endif %}
         <div class="clear"></div>
       <div id="slideControlBox" class="col70 smallestFont">
 
