@@ -3,7 +3,8 @@ from models import *
 
 def make_all_tiles():
     for w in ArtistWorkImage.objects.filter(is_hires=True).filter(is_tiled=False):
-        create_tiles(w)
+        if w.image and w.image != '':
+            create_tiles(w)
 
 def make_links_http():
     press_classes = [ArtistReview, EventReview, ExhibitionReview]
