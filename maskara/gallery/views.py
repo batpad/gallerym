@@ -133,6 +133,7 @@ def zoom(request, id):
     d = work.get_zoom_dict()
     context = {
         'zoomables': d,
+        'title': work.title,
         'zoomables_json': json.dumps(d)
     }
     return render(request, "zoom.html", context)

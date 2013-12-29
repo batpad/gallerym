@@ -11,9 +11,13 @@ function getTileLayer(zoomable) {
 }
 
 
-var map = L.map('map').setView([-50, -50], 2);
+var map = L.map('map').setView(getCenter(ZOOMABLES[0]), 2);
 var activeLayer = getTileLayer(ZOOMABLES[0]);
 activeLayer.addTo(map);
+
+function getCenter(zoomable) {
+    return [-50, -100];
+}
 
 $(function() {
     $('.thumbContainer').click(function() {
@@ -21,6 +25,7 @@ $(function() {
         map.removeLayer(activeLayer);
         activeLayer = getTileLayer(ZOOMABLES[index]);
         activeLayer.addTo(map);
-        map.setView([-50,-50], 2);
+        var center = getCenter(ZOOMABLES[index]);
+        map.setView(center, 2);
     });
 });

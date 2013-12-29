@@ -421,7 +421,9 @@ class ArtistWorkImage(BaseModel):
             'id': self.id,
             'tms_url': self.tms_url,
             'caption': self.caption,
-            'thumb': self.zoom_thumb()
+            'thumb': self.zoom_thumb(),
+            'width': self.image.width,
+            'height': self.image.height
         }
 
     def thumb(self):
