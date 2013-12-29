@@ -16,7 +16,13 @@ var activeLayer = getTileLayer(ZOOMABLES[0]);
 activeLayer.addTo(map);
 
 function getCenter(zoomable) {
-    return [-50, -100];
+    var width = zoomable.width;
+    var height = zoomable.height;
+    if (width > height) {
+        return [-75, -100];
+    } else {
+        return [-50, -100];
+    }
 }
 
 $(function() {
