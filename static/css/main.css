@@ -700,12 +700,13 @@ padding: 6px 110px 6px 0;
 }
 
 .searchBlock {
-	padding: 0 0 50px 0;
+	padding: 25px 0;
 }
 
 .searchEach {
 	display: table;
 	width: 100%;
+	margin: 0 0 30px 0;
 }
 
 .searchImg, .searchInfo {
