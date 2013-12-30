@@ -39,7 +39,7 @@ def search(request):
         qset = SearchQuerySet().filter(content=q).models(*[model])
         page_count = 40 if is_single_model else 5
         context[model_name] = Paginator(qset, page_count)
-    return render(request, "search.html", context)
+    return render(request, "search/search.html", context)
 
 def artists(request, represented=False):
     qset = Artist.objects.published()
@@ -133,6 +133,7 @@ def zoom(request, id):
     d = work.get_zoom_dict()
     context = {
         'zoomables': d,
+        'title': work.title,
         'zoomables_json': json.dumps(d)
     }
     return render(request, "zoom.html", context)
