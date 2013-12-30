@@ -270,6 +270,9 @@ def events(request, when='upcoming'):
 def credits(request):
     return render(request, 'credits.html')
 
+def search_static(request):
+    return render(request, 'search_static.html')
+
 def current_event(request):
     events = Event.get_current()
     if not events:

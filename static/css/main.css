@@ -679,6 +679,7 @@ padding: 6px 110px 6px 0;
 .exhibPrevEach {
 	padding: 0 0 50px 0;
 	display: table;
+	width: 100%;
 }
 
 .exhibPrevDesc {
@@ -697,6 +698,26 @@ padding: 6px 110px 6px 0;
 .richtext p {
 	padding-bottom: 10px;
 }
+
+.searchBlock {
+	padding: 0 0 50px 0;
+}
+
+.searchEach {
+	display: table;
+	width: 100%;
+}
+
+.searchImg, .searchInfo {
+	display: table-cell;
+	vertical-align: top;
+}
+
+.searchImg {
+	width: 220px;
+	padding: 0 30px 0 0;
+}
+
 
 @media only screen and (max-width: 1100px) {
 	.thumbnailBlock .thumbEach {
@@ -766,7 +787,7 @@ padding: 6px 110px 6px 0;
 	float: none;
 }
 
-.exhibPrevEach, .publicationImg, .publicationDesc {
+.exhibPrevEach, .publicationImg, .publicationDesc, .searchEach, .searchImg, .searchInfo {
 	display: block;
 }
 
@@ -825,8 +846,7 @@ padding: 6px 110px 6px 0;
 
 	.anchorsCv a, .anchorsExhibition a {
 		display: inline;
-		/* position: relative; */
-	} /* how to resolve the border bottom issue  */
+	}
 
 	.anchorsCv a:after, .anchorsExhibition a:after {
 		content:"\A";
