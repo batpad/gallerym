@@ -270,6 +270,12 @@ def events(request, when='upcoming'):
 def credits(request):
     return render(request, 'credits.html')
 
+def terms(request):
+    return render(request, 'terms-and-conditions.html')
+
+def privacy(request):
+    return render(request, 'privacy-policy.html')
+
 def search_static(request):
     return render(request, 'search_static.html')
 
