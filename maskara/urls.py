@@ -61,6 +61,8 @@ urlpatterns += patterns('maskara.gallery.views',
     url(r'^zoom/(?P<id>[0-9]*)', 'zoom'),
     url(r'^credits$', 'credits', name='credits'),
     url(r'^search_static$', 'search_static', name='search_static'),
+    url(r'^terms$', 'terms', name='terms'),
+    url(r'^privacy$', 'privacy', name='privacy'),
 )
 
 urlpatterns += patterns('django.views.generic.simple', 
