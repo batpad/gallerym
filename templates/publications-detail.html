@@ -3,29 +3,42 @@
 {% block mainbar %}
 
     <div id="aboutContent">
-        <h1 class="selectedHeading">Gallery Maskara Volume 1</h1>
+        <h1 class="selectedHeading">{{ publication.title }}</h1>
         
         <div class="exhibitionPrevBlock">
 
             <div class="publicationImg">
-                <img src="/static/img/catalogue1.jpg" alt="">
+                <img src="{{ publication.list_image }}" alt="{{ publication.title }}">
             </div>
             <div class="publicationDesc">
-                <p>March 2012</p>
-                <p><strong>Metamorphosis</strong></p>
-                <p>Author: Max Streicher</p>
-                <p>Editor: Ewan Sanders</p>
-                <p>Publisher: Zeldman Publications</p>
-                <p>ISBN: 978-3-16-1345</p>
+                {% if publication.date %}
+                <p>{{ publication.date|date:"%B %Y" }}</p>
+                {% endif %}
+                {% if publication.author %}
+                <p>Author: {{ publication.author }}</p>
+                {% endif %}
+                {% if publication.editor %}
+                <p>Editor: {{ publication.editor }}</p>
+                {% endif %}
+                {% if publication.publisher %}
+                <p>Publisher: {{ publication.publisher }}</p>
+                {% endif %}
+                {% if publication.isbn %}
+                <p>ISBN: {{ publication.isbn }}</p>
+                {% endif %}
             </div>
             <br><br>
+            {% if publication.description %}
             <div class="col70 publicationDescMain richtext">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum enim officiis veniam minima consectetur inventore ad soluta laborum ipsa voluptatibus ex sequi sed magnam exercitationem odit ea tenetur dicta incidunt! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos magnam placeat eveniet delectus natus consectetur beatae ad aut veritatis. Quis aperiam eaque autem eligendi aliquam odit error incidunt ipsam ipsa.</p>
+                {{ publication.description }}
             </div>
+            {% endif %}
             
+            {% if publication.pdf %}
             <div class="bioDownloadInfo col30 smallestFont">
-                <p><a href="" class="downloadPdf">Download PDF</a></p>
+                <p><a href="{{ publication.pdf.url }}" target="_blank" class="downloadPdf">Download PDF</a></p>
             </div>
+            {% endif %}
         <div class="clear"></div>
 
         </div> <!-- end exhib Prev Block --> 

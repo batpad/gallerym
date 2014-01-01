@@ -10,7 +10,7 @@ from haystack.query import SearchQuerySet
 def home(request):
     main_item = FrontPageItem.objects.all()[0]
     fp_items = FrontPageItem.objects.all()[1:4]
-    publications = Publication.objects.all()[0:12]
+    publications = Publication.objects.exclude(published=False)[0:12]
     context = {
         'main_item': main_item.get_data(),
         'main_item_type': main_item.get_type(),
@@ -320,6 +320,20 @@ def event(request, slug, view=''):
 
     return render(request, template, context)
 
+def publication(request, id):
+    publication = get_object_or_404(Publication, pk=id)
+    context = {
+        'publication': publication
+    }
+    return render(request, "publications-detail.html", context)
+
+def about_publications(request):
+    publications = Publication.objects.exclude(published=False)
+    context = {
+        'publications': publications,
+        'menu': 'about'
+    }
+    return render(request, "about-publications.html", context)
 
 '''
 def previous_exhibitions(request):
