@@ -28,11 +28,13 @@
                 {% endif %}
             </div>
             <br><br>
-            {% if publication.description %}
+
             <div class="col70 publicationDescMain richtext">
+            {% if publication.description %}
                 {{ publication.description }}
-            </div>
             {% endif %}
+            </div>
+            
             
             {% if publication.pdf %}
             <div class="bioDownloadInfo col30 smallestFont">
