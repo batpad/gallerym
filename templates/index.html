@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load chunks %}
     {% block extra_css %}
     <link rel="stylesheet" href="/static/css/flexslider.css">
     <style>
@@ -94,7 +94,7 @@
                 {% endif %}
                 <p class="ellipsis">{{ item.start_date|date:"F d, Y" }} {% if item.end_date %} - {{ item.end_date|date:"F d, Y" }} {% endif %}</p>
             </div>
-            <img src="/static/img/news1.jpg" alt="" class="homeSecondaryImg">
+            <img src="{{ item.thumb }}" alt="{{ item.title }}" class="homeSecondaryImg">
         </div> <!-- end home secondary  -->
 
         {% endfor %}
@@ -127,8 +127,7 @@
       </div> <!-- end flexslider  -->
       
       <div id="homeSecondaryText" class="smallestFont">
-        <p>Gallery Maskara’s annual catalogue is a summary of shows, artists, events and reviews for the year.</p> 
-        <p>A memorable keepsake for contemporary art enthusiasts.</p>
+        {% chunk 'frontpage_publications_blurb' %}
       </div>
       <div class="clear"></div>            
     </div> <!-- end main bar  -->
