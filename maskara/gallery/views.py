@@ -381,6 +381,14 @@ def about_publications(request):
     }
     return render(request, "about-publications.html", context)
 
+def about_space(request):
+    images = SpaceImage.objects.filter(displayed=True)
+    context = {
+        'images': images,
+        'menu': 'about'
+    }
+    return render(request, "about-space.html", context)
+
 '''
 def previous_exhibitions(request):
     now = datetime.datetime.now()

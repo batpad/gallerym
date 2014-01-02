@@ -854,6 +854,12 @@ class SpaceImage(BaseModel, Sortable):
     caption = models.CharField(max_length=1024, blank=True)
     displayed = models.BooleanField(default=False)
 
+    def list_image(self):
+        return self.get_image({'size': (150,200,)})
+
+    def get_main_image(self):
+        return self.get_image({'size': (450,450), 'upscale': True}) 
+
     def __unicode__(self):
         return self.caption
 
