@@ -39,7 +39,9 @@ def search(request):
         qset = SearchQuerySet().filter(content=q).models(*[model])
         page_count = 40 if is_single_model else 5
         context[model_name] = Paginator(qset, page_count)
-    return render(request, "search/search.html", context)
+    #import pdb;pdb.set_trace()
+    context['query'] = q
+    return render(request, "search_static.html", context)
 
 def artists(request, represented=False):
     qset = Artist.objects.published()

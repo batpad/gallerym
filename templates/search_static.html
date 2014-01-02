@@ -6,8 +6,9 @@
 {% block mainbar %}
 
 <div id="searchContent">
-    <h1 class="selectedHeading floatLeft">Search results for "Shine Shivan"</h1>
-    
+    <h1 class="selectedHeading floatLeft">Search results for "{{ query }}"</h1>
+
+<!--
     <div class="paginationThumbs smallestFont">    
         <span><a href="">First</a></span>
         <a href=""><span class="blue">1</span></a>
@@ -18,59 +19,74 @@
         
         <span><a href="">Last</a></span>
 
-    </div> <!-- end pagination thumbs  -->
-    
+    </div>
+-->    
     <div class="clear"></div>
-    
+    {% if artist.object_list %}
     <div class="searchBlock">
         <div class="sideBar col25">
             <div class="sideBarTitles">
-                <div><a href="/about/mission">Artists</a></div>
+                <div><a href="#">Artists</a></div>
             </div>
         </div> <!-- /sidebar -->
     
         <div class="mainBar col75">
+                {% for item in artist.object_list %}
                 <div class="searchEach">
                     <div class="searchImg">
-                        <img src="/static/img/catalogue1.jpg" alt="">
+                        <img src="{{ item.object.list_image }}" alt="{{ item.object.name }}">
                     </div>
                     <div class="searchInfo">
-                        <p><strong>Shine Shivan</strong></p>
-                        <p><a href="" class="smallerFont">View Details</a></p>
+                        <p><strong>{{ item.object.name }}</strong></p>
+                        <p><a href="{{ item.object.get_absolute_url }}" class="smallerFont">View Details</a></p>
                     </div>
-                </div> <!-- end searcheach -->    
+                </div> <!-- end searcheach -->
+                {% endfor %}    
         </div> <!-- /main bar -->
         <div class="clear"></div>
             
     </div> <!-- end search block --> 
-            
+    {% endif %}
+
+    {% if exhibition.object_list %}
     <div class="searchBlock">
         <div class="sideBar col25">
             <div class="sideBarTitles">
-                <div><a href="/about/mission">Exhibitions</a></div>
+                <div><a href="#">Exhibitions</a></div>
             </div>
         </div> <!-- /sidebar -->
     
         <div class="mainBar col75">
+            {% for item in exhibition.object_list %}
             <div class="searchEach">
                 <div class="searchImg">
-                    <img src="/static/img/image3.jpg" alt="">
+                    <img src="{{ item.object.get_list_image }}" alt="{{ item.object.title }}">
                 </div>
                 <div class="searchInfo">
-                    <p>2013</p>
-                    <p><strong>Flavour Chart</strong></p>            
-                    <p>Preview: Friday 27th September, 
-                    <p>Show Dates: Thursday 8th August to Saturday 28th September</p>
-                    <p>Location: Gallery Maskara</p>
-                    <p><a href="" class="smallerFont">View Details</a></p>
-                </div> <!-- end searchinfo -->    
+                    <p>{{ item.object.start_date|date:"%Y" }}</p>
+                    <p><strong>{{ item.object.title }}</strong></p>            
+                    {% if item.object.preview_date %}
+                    <p>Preview: {{ item.object.preview_date|date:"l jS F" }}, 
+                        {% if item.object.preview_start_time %}
+                            {{ item.object.preview_start_time|time:"P" }}
+                            {% if item.object.preview_end_time %}
+                            -{{ item.object.preview_end_time|time:"P" }}</p>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                    <p>Show Dates: {{ item.object.start_date|date:"l jS F" }} to {{ item.object.end_date|date:"l jS F" }}</p>
+                    <p>Location: {{ item.object.location }}</p>
+                    <a href="{{ item.object.get_absolute_url }}" class="smallerFont">View Details</a>
             </div> <!-- /search each -->
+            {% endfor %}
         </div> <!-- /main bar -->
 
         <div class="clear"></div>
             
     </div> <!-- end search block --> 
-        
+    {% endif %}
+
+    {% if event.object_list %}
     <div class="searchBlock">
         <div class="sideBar col25">
             <div class="sideBarTitles">
@@ -79,40 +95,31 @@
         </div> <!-- /sidebar -->
     
         <div class="mainBar col75">
+            {% for item in event.object_list %}
             <div class="searchEach">
                 <div class="searchImg">
-                    <img src="/static/img/image2.jpg" alt="">
+                    <img src="{{ item.object.get_list_image }}" alt="{{ item.object.title }}">
                 </div>
                 <div class="searchInfo">
-                    <p>2013</p>
-                    <p><strong>Shine Shivan</strong></p>            
-                    <p>Preview: Friday 27th September, 
-                    <p>Show Dates: Thursday 8th August to Saturday 28th September</p>
-                    <p>Location: Gallery Maskara</p>
-                    <p><a href="" class="smallerFont">View Details</a></p>
+                    <p>{{ item.object.date|date:"Y" }}</p>
+                    <p><strong>{{ item.object.title }}</strong></p>
+                    <p>{{ item.object.date|date:"l jS F" }}, {{ item.object.start_time|time:"P" }}{% if item.object.end_time %}-{{ item.object.end_time|time:"P" }}{% endif %}</p>
+                    <!-- <p>Location: Gallery Maskara</p> -->
+                    {% if item.object.location %}
+                    <p>Location: {{ item.object.location }}</p>
+                    {% endif %}
+                    <a href="{{ item.object.get_absolute_url }}" class="smallerFont">View Details</a>
                 </div> <!-- end searchinfo -->    
             </div> <!-- /search each -->
-
-            <div class="searchEach">
-                <div class="searchImg">
-                    <img src="/static/img/image2.jpg" alt="">
-                </div>
-                <div class="searchInfo">
-                    <p>2013</p>
-                    <p><strong>Shine Shivan</strong></p>            
-                    <p>Preview: Friday 27th September, 
-                    <p>Show Dates: Thursday 8th August to Saturday 28th September</p>
-                    <p>Location: Gallery Maskara</p>
-                    <p><a href="" class="smallerFont">View Details</a></p>
-                </div> <!-- end searchinfo -->    
-            </div> <!-- /search each -->
-
+            {% endfor %}
         </div> <!-- /main bar -->
 
         <div class="clear"></div>
             
     </div> <!-- end search block --> 
+    {% endif %}
 
+    {% if press %}
     <div class="searchBlock">
         <div class="sideBar col25">
             <div class="sideBarTitles">
@@ -144,9 +151,10 @@
         <div class="clear"></div>
             
     </div> <!-- end search block --> 
+    {% endif %}
 
 </div> <!-- end search content  -->  
     
-{% endblock %}
 
+{% endblock %}
 {% endblock %}
