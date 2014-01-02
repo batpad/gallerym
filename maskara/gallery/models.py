@@ -113,6 +113,15 @@ class GalleryPerson(BaseModel):
     image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
     text = models.TextField(blank=True)
 
+    def get_absolute_url(self):
+        return "/about/people/%d" % self.id
+
+    def list_image(self):
+        return self.get_image({'size': ((150,150,)), 'crop': True, 'upscale': True})
+
+    def get_main_image(self):
+        return self.get_image({'size': (450,450), 'upscale': True})        
+
     def __unicode__(self):
         return self.name
 
@@ -124,6 +133,7 @@ class Artist(BaseModel):
     birth_location = models.CharField(max_length=1024, blank=True)
     bio = models.TextField(blank=True)
     bio_pdf = FileBrowseField("Bio PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
+    catalog_pdf = FileBrowseField("Catalog PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
     #bio_pdf = models.FileField(blank=True, upload_to='artist_bio_pdfs/')
     #press_pdf = models.FileField(blank=True, upload_to='artist_press_pdfs/')
     pdf = FileBrowseField("Press PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
@@ -541,6 +551,7 @@ class Exhibition(BaseModel):
     curated_by = models.CharField(max_length=512, blank=True)
     image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
     pdf = FileBrowseField("Press Reviews PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
+    catalog_pdf = FileBrowseField("Catalog PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
     press_release = FileBrowseField("Press Release PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
     #image = models.ImageField(blank=True, upload_to='exhibition_images/')
     #cropping = ImageRatioField('image', '430x360', size_warning=True)
@@ -681,6 +692,7 @@ class Event(BaseModel):
     #featured_work = models.ManyToManyField(ArtistWork, blank=True)
     image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
     pdf = FileBrowseField("Press Reviews PDF", max_length=1024, extensions=["*.pdf"], blank=True, null=True)
+    catalog_pdf = FileBrowseField("Catalog PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
     press_release = FileBrowseField("Press Release PDF", max_length=1024, extensions=["*.pdf"], blank=True, null=True)
     #image = models.ImageField(blank=True, upload_to='event_images/')
     description = models.TextField(blank=True)
@@ -844,6 +856,12 @@ class SpaceImage(BaseModel, Sortable):
     image = FileBrowseField("Image", max_length=1024, extensions=[".jpg", ".jpeg"])
     caption = models.CharField(max_length=1024, blank=True)
     displayed = models.BooleanField(default=False)
+
+    def list_image(self):
+        return self.get_image({'size': (150,200,)})
+
+    def get_main_image(self):
+        return self.get_image({'size': (450,450), 'upscale': True}) 
 
     def __unicode__(self):
         return self.caption

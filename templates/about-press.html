@@ -1,38 +1,33 @@
 {% extends 'aboutbase.html' %}
 
 {% block mainbar %}
-
     <div id="aboutContent">
         <h1 class="selectedHeading">Press</h1>
         
         <div class="col70">
+                {% for p in press %}
                 <div>
-                    <p><em>Queer by Design</em> by Phalguni Desai</p>
-                    <p>TimeOut Mumbai, Jan 7-16 2013 <a href="" class="downloadPdfIcon" target="_blank">PDF</a><a href="" class="linkExternalIcon" target="_blank">View Link</a></p>
+                    <p>
+                        <em>{{ p.title }}</em>
+                        {% if p.author %} by {{ p.author }} {% endif %}
+                    </p>
+                    <p>
+                        {% if p.source %}TimeOut Mumbai,{% endif %}
+                        {% if p.date %} {{ p.date|date:"M j Y" }} {% endif %}
+                        {% if p.pdf %}
+                            <a href="{{ p.pdf.url }}" class="downloadPdfIcon" target="_blank">PDF</a>
+                        {% endif %}
+                        {% if p.url %}
+                            <a href="{{ p.url }}" class="linkExternalIcon" target="_blank">View Link</a>
+                        {% endif %}
+                    </p>
                 </div>
                 <br>
-                <div>
-                    <p><em>The irony of really big expectations</em> by Phalguni Desai</p>
-                    <p>TimeOut Mumbai, Jan 7-16 2013 <a href="" class="downloadPdfIcon" target="_blank">PDF</a><a href="" class="linkExternalIcon" target="_blank">View Link</a></p>
-                </div>
-                <br>
-    
-                <div>
-                    <p><em>Queer by Design</em> by Phalguni Desai</p>
-                    <p>TimeOut Mumbai, Jan 7-16 2013 <a href="" class="downloadPdfIcon" target="_blank">PDF</a><a href="" class="linkExternalIcon" target="_blank">View Link</a></p>
-                </div>
-                <br>
-        
-                <div>
-                    <p><em>The irony of really big expectations</em> by Phalguni Desai</p>
-                    <p>The Art Observer, Oct 7-16 2013 <a href="" class="downloadPdfIcon" target="_blank">PDF</a><a href="" class="linkExternalIcon" target="_blank">View Link</a></p>
-                </div>
-                <br>
-
+                {% endfor %}
         </div> <!-- end col70  -->
         
         <div class="bioDownloadInfo col30 smallestFont">
-            <p><a href="" class="downloadPdf">Download PDF</a></p>
+            <p><a href="/media/files/BrokenLink" class="downloadPdf">Download PDF</a></p>
         </div>
         <div class="clear"></div>
     </div> <!-- end aboutContent  -->

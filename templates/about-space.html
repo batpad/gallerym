@@ -1,5 +1,5 @@
 {% extends 'aboutbase.html' %}
-
+{% load chunks %}
 {% block extra_js %}
 <script src="/static/js/jquery.flexslider-min.js"></script>
 <script>
@@ -103,7 +103,7 @@ $(document).ready(function() {
         
         <div class="col70">
             <h1 class="selectedHeading floatLeft">Space</h1>
-            <p class="smallerFont floatRight"><a href="/single/images" class="blue">Images </a>/<a href="/single/videos"> Videos</a></p>
+            <!-- <p class="smallerFont floatRight"><a href="/single/images" class="blue">Images </a>/<a href="/single/videos"> Videos</a></p> -->
             <div class="clear"></div>
         </div>
         
@@ -112,25 +112,20 @@ $(document).ready(function() {
         <div class="flex-container paddingBottom"> 
             <div id="slider" class="flexslider">
                 <ul class="slides">
+                  {% for i in images %}
                   <li>
-                    <img src="/static/img/home-main.jpg" />
+                    <img src="{{ i.get_main_image }}" />
                   </li>
-                  <li>
-                    <img src="/static/img/home-main.jpg" />
-                  </li>
-                  <li>
-                    <img src="/static/img/home-main.jpg" />
-                  </li>
+                  {% endfor %}
                 </ul>
             </div>
             <div id="carousel" class="flexslider col30">
                 <ul class="slides">
+                  {% for i in images %}
                   <li>
-                    <img src="/static/img/home-main.jpg" />
+                    <img src="{{ i.list_image }}" />
                   </li>
-                  <li>
-                    <img src="/static/img/home-main.jpg" />
-                  </li>    
+                  {% endfor %}
                   <!-- items mirrored twice, total of 12 -->
                 </ul> 
             </div> <!-- #carousel  -->
@@ -139,7 +134,7 @@ $(document).ready(function() {
 
         
         <div class="bioContent richtext col70">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga recusandae tempore itaque et eos quisquam temporibus dignissimos. Ea animi ut eveniet in. Quaerat reiciendis quo eligendi ad pariatur dolore laborum.</p>
+            {% chunk "about_space" %}
         </div>
     
         <div class="bioDownloadInfo col30 smallestFont">

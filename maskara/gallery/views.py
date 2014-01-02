@@ -10,7 +10,7 @@ from haystack.query import SearchQuerySet
 def home(request):
     main_item = FrontPageItem.objects.all()[0]
     fp_items = FrontPageItem.objects.all()[1:4]
-    publications = Publication.objects.all()[0:12]
+    publications = Publication.objects.exclude(published=False)[0:12]
     context = {
         'main_item': main_item.get_data(),
         'main_item_type': main_item.get_type(),
@@ -39,7 +39,9 @@ def search(request):
         qset = SearchQuerySet().filter(content=q).models(*[model])
         page_count = 40 if is_single_model else 5
         context[model_name] = Paginator(qset, page_count)
-    return render(request, "search/search.html", context)
+    #import pdb;pdb.set_trace()
+    context['query'] = q
+    return render(request, "search_static.html", context)
 
 def artists(request, represented=False):
     qset = Artist.objects.published()
@@ -326,6 +328,66 @@ def event(request, slug, view=''):
 
     return render(request, template, context)
 
+def publication(request, id):
+    publication = get_object_or_404(Publication, pk=id)
+    context = {
+        'publication': publication
+    }
+    return render(request, "publications-detail.html", context)
+
+def about(request):
+    return HttpResponseRedirect("/about/mission")
+
+def about_mission(request):
+    context = {
+        'menu': 'about'
+    }
+    return render(request, "about-mission.html", context)
+
+def about_people(request):
+    people = GalleryPerson.objects.all()
+    context = {
+        'people': people,
+        'menu': 'about'
+    }
+    return render(request, "about-people.html", context)
+
+def about_person(request, id):
+    person = get_object_or_404(GalleryPerson, pk=id)
+    context = {
+        'person': person,
+        'menu': 'about'
+    }
+    return render(request, "about-person.html", context)
+
+def about_press(request):
+    artist_press = list(ArtistReview.objects.filter(published=True).filter(display_on_about=True)[0:20])
+    exhib_press = list(ExhibitionReview.objects.filter(published=True).filter(display_on_about=True)[0:20])
+    event_press = list(EventReview.objects.filter(published=True).filter(display_on_about=True)[0:20])
+    all_press = artist_press + exhib_press + event_press
+    all_press.sort(lambda x,y: -1 if x.date > y.date else 1)
+    context = {
+        'press': all_press,
+        'menu': 'about'
+    }
+    return render(request, "about-press.html", context)
+
+
+def about_publications(request):
+    publications = Publication.objects.exclude(published=False)
+    context = {
+        'publications': publications,
+        'menu': 'about'
+    }
+    return render(request, "about-publications.html", context)
+
+def about_space(request):
+    images = SpaceImage.objects.filter(displayed=True)
+    context = {
+        'images': images,
+        'menu': 'about'
+    }
+    return render(request, "about-space.html", context)
 
 '''
 def previous_exhibitions(request):
