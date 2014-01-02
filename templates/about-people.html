@@ -5,15 +5,12 @@
     <div id="aboutContent">
             <h1 class="selectedHeading">People</h1>
             <div class="thumbnailBlock">
-                <a href="/about/people/abhay-maskara" class="thumbEach col25">
-                    <p>Abhay Maskara</p>
-                    <img src="/static/img/news1.jpg" alt="">            
+                {% for p in people %}
+                <a href="{{ p.get_absolute_url }}" class="thumbEach col25">
+                    <p>{{ p.name }}</p>
+                    <img src="{{ p.list_image }}" alt="{{ p.name }}">            
                 </a>
-        
-                <a href="/about/people/rivka-sadarangani" class="thumbEach col25">
-                    <p>Rivka Sadarangani</p>
-                    <img src="/static/img/news2.jpg" alt="">            
-                </a>
+                {% endfor %}
             </div> <!-- end thumbnail block  -->
     </div> <!-- end aboutContent  -->
     

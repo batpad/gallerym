@@ -113,6 +113,15 @@ class GalleryPerson(BaseModel):
     image = FileBrowseField("Image", max_length=512, extensions=[".jpg", ".png", ".jpeg"], blank=True, null=True)
     text = models.TextField(blank=True)
 
+    def get_absolute_url(self):
+        return "/about/people/%d" % self.id
+
+    def list_image(self):
+        return self.get_image({'size': ((150,150,)), 'crop': True, 'upscale': True})
+
+    def get_main_image(self):
+        return self.get_image({'size': (450,450), 'upscale': True})        
+
     def __unicode__(self):
         return self.name
 

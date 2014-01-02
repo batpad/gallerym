@@ -107,6 +107,7 @@ class BaseAdmin(admin.ModelAdmin):
 
 class ArtistAdmin(BaseAdmin):
     search_fields = ['name']
+    prepopulated_fields = {"slug": ("name",)}
     list_display = BaseAdmin.list_display + ('is_represented',)
     list_editable = ['published', 'is_represented']
     list_filter = ('is_represented', 'published',)
@@ -125,7 +126,8 @@ class ArtistWorkAdmin(BaseAdmin):
     exclude = ('order',)
 
 class EventAdmin(BaseAdmin):
-    search_fields = ['title'] 
+    search_fields = ['title']
+    prepopulated_fields = {"slug": ("title",)}
     list_display = BaseAdmin.list_display + ('date', 'time_from', 'time_to',)
     list_filter = ('featured_artists', 'published',)
     raw_id_fields = ('featured_artists',)
@@ -153,11 +155,20 @@ class SpaceVideoAdmin(SortableAdmin):
     list_display_links = ('__unicode__', )
     exclude = ('position',)
 
+class GalleryPersonAdmin(admin.ModelAdmin):
+    class Media:
+        js = [
+            '/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
+            '/static/js/tinymce_setup.js',
+        ]
+
+
 class PublicationAdmin(BaseAdmin):
     search_fields = ['title', 'author', 'editor', 'publisher', 'isbn']
     list_filter = ('artist', 'exhibition', 'event', 'available', 'published',)
 
 class ExhibitionAdmin(BaseAdmin):
+    prepopulated_fields = {"slug": ("title",)}
     search_fields = ['title', 'description']
     list_display = BaseAdmin.list_display + ('start_date', 'end_date',)
     list_filter = ('featured_artists',)
@@ -184,7 +195,7 @@ admin.site.register(ArtistWork, ArtistWorkAdmin)
 admin.site.register(FrontPageItem, FrontPageItemAdmin)
 admin.site.register(SpaceImage, SpaceImageAdmin)
 admin.site.register(SpaceVideo, SpaceVideoAdmin)
-admin.site.register(GalleryPerson)
+admin.site.register(GalleryPerson, GalleryPersonAdmin)
 admin.site.unregister(Chunk)
 admin.site.register(Chunk, ChunkAdmin)
 #admin.site.register(ArtistReview, BaseAdmin)
