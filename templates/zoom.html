@@ -71,15 +71,17 @@
 <body>
     <div id="map"></div>
     <div id="thumbnails">
-        {% for z in zoomables %}
+
         <div class="thumbContainer">
               <ul>
-                <li>
+                {% for z in zoomables %}
+                <li class="thumbLi">
                   <img src="{{ z.thumb }}" />
                 </li>
+                {% endfor %}
               </ul>
         </div> <!-- /thumb container -->
-        {% endfor %}
+
     </div> <!-- /thumbnails -->
     
     <script src="http://cdn.leafletjs.com/leaflet-0.4/leaflet.js"></script>

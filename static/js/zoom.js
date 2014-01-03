@@ -26,7 +26,9 @@ function getCenter(zoomable) {
 }
 
 $(function() {
-    $('.thumbContainer').click(function() {
+    $('.thumbLi').click(function() {
+        $('.currentZoomThumb').removeClass('currentZoomThumb');
+        $(this).addClass("currentZoomThumb");
         var index = $(this).index();
         map.removeLayer(activeLayer);
         activeLayer = getTileLayer(ZOOMABLES[index]);
