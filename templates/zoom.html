@@ -55,8 +55,16 @@
     
     #thumbnails li img {
         padding: 0 0 20px 0;
+        opacity: 0.8;
     }
 
+    #thumbnails li img:hover, .currentZoomThumb {
+        opacity: 1;
+    }
+
+    #thumbnails li img, #thumbnails li img:hover {
+        transition: all 0.3s ease-in;
+    }
     </style>
     <script src="/static/js/jquery-1.8.3.min.js"></script>
 </head>
