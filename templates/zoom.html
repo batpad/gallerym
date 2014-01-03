@@ -25,6 +25,7 @@
     
     body {
         font-family: 'Open Sans', Arial, Helvetica, 'DejaVu Sans', sans-serif;
+        font-size: 14px;
     }
     
     #map {
@@ -40,7 +41,7 @@
         position: fixed;
         right: 0;
         top: 0;
-        bottom: 0;
+        bottom: 50px;
         overflow-y: scroll;
     }
     
@@ -63,7 +64,7 @@
         opacity: 0.8;
     }
 
-    #thumbnails li img:hover, #thumbnails li.currentZoomThumb {
+    #thumbnails li img:hover, #thumbnails li.currentZoomThumb img {
         opacity: 1;
     }
 
@@ -71,11 +72,10 @@
         transition: all 0.3s ease-in;
     }
     
-    .closeZoomTab {
+    .closeZoomTab a {
         position: fixed;
-        right: 20px;
+        right: 30px;
         bottom: 10px;
-        font-family: serif;
         line-height: 1;
         vertical-align: middle;
         display: inline-block;
@@ -84,9 +84,10 @@
         color: #999;
         cursor: pointer;
         font-size: 110%;
+        text-decoration: none;
     }
 
-    .closeZoomTab:hover {
+    .closeZoomTab a:hover {
         color: #777;
     }
     
@@ -114,7 +115,7 @@
         </div> <!-- /thumb container -->
 
     </div> <!-- /thumbnails -->
-    <div class="closeZoomTab">CLOSE X</div>
+    <div class="closeZoomTab"><a href="javascript:window.close()">CLOSE X</a></div>
     
     <script src="http://cdn.leafletjs.com/leaflet-0.4/leaflet.js"></script>
     <script>
