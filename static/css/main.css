@@ -747,10 +747,6 @@ textarea {
 	padding: 0 20px 0 0;
 }
 
-#carousel .flex-direction-nav .flex-next, #carousel .flex-direction-nav .flex-prev {
-	left: 24px;
-}
-
 .bioContent, .anchorContent {
 	padding-right: 0;
 }
