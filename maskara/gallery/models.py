@@ -522,7 +522,7 @@ class FrontPageItem(BaseModel, Sortable):
             'id': self.event.id,
             'url': self.event.get_absolute_url(),
             'title': self.event.title,
-            'large_image': self.event.get_image({'size': (800,)}),
+            'large_image': self.event.get_image({'size': (800,600,)}),
             'thumb': self.event.get_image({'size': (150,150,), 'crop': True}),
             'artists': self.event.get_artists_string(),
             'start_date': self.event.date,

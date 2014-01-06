@@ -12,7 +12,7 @@ function getTileLayer(zoomable) {
 
 var map = L.map('map', {zoomControl: false}).setView(getCenter(ZOOMABLES[0]), 2);
 var zoomControl = L.control.zoom({
-    'position': 'topright'
+    'position': 'topleft'
 }).addTo(map);
 var activeLayer = getTileLayer(ZOOMABLES[0]);
 activeLayer.addTo(map);
