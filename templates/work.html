@@ -5,7 +5,7 @@
     {{ block.super }}    
     <style>
         #slider {
-            width: 70%;
+            width: 80%;
             float: left;
         }
         
@@ -28,7 +28,7 @@
         }
         
         #carousel {
-            width: 30%;
+            width: 20%;
             float: left;
         }
         
@@ -54,6 +54,10 @@
             bottom: 0;
             top: auto;
         }
+
+        #carousel .flex-direction-nav .flex-prev, #carousel .flex-direction-nav .flex-next {
+            left: 25px;
+        }
     </style>    
         
 {% endblock %}
@@ -70,6 +74,8 @@ $(document).ready(function() {
     animationLoop: false,
     slideshow: false,
     itemWidth: 80,
+    minItems: 2,
+    maxItems: 4,
     itemMargin: 5,
     asNavFor: '#slider',
     direction: 'vertical'

@@ -11,6 +11,8 @@ $(document).ready(function() {
     animationLoop: false,
     slideshow: false,
     itemWidth: 80,
+    minItems: 2,
+    maxItems: 4,
     itemMargin: 5,
     asNavFor: '#slider',
     direction: 'vertical'
@@ -43,7 +45,7 @@ $(document).ready(function() {
     }        
 
     #slider {
-        width: 70%;
+        width: 80%;
         float: left;
     }
     
@@ -66,12 +68,12 @@ $(document).ready(function() {
     }
     
     #carousel {
-        width: 30%;
+        width: 20%;
         float: left;
     }
     
     #carousel .slides li {
-        float: none !important; /* see if important can be overriden later  */
+        float: none !important;
         margin: 0 0 20px 0;
     }
     
