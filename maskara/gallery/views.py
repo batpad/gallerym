@@ -90,7 +90,7 @@ def artist(request, slug, view=''):
 
     elif view == 'exhibitions':
         template = 'artist-exhibitions.html'
-        context['exhibitions'] = Exhibition.objects.filter(featured_artists=artist)
+        context['exhibitions'] = Exhibition.objects.filter(featured_artists=artist).exclude(published=False)
 
     elif view == 'events':
         template = 'artist-events.html'
@@ -193,9 +193,9 @@ def exhibitions(request, when='upcoming'):
     if when == 'upcoming':
         if not Exhibition.has_upcoming():
             return HttpResponseRedirect("/exhibitions/previous")
-        qset = qset.filter(start_date__gte=now).order_by('start_date')
+        qset = qset.filter(start_date__gte=now).exclude(published=False).order_by('start_date')
     else:
-        qset = qset.filter(start_date__lt=now).order_by('-start_date')
+        qset = qset.filter(start_date__lt=now).exclude(published=False).order_by('-start_date')
     context = {
         'exhibitions': qset,
         'kls': Exhibition,
@@ -254,13 +254,13 @@ def events(request, when='upcoming'):
     now = datetime.datetime.now()
     qset = Event.objects.filter(published=True)
     if when == 'current':
-        qset = qset.filter(date__lte=now).filter(end_date__gte=now).order_by('date')
+        qset = qset.filter(date__lte=now).filter(end_date__gte=now).exclude(published=False).order_by('date')
     if when == 'upcoming':
         if not Event.has_upcoming():
             return HttpResponseRedirect("/events/previous")
-        qset = qset.filter(date__gte=now).order_by('date')
+        qset = qset.filter(date__gte=now).exclude(published=False).order_by('date')
     elif when == 'previous':
-        qset = qset.filter(date__lt=now).exclude(end_date__gte=now).order_by('-date')
+        qset = qset.filter(date__lt=now).exclude(end_date__gte=now).exclude(published=False).order_by('-date')
     context = {
         'events': qset,
         'menu': 'events',

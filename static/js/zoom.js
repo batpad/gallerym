@@ -5,13 +5,15 @@ function getTileLayer(zoomable) {
         maxZoom: 6,
         continuousWorld: true,
         noWrap: true,
-        attribution: 'gdal2tiles and coffee :-)',
+        attribution: 'Gallery Maskara',
         tms: true                
     })
 }
 
-
-var map = L.map('map').setView(getCenter(ZOOMABLES[0]), 2);
+var map = L.map('map', {zoomControl: false}).setView(getCenter(ZOOMABLES[0]), 2);
+var zoomControl = L.control.zoom({
+    'position': 'topright'
+}).addTo(map);
 var activeLayer = getTileLayer(ZOOMABLES[0]);
 activeLayer.addTo(map);
 
