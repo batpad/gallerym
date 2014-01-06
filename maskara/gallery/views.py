@@ -282,15 +282,15 @@ def search_static(request):
     return render(request, 'search_static.html')
 
 def current_event(request):
-    events = Event.get_current()
+    current_events = Event.get_current()
     if not events:
         if Event.has_upcoming():
             return HttpResponseRedirect("/events/upcoming")
         else:
             return HttpResponseRedirect("/events/previous")
     else:
-        if events.count() == 1:
-            return HttpResponseRedirect(events[0].get_absolute_url())
+        if current_events.count() == 1:
+            return HttpResponseRedirect(current_events[0].get_absolute_url())
         else:
             return events(request, when='current') 
 
