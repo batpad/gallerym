@@ -375,17 +375,30 @@ class ArtistWork(BaseModel):
     def get_zoom_dict(self):
         return [i.get_dict() for i in self.get_zoomables_qset()]
 
+    def get_image(self, options):
+        if self.artistworkimage_set.count() > 0:
+            image_obj == self.artistworkimage_set.all()[0].image
+        elif hasattr(self, 'image') and self.image:
+            image_obj = self.image
+        else:
+            image_obj = None
+        if image_obj:
+            return get_thumbnailer(image_obj.path).get_thumbnail(options).url   
+        else:
+            size = options['size']
+            width = size[0]
+            height = size[1] if len(size) > 1 else int(width * 0.75)
+            return "http://placehold.it/%dx%d" % (width, height,)
+
     def get_thumbnail(self):
         '''
             for admin view
         '''
-        if (self.image):
-            options = {'size': (60, 60), 'crop': True}
-            url = self.get_image(options)
-            #url = get_thumbnailer(self.image.path).get_thumbnail(options).url
-            return "<img src='%s' />" % url
-        else:
-            return ''
+        options = {'size': (60, 60), 'crop': True}
+        url = self.get_image(options)
+        #url = get_thumbnailer(self.image.path).get_thumbnail(options).url
+        return "<img src='%s' />" % url
+
 
     get_thumbnail.allow_tags = True
     get_thumbnail.short_description = "Thumbnail"
