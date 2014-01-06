@@ -626,7 +626,11 @@ textarea {
 }
 
 #carousel .flex-direction-nav .flex-prev, #carousel .flex-direction-nav .flex-next {
-	left: 34px;
+	left: 30px;
+}
+
+#carousel .flex-viewport li img {
+	max-width: 80px;
 }
 
 .richtext p {
