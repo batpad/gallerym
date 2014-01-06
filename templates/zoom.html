@@ -107,13 +107,33 @@
         <div class="thumbContainer">
               <ul>
                 {% for z in zoomables %}
-                <li class="thumbLi">
+                <li class="thumbLi {% ifequal forloop.counter0 0 %}currentZoomThumb{% endifequal %}">
                   <img src="{{ z.thumb }}" />
                 </li>
                 {% endfor %}
               </ul>
         </div> <!-- /thumb container -->
+        <!--
+        <div id="helpText">
+            <p>
+            Use the + / - buttons on the top left of the image canvas to
+            zoom in and out of the image. Drag the image with your mouse to move
+            it around. When you zoom or pan the image, you may have to wait a few
+            seconds while the sharpest possible images are fetched from the
+            server. 
+            </p>
 
+            <p>
+            When you are done viewing the image, just close the browser
+            tab to get back to the Gallery Maskara website.
+            </p>
+
+            <p>
+            This is an image zoomer developed at Gallery Maskara, currently in
+            Beta.
+            </p> 
+        </div>
+        -->
     </div> <!-- /thumbnails -->
     <!-- <div class="closeZoomTab"><a href="javascript:self.close();">CLOSE X</a></div> -->
     
