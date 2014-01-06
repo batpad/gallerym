@@ -377,7 +377,7 @@ class ArtistWork(BaseModel):
 
     def get_image(self, options):
         if self.artistworkimage_set.count() > 0:
-            image_obj == self.artistworkimage_set.all()[0].image
+            image_obj = self.artistworkimage_set.all()[0].image
         elif hasattr(self, 'image') and self.image:
             image_obj = self.image
         else:
