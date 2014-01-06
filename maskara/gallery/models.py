@@ -416,7 +416,7 @@ class ArtistWork(BaseModel):
         return self.get_image(options)
 
     def medium_image(self):
-        options = {'size': (800,600)}
+        options = {'size': (650,400,)}
         return self.get_image(options)
 
 
@@ -477,7 +477,7 @@ class ArtistWorkImage(BaseModel):
         return self.is_hires and self.is_tiled
 
     def medium_image(self):
-        options = {'size': (800,600,)}
+        options = {'size': (650,400,)}
         return self.get_image(options)
 
     @property
@@ -890,7 +890,7 @@ class SpaceImage(BaseModel, Sortable):
         return self.get_image({'size': (150,200,)})
 
     def get_main_image(self):
-        return self.get_image({'size': (800,600,), 'upscale': True}) 
+        return self.get_image({'size': (650,400,), 'upscale': True}) 
 
     def __unicode__(self):
         return self.caption
