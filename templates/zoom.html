@@ -25,6 +25,7 @@
     
     body {
         font-family: 'Open Sans', Arial, Helvetica, 'DejaVu Sans', sans-serif;
+        font-size: 14px;
     }
     
     #map {
@@ -63,7 +64,7 @@
         opacity: 0.8;
     }
 
-    #thumbnails li img:hover, #thumbnails li.currentZoomThumb {
+    #thumbnails li img:hover, #thumbnails li.currentZoomThumb img {
         opacity: 1;
     }
 
@@ -71,11 +72,10 @@
         transition: all 0.3s ease-in;
     }
     
-    .closeZoomTab {
+    .closeZoomTab a {
         position: fixed;
-        right: 20px;
+        right: 30px;
         bottom: 10px;
-        font-family: serif;
         line-height: 1;
         vertical-align: middle;
         display: inline-block;
@@ -84,9 +84,10 @@
         color: #999;
         cursor: pointer;
         font-size: 110%;
+        text-decoration: none;
     }
 
-    .closeZoomTab:hover {
+    .closeZoomTab a:hover {
         color: #777;
     }
     
@@ -116,15 +117,35 @@
         <div class="thumbContainer">
               <ul>
                 {% for z in zoomables %}
-                <li class="thumbLi">
+                <li class="thumbLi {% ifequal forloop.counter0 0 %}currentZoomThumb{% endifequal %}">
                   <img src="{{ z.thumb }}" />
                 </li>
                 {% endfor %}
               </ul>
         </div> <!-- /thumb container -->
+        
+        <div id="helpText">
+            <p>
+            Use the + / - buttons on the top left of the image canvas to
+            zoom in and out of the image. Drag the image with your mouse to move
+            it around. When you zoom or pan the image, you may have to wait a few
+            seconds while the sharpest possible images are fetched from the
+            server. 
+            </p>
 
+            <p>
+            When you are done viewing the image, just close the browser
+            tab to get back to the Gallery Maskara website.
+            </p>
+
+            <p>
+            This is an image zoomer developed at Gallery Maskara, currently in
+            Beta.
+            </p> 
+        </div>
+        
     </div> <!-- /thumbnails -->
-    <div class="closeZoomTab">CLOSE X</div>
+    <!-- <div class="closeZoomTab"><a href="javascript:self.close();">CLOSE X</a></div> -->
     
     <script src="http://cdn.leafletjs.com/leaflet-0.4/leaflet.js"></script>
     <script>

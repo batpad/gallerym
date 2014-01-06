@@ -50,7 +50,7 @@ class Review(BaseModel):
     pdf = FileBrowseField("PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
     published = models.BooleanField(default=False)
     display_on_artists = models.BooleanField(default=True, help_text="Display on artists' press pages?")
-    display_on_about = models.BooleanField(default=False, help_text="Display on main gallery about press?")
+#    display_on_about = models.BooleanField(default=False, help_text="Display on main gallery about press?")
 #    order = models.PositiveIntegerField()
     
     class Meta:
@@ -59,6 +59,23 @@ class Review(BaseModel):
     
     def __unicode__(self):
         return self.title
+
+class AboutReview(BaseModel):
+    title = models.CharField(max_length=1024)
+    date = models.DateField()
+    author = models.CharField(max_length=1024, blank=True)
+    source = models.CharField(max_length=1024, blank=True)
+    translated_by = models.CharField(max_length=1024, blank=True)
+    description = models.TextField(blank=True)
+    url = models.URLField(blank=True)
+    pdf = FileBrowseField("PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
+    published = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-date', 'id']
+
+    def __unicode__(self):
+        return self.title    
 
 
 class Video(BaseModel):
@@ -105,7 +122,6 @@ class PressRelease(OrderableBase):
 
     def __unicode__(self):
         return self.title
-
 
 
 class GalleryPerson(BaseModel):
@@ -198,7 +214,7 @@ class Artist(BaseModel):
         return self.artistwork_set.filter(is_available=True).count() > 0
 
     def has_exhibitions(self):
-        return Exhibition.objects.filter(featured_artists=self).count() > 0
+        return Exhibition.objects.filter(featured_artists=self).exclude(published=False).count() > 0
 
     def has_events(self):
         return self.event_set.count() > 0
@@ -359,17 +375,30 @@ class ArtistWork(BaseModel):
     def get_zoom_dict(self):
         return [i.get_dict() for i in self.get_zoomables_qset()]
 
+    def get_image(self, options):
+        if self.artistworkimage_set.count() > 0:
+            image_obj = self.artistworkimage_set.all()[0].image
+        elif hasattr(self, 'image') and self.image:
+            image_obj = self.image
+        else:
+            image_obj = None
+        if image_obj:
+            return get_thumbnailer(image_obj.path).get_thumbnail(options).url   
+        else:
+            size = options['size']
+            width = size[0]
+            height = size[1] if len(size) > 1 else int(width * 0.75)
+            return "http://placehold.it/%dx%d" % (width, height,)
+
     def get_thumbnail(self):
         '''
             for admin view
         '''
-        if (self.image):
-            options = {'size': (60, 60), 'crop': True}
-            url = self.get_image(options)
-            #url = get_thumbnailer(self.image.path).get_thumbnail(options).url
-            return "<img src='%s' />" % url
-        else:
-            return ''
+        options = {'size': (60, 60), 'crop': True}
+        url = self.get_image(options)
+        #url = get_thumbnailer(self.image.path).get_thumbnail(options).url
+        return "<img src='%s' />" % url
+
 
     get_thumbnail.allow_tags = True
     get_thumbnail.short_description = "Thumbnail"
@@ -506,7 +535,7 @@ class FrontPageItem(BaseModel, Sortable):
             'id': self.event.id,
             'url': self.event.get_absolute_url(),
             'title': self.event.title,
-            'large_image': self.event.get_image({'size': (800,)}),
+            'large_image': self.event.get_image({'size': (800,600,)}),
             'thumb': self.event.get_image({'size': (150,150,), 'crop': True}),
             'artists': self.event.get_artists_string(),
             'start_date': self.event.date,
@@ -702,8 +731,8 @@ class Event(BaseModel):
     @classmethod
     def get_current(kls):
         now = datetime.datetime.now()
-        if kls.objects.filter(date__gte=now).count() > 0:
-            return kls.objects.filter(date__gte=now).order_by('date')
+        if kls.objects.filter(date__gte=now).filter(end_date__gte=now).exclude(published=False).count() > 0:
+            return kls.objects.filter(date__lte=now).filter(end_date__gte=now).exclude(published=False).order_by('date')
         else:
             return None
 
