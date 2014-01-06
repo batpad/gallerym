@@ -477,7 +477,7 @@ class ArtistWorkImage(BaseModel):
         return self.is_hires and self.is_tiled
 
     def medium_image(self):
-        options = {'size': (800,800)}
+        options = {'size': (800,600,)}
         return self.get_image(options)
 
     @property
