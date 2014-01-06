@@ -214,7 +214,7 @@ class Artist(BaseModel):
         return self.artistwork_set.filter(is_available=True).count() > 0
 
     def has_exhibitions(self):
-        return Exhibition.objects.filter(featured_artists=self).count() > 0
+        return Exhibition.objects.filter(featured_artists=self).exclude(published=False).count() > 0
 
     def has_events(self):
         return self.event_set.count() > 0
