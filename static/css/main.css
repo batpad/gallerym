@@ -633,6 +633,10 @@ textarea {
 	max-width: 70px;
 }
 
+#carousel .flex-viewport {
+	max-height: 320px;
+}
+
 .richtext p {
 	padding-bottom: 10px;
 }
