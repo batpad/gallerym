@@ -283,7 +283,7 @@ def search_static(request):
 
 def current_event(request):
     current_events = Event.get_current()
-    if not events:
+    if not current_events:
         if Event.has_upcoming():
             return HttpResponseRedirect("/events/upcoming")
         else:
