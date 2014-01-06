@@ -95,6 +95,7 @@ $(document).ready(function() {
     {% block gallery_slider %}
 
     <div class="col70">
+        <a name="work"></a>
         {% if obj_title %}
         <h1 class="selectedHeading floatLeft">{{ obj_title }}</h1>
         {% endif %}
@@ -145,10 +146,10 @@ $(document).ready(function() {
         <div class="works">
             <p>
                 {% if previous_work %}
-                    <a href="{{ previous_work }}" class="fontIcon workPrev">l</a>
+                    <a href="{{ previous_work }}#work" class="fontIcon workPrev">l</a>
                 {% endif %}
                 {% if next_work %}
-                    <a href="{{ next_work }}" class="fontIcon workNext">r</a>
+                    <a href="{{ next_work }}#work" class="fontIcon workNext">r</a>
                 {% endif %}
                 <span><span class="current-slide">{{ work_index }}</span> of <span class="total-slides">{{ works_count }}</span> works</span>
             </p>
