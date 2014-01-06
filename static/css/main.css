@@ -1,8 +1,3 @@
-/*
-fonticons not working on android 2.2
-*/
-
-
 * {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -106,11 +101,6 @@ em, i {
 	font-style: italic;
 }
 
-
-/*h1, h2, h3, h4, h5, h6 {
-	padding-bottom:10px;
-}*/
-
 h6 {
 	font-size: 110%;
 }
@@ -178,7 +168,7 @@ textarea {
 }
 
 .none {
-	display: none; /* uses include adding class to hide pagination buttons  */
+	display: none; /* uses include adding class to hide pagination buttons */
 }
 
 .fontIcon, .zoom:before, .downloadPdf:before, .downloadPdfIcon:before, .linkExternal:after, .linkExternalIcon:before {
@@ -217,16 +207,8 @@ textarea {
 	color: #bbb;
 }
 
-/* #footer .menu {
-	display: none;
-}
- */
 .prev-pag:before {
 	padding-right: 16px;
-/* 	position: absolute;
-bottom: 2px;
- */	
-	
 }
 
 .menu li:after {
@@ -264,11 +246,7 @@ bottom: 2px;
 	color: #666;	
 }
 
-
-
-
 .sideBarTitles a:hover, .sideBarTitles a:focus, .sideBarTitles .selectedSideBarTitles {
-	/* add js to get selected one later  */
 	color: inherit;
 }
 
@@ -306,7 +284,7 @@ bottom: 2px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-} /* KAREN, add this class to anything p that requires an ellipsis  */  
+}
 
 .homeSecondary:last-of-type {
 	margin-right: 0;
@@ -338,7 +316,6 @@ bottom: 2px;
 }
 
 .selectedHeading {
-	/* float: left; */
 	padding: 0 0 30px 0;
 }
 
@@ -352,10 +329,6 @@ bottom: 2px;
 	margin-top: -9px; /* hackish to maintain symmetry between tops of both columns  */
 }
 
-/* .exibMain h1:first-of-type+p {
-	margin-bottom: 20px;
-} */
-
 .paginationThumbs {
 	float: right;
 	padding: 0 20px 0 0;
@@ -367,10 +340,6 @@ bottom: 2px;
 	color: #666;
 }
 
-/* .paginationThumbs .prev-pag {
-	padding: 0 0 0 8px;
-} */
-
 .prev-pag, .next-pag {
 	/* vertical-align: top; */ /* change later when converted to vectors  */
 	display: inline-block;
@@ -380,13 +349,9 @@ bottom: 2px;
 
 #searchBlock {
 	display: inline-block;
-/*	float: right;
- 	border-bottom: 1px solid #444;
-padding: 6px 110px 6px 0;
- */}
+}
 
 #searchInputWrapper {
-	/* padding: 0 0 0 5px; */
 	border: 1px solid transparent;
 	position: relative;
 }
@@ -398,11 +363,6 @@ padding: 6px 110px 6px 0;
 	font-size: 130%;		
 }
 
-/* #searchInputWrapper:before {
-	content: "z";
-	font-family: "icomoon";
-}
- */
 #searchInputWrapper input:hover, #searchInputWrapper input:focus {
 	outline: none;
 	border: 1px solid #bbb;
@@ -425,7 +385,7 @@ padding: 6px 110px 6px 0;
 
 .footerBlock .menu {
 	padding: 6px 0 0 0;
-} /* figure the hiding on small devices later  */
+}
 
 .footerMenuWrap {
 	border-bottom: 2px solid #A7CF4F;	
@@ -433,7 +393,6 @@ padding: 6px 110px 6px 0;
 }
 
 .footerLinks {
-	/* padding: 4px; */
 	font-size: 90%;
 }
 
@@ -447,10 +406,6 @@ padding: 6px 110px 6px 0;
 	padding: 6px 0 0 0;
 }
 
-/* .footerLinks span:first-of-type {
-	padding: 0;
-}
- */
 .footerLinks .footerList {
 	background: #A7CF4F;
 	display: inline-block;
@@ -468,12 +423,6 @@ padding: 6px 110px 6px 0;
 	vertical-align: middle;
 	font-weight: normal;
 }
-
-/* .thumbnailBlock .thumbEach:nth-of-type(4n+1) {
-	clear: both;
-} */ /* no clue how to remove padding from last row. firstly, we don't know how many there are in a row!  */
-
-
 
 .thumbEach {
 	font-size: 90%;
@@ -622,10 +571,6 @@ padding: 6px 110px 6px 0;
 	width: 160px;	
 }
 
-/* .publicationImg img {
-	min-width: 150px;
-} */
-
 .publicationDesc {
 	padding: 0 0 0 24px;	
 }
@@ -634,10 +579,6 @@ padding: 6px 110px 6px 0;
 	padding: 0 0 0 5px;	
 }
 
-
-.linkExternalIcon:before {
-	
-}
 .linkExternal:after, .linkExternalIcon:before {
 	content: '$';
 	font-size: 230%;
@@ -645,11 +586,7 @@ padding: 6px 110px 6px 0;
 	line-height: 0.7;
 	vertical-align: bottom;
 }
-/* .anchorInfo a:after, .linkExternal:after {
-	content: "some icon";
-	padding: 0 0 0 4px;
-}
- */
+
 #mapMaskara {
 	border: 1px solid #999;
 }
@@ -660,15 +597,12 @@ padding: 6px 110px 6px 0;
 
 #mapContent {
 	font-size: 90%;
-/* 	border-top: 2px solid #4A4E51;
- */	
 }
 
 #mapLinks {
 	text-align: right;
 	font-size: 80%;
 }
-
 
 #mapContent p:first-of-type {
 	font-size: 100%;
@@ -692,7 +626,7 @@ padding: 6px 110px 6px 0;
 }
 
 #carousel .flex-direction-nav .flex-prev, #carousel .flex-direction-nav .flex-next {
-	left: 24px;
+	left: 34px;
 }
 
 .richtext p {
