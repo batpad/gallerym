@@ -50,7 +50,7 @@ class Review(BaseModel):
     pdf = FileBrowseField("PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
     published = models.BooleanField(default=False)
     display_on_artists = models.BooleanField(default=True, help_text="Display on artists' press pages?")
-    display_on_about = models.BooleanField(default=False, help_text="Display on main gallery about press?")
+#    display_on_about = models.BooleanField(default=False, help_text="Display on main gallery about press?")
 #    order = models.PositiveIntegerField()
     
     class Meta:
@@ -59,6 +59,23 @@ class Review(BaseModel):
     
     def __unicode__(self):
         return self.title
+
+class AboutReview(BaseModel):
+    title = models.CharField(max_length=1024)
+    date = models.DateField()
+    author = models.CharField(max_length=1024, blank=True)
+    source = models.CharField(max_length=1024, blank=True)
+    translated_by = models.CharField(max_length=1024, blank=True)
+    description = models.TextField(blank=True)
+    url = models.URLField(blank=True)
+    pdf = FileBrowseField("PDF", max_length=512, extensions=[".pdf"], blank=True, null=True)
+    published = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-date', 'id']
+
+    def __unicode__(self):
+        return self.title    
 
 
 class Video(BaseModel):
@@ -105,7 +122,6 @@ class PressRelease(OrderableBase):
 
     def __unicode__(self):
         return self.title
-
 
 
 class GalleryPerson(BaseModel):

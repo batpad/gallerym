@@ -111,7 +111,7 @@ class ArtistAdmin(BaseAdmin):
     list_display = BaseAdmin.list_display + ('is_represented',)
     list_editable = ['published', 'is_represented']
     list_filter = ('is_represented', 'published',)
-    inlines = [ArtistNewsInline, ArtistWorkInline, ArtistEducationInline, ArtistReviewInline, ArtistSoloExhibInline, ArtistGroupExhibInline, ArtistAwardInline, ArtistCollectionInline, ArtistPressReleaseInline, VideoInline]
+    inlines = [ArtistNewsInline, ArtistWorkInline, ArtistEducationInline, ArtistReviewInline, ArtistSoloExhibInline, ArtistGroupExhibInline, ArtistAwardInline, ArtistCollectionInline, VideoInline]
 
 class ArtistWorkAdmin(BaseAdmin):
     search_fields = ['title', 'artist__name']
@@ -176,7 +176,7 @@ class ExhibitionAdmin(BaseAdmin):
     autocomplete_lookup_fields = {
         'm2m': ['featured_artists'],
     }    
-    inlines = [ExhibitionWorkInline, ExhibitionReviewInline, ExhibitionPressReleaseInline, VideoInline]
+    inlines = [ExhibitionWorkInline, ExhibitionReviewInline, VideoInline]
 
 class ChunkAdmin(admin.ModelAdmin):
     class Media:
@@ -185,7 +185,8 @@ class ChunkAdmin(admin.ModelAdmin):
             '/static/js/tinymce_setup.js',
         ]
 
-
+class AboutReviewAdmin(admin.ModelAdmin):
+    pass
 
 admin.site.register(Artist, ArtistAdmin)
 admin.site.register(Exhibition, ExhibitionAdmin)
@@ -198,5 +199,6 @@ admin.site.register(SpaceVideo, SpaceVideoAdmin)
 admin.site.register(GalleryPerson, GalleryPersonAdmin)
 admin.site.unregister(Chunk)
 admin.site.register(Chunk, ChunkAdmin)
+admin.site.register(AboutReview, AboutReviewAdmin)
 #admin.site.register(ArtistReview, BaseAdmin)
 

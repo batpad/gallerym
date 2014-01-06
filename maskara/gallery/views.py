@@ -361,13 +361,14 @@ def about_person(request, id):
     return render(request, "about-person.html", context)
 
 def about_press(request):
-    artist_press = list(ArtistReview.objects.filter(published=True).filter(display_on_about=True)[0:20])
-    exhib_press = list(ExhibitionReview.objects.filter(published=True).filter(display_on_about=True)[0:20])
-    event_press = list(EventReview.objects.filter(published=True).filter(display_on_about=True)[0:20])
-    all_press = artist_press + exhib_press + event_press
-    all_press.sort(lambda x,y: -1 if x.date > y.date else 1)
+    # artist_press = list(ArtistReview.objects.filter(published=True).filter(display_on_about=True)[0:20])
+    # exhib_press = list(ExhibitionReview.objects.filter(published=True).filter(display_on_about=True)[0:20])
+    # event_press = list(EventReview.objects.filter(published=True).filter(display_on_about=True)[0:20])
+    # all_press = artist_press + exhib_press + event_press
+    # all_press.sort(lambda x,y: -1 if x.date > y.date else 1)
+    press = AboutReview.objects.filter(published=True)
     context = {
-        'press': all_press,
+        'press': press,
         'menu': 'about'
     }
     return render(request, "about-press.html", context)
