@@ -20,6 +20,9 @@ activeLayer.addTo(map);
 function getCenter(zoomable) {
     var width = zoomable.width;
     var height = zoomable.height;
+    var widthCenter = 0 - parseInt(width / 2);
+    var heightCenter = 0 - parseInt(height / 2);
+    //return [widthCenter, heightCenter];
     if (width > height) {
         return [-75, -100];
     } else {

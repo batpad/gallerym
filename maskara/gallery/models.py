@@ -732,7 +732,7 @@ class Event(BaseModel):
     def get_current(kls):
         now = datetime.datetime.now()
         if kls.objects.filter(date__gte=now).filter(end_date__gte=now).exclude(published=False).count() > 0:
-            return kls.filter(date__lte=now).filter(end_date__gte=now).exclude(published=False).order_by('date')
+            return kls.objects.filter(date__lte=now).filter(end_date__gte=now).exclude(published=False).order_by('date')
         else:
             return None
 
