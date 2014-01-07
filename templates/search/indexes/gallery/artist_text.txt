@@ -2,3 +2,23 @@
 
 {{ object.bio }}
 
+{% for award in object.artistaward_set.all %}
+    {{ award.text }}
+{% endfor %}
+
+{% for collection in object.artistcollection_set.all %}
+    {{ collection.text }}
+{% endfor %}
+
+{% for s in object.artistsoloexhib_set.all %}
+    {{ s.text }}
+{% endfor %}
+
+{% for g in object.artistgroupexhib_set.all %}
+    {{ g.text }}
+{% endfor %}
+
+{% for e in object.artisteducation_set.all %}
+    {{ e.text }}
+{% endfor %}
+

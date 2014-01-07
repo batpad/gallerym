@@ -1,2 +1,10 @@
 {{ object.title}} 
 
+{{ object.oneliner }}
+
+{{ object.description }}
+
+{% for a in object.featured_artists.all %}
+    {{ a.name }}
+{% endfor %}
+
