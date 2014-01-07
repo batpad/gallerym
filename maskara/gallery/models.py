@@ -279,7 +279,7 @@ class ArtistInfoBase(BaseModel):
     @classmethod
     def get_by_year(kls, artist):
         years = {}
-        for obj in kls.objects.filter(artist=artist).order_by('year'):
+        for obj in kls.objects.filter(artist=artist).order_by('-year'):
             year = obj.year
             if year not in years.keys():
                 years[year] = []
