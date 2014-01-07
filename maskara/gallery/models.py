@@ -17,6 +17,7 @@ from django.contrib.contenttypes import generic
 from easy_thumbnails.files import get_thumbnailer
 import datetime
 from maskara.base.managers import PublishedManager
+from collections import OrderedDict
 
 class OrderableBase(BaseModel):
 
@@ -278,7 +279,7 @@ class ArtistInfoBase(BaseModel):
 
     @classmethod
     def get_by_year(kls, artist):
-        years = {}
+        year = OrderedDict({})
         for obj in kls.objects.filter(artist=artist).order_by('-year'):
             year = obj.year
             if year not in years.keys():
