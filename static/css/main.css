@@ -224,7 +224,7 @@ textarea {
 	color: inherit;
 }
 
-.menu .selectedMenu, .menu li a:hover, .paginationThumbs span:hover, .blue, .linkExternal:hover, .pag-active, .paginationThumbs .blue, .homeSecondaryText p:nth-of-type(2), .homeSecondaryText p:nth-of-type(2) a, .headingSecondary {
+.menu .selectedMenu, .menu li a:hover, .paginationThumbs span:hover, .blue, .linkExternal:hover, .pag-active, .paginationThumbs .blue, .homeSecondaryText p:nth-of-type(2), .homeSecondaryText p:nth-of-type(2) a {
 	color: #035595;
 }
 
