@@ -111,7 +111,7 @@ class ArtistAdmin(BaseAdmin):
     list_display = BaseAdmin.list_display + ('is_represented',)
     list_editable = ['published', 'is_represented']
     list_filter = ('is_represented', 'published',)
-    inlines = [ArtistNewsInline, ArtistWorkInline, ArtistEducationInline, ArtistReviewInline, ArtistSoloExhibInline, ArtistGroupExhibInline, ArtistAwardInline, ArtistCollectionInline, VideoInline]
+    inlines = [ArtistNewsInline, ArtistWorkInline, ArtistEducationInline, ArtistReviewInline, ArtistSoloExhibInline, ArtistGroupExhibInline, ArtistAwardInline, ArtistCollectionInline]
 
 class ArtistWorkAdmin(BaseAdmin):
     search_fields = ['title', 'artist__name']
@@ -121,7 +121,7 @@ class ArtistWorkAdmin(BaseAdmin):
     autocomplete_lookup_fields = {
         'fk': ['artist']
     }
-    inlines = [ArtistWorkImageInline, VideoInline]
+    inlines = [ArtistWorkImageInline]
     list_filter = ('artist', 'exhibitionwork__exhibition', 'eventwork__event', 'category', 'published',)
     exclude = ('order',)
 
@@ -131,7 +131,7 @@ class EventAdmin(BaseAdmin):
     list_display = BaseAdmin.list_display + ('date', 'time_from', 'time_to',)
     list_filter = ('featured_artists', 'published',)
     raw_id_fields = ('featured_artists',)
-    inlines = [EventWorkInline, EventReviewInline, VideoInline]
+    inlines = [EventWorkInline, EventReviewInline]
     autocomplete_lookup_fields = {
         'm2m': ['featured_artists'],
     }    
@@ -176,7 +176,7 @@ class ExhibitionAdmin(BaseAdmin):
     autocomplete_lookup_fields = {
         'm2m': ['featured_artists'],
     }    
-    inlines = [ExhibitionWorkInline, ExhibitionReviewInline, VideoInline]
+    inlines = [ExhibitionWorkInline, ExhibitionReviewInline]
 
 class ChunkAdmin(admin.ModelAdmin):
     class Media:
