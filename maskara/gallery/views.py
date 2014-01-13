@@ -2,7 +2,7 @@ from models import *
 from django.shortcuts import render, get_object_or_404
 import datetime
 from django.core.paginator import Paginator
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect, Http404
 from django.contrib.contenttypes.models import ContentType
 import json
 from haystack.query import SearchQuerySet
@@ -19,6 +19,9 @@ def home(request):
         'title': 'Home'
     }
     return render(request, "index.html", context)
+
+def site_redirect(request):
+    return HttpResponsePermanentRedirect("/", )
 
 def search(request):
     q = request.GET.get("q", "")

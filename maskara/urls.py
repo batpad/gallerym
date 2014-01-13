@@ -42,6 +42,7 @@ urlpatterns = patterns('',
 
 urlpatterns += patterns('maskara.gallery.views',
     url(r'^$', 'home', name='home'),
+    url(r'^site/$', 'site_redirect', name='site_redirect'),
     url(r'^search$', 'search', name='search'),
     url(r'^artists$', 'artists', name='artists'),
     url(r'^artists/represented$', 'artists', {'represented': True }, name='represented_artists'),

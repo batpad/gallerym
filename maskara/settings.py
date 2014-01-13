@@ -19,6 +19,7 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
+
 HAYSTACK_CUSTOM_HIGHLIGHTER = 'maskara.highlighter.MyHighlighter'
 
 BROKER_URL = 'amqp://guest:guest@localhost:5672/'
