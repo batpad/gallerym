@@ -7,8 +7,11 @@ $(document).ready(function(){
 
    $(".sideBarTitles a").each(function() {   
       if (this.href == window.location.href) {
-      $(this).addClass("selectedSideBarTitles");
-   }
+         $(this).addClass("selectedSideBarTitles");
+      }
+      if (this.href.indexOf("publication") !== -1) {
+         $(this).addClass("selectedSideBarTitles");
+      }
    });
 
    $('.anchorsCv a').eq(0).addClass('selectedAnchors');
