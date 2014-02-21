@@ -156,7 +156,7 @@ $(document).ready(function() {
         </div>
         <div class="singleIcons">
             {% if work.has_zoom %}
-                <span class="zoom"><a href="{{ work.get_zoom_url }}" target="_blank">Zoom</a></span>
+                <span><a class="zoom" href="{{ work.get_zoom_url }}" target="_blank">Zoom</a></span>
             {% endif %}
 
             {% if work.pdf %}
