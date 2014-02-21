@@ -2,7 +2,7 @@ from django.shortcuts import render
 from models import Subscriber
 from forms import SubscriberForm
 from django.http import HttpResponse, HttpResponseRedirect
-
+import helpers
 
 def subscribe(request):
     errors = None
@@ -26,6 +26,8 @@ def subscribe(request):
         #import pdb;pdb.set_trace()
         if subscriber_form.is_valid():
             subscriber_form.save()
+            helpers.send_ack_email(subscriber_data)
+            helpers.send_admin_email(subscriber_data)
             return HttpResponseRedirect("/subscribe_thanks")
         else:
             errors = subscriber_form.errors

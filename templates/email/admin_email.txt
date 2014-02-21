@@ -1,0 +1,14 @@
+Sign-up on gallerymaskara.com:
+
+First name: {{ first_name }}
+Last name: {{ last_name }}
+Email: {{ email }}
+Telephone: {{ tel_no }}
+Cell No: {{ cell_no }}
+Address: {{ address }}
+Street: {{ street }}
+City: {{ city }}
+Zip Code: {{ zip_code }}
+State: {{ state }}
+Country: {{ country }}
+Role: {{ role }}

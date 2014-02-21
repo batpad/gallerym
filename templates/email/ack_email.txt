@@ -1,0 +1,8 @@
+Dear {{ first_name }} {{ last_name }},
+
+Thank you for signing up on gallerymaskara.com.
+
+If you wish to get in touch with us or stop receiving our emails at any point, please email info@gallerymaskara.com.
+
+Thanks!
+- The Gallery Maskara Team
