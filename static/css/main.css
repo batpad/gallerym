@@ -638,6 +638,19 @@ textarea {
 	margin-bottom: 20px;
 }
 
+#carousel li img {
+    opacity: 0.8;
+}
+
+#carousel li img:hover, #carousel li.flex-active-slide img {
+    opacity: 1;
+}
+
+#carousel li img, #carousel li img:hover {
+    transition: all 0.3s ease-in;
+}
+
+
 .richtext p {
 	padding-bottom: 10px;
 }
