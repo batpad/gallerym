@@ -2,7 +2,7 @@ function getTileLayer(zoomable) {
     //console.log(zoomable);
     return L.tileLayer(zoomable.tms_url, {
         minZoom: 2,
-        maxZoom: 6,
+        maxZoom: 5,
         continuousWorld: true,
         noWrap: true,
         attribution: 'Gallery Maskara',
