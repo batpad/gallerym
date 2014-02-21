@@ -16,6 +16,6 @@ def send_email(template_path, data, subject, to_emails):
     template = get_template(template_path)
     c = Context(data)
     email_text = template.render(c)
-    print email_text
+    #print email_text
     #send_mail(subject, email_text, "info@gallerymaskara.com", to_emails)
     return
