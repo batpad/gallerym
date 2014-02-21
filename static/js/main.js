@@ -9,7 +9,7 @@ $(document).ready(function(){
       if (this.href == window.location.href) {
          $(this).addClass("selectedSideBarTitles");
       }
-      if (this.href.indexOf("publication") !== -1) {
+      if (this.href.indexOf("publication") !== -1 && window.location.href("publication") !== -1) {
          $(this).addClass("selectedSideBarTitles");
       }
    });
