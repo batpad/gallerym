@@ -67,7 +67,9 @@
                     <p>{{ main_item.start_date|date:"F d, Y" }} {% if main_item.end_date %} to {{ main_item.end_date|date:"F d, Y" }} {% endif %} 
                     <!-- <p>November 20 to December 29, 2012</p> -->
                 </div>
-                <img src="{{ main_item.large_image }}" alt="{{ main_item.title }}" id="homeMain">    
+                <a href="{{ main_item.url }}">
+                    <img src="{{ main_item.large_image }}" alt="{{ main_item.title }}" id="homeMain">
+                </a>    
             </div> <!-- end home main  -->
         </div> <!-- end content home  -->
         
@@ -94,7 +96,9 @@
                 {% endif %}
                 <p class="ellipsis">{{ item.start_date|date:"F d, Y" }} {% if item.end_date %} - {{ item.end_date|date:"F d, Y" }} {% endif %}</p>
             </div>
-            <img src="{{ item.thumb }}" alt="{{ item.title }}" class="homeSecondaryImg">
+            <a href="{{ item.url }}">
+                <img src="{{ item.thumb }}" alt="{{ item.title }}" class="homeSecondaryImg">
+            </a>
         </div> <!-- end home secondary  -->
 
         {% endfor %}
@@ -120,7 +124,9 @@
                 <!-- <p>{{ p.publisher }}</p> -->
                 <p><a href="{{ p.url }}">{{ p.title|truncatechars:34 }}</a></p>
             </div>
-            <img src="{{ p.image }}" />
+            <a href="{{ p.url }}">
+                <img src="{{ p.image }}" />
+            </a>
           </li>
             {% endfor %}
         </ul>
