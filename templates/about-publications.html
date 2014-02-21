@@ -9,7 +9,9 @@
                 {% for p in publications %}
                 <div class="exhibPrevEach">
                 <div class="publicationImg">
-                    <img src="{{ p.list_image }}" alt="{{ p.title }}">
+                    <a href="/publication/{{ p.id }}">
+                        <img src="{{ p.list_image }}" alt="{{ p.title }}">
+                    </a>
                 </div>
                 <div class="publicationDesc">
                     {% if p.date %}
