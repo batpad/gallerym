@@ -116,6 +116,9 @@ $(document).ready(function() {
               {% for img in work.artistworkimage_set.all %}
               <li>
                 <img src="{{ img.medium_image }}" />
+                {% if img.caption %}
+                  <div class="flex-caption">{{ img.caption }}</div>
+                {% endif %}
               </li>
               {% endfor %}
             </ul>

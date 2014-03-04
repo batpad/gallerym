@@ -625,6 +625,10 @@ textarea {
 
 }
 
+#slider .flex-caption {
+	font-size: 80%;
+}
+
 #carousel .flex-direction-nav .flex-prev, #carousel .flex-direction-nav .flex-next {
 	left: 30px;
 }
