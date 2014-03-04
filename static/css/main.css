@@ -471,11 +471,12 @@ textarea {
 
 #slideDescription {
 	padding: 16px 30px 0 0;
-	border-top: 2px solid #4A4E51;
 }
 
 #slideControlBox {
 	padding: 0 0 30px 0;
+	border-bottom: 2px solid #4A4E51;
+	width: 75%;
 }
 
 .works {
@@ -735,6 +736,12 @@ textarea {
 	
 	.copyrightInfo, .footerTerms {
 		float: none;
+	}
+}
+
+@media only screen and (min-width: 720px) {
+	.privacyBlock {
+		width: 70%;
 	}
 }
 
