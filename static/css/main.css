@@ -151,6 +151,10 @@ textarea {
 	font-size: 80%;
 }
 
+.largerFont {
+	font-size: 120%;
+}
+
 .floatLeft {
 	float: left;
 }
