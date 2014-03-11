@@ -52,6 +52,10 @@
         font-weight: 700;
     }
     
+    .privacyInfo {
+        width: 75%;
+    }
+    
     .validation {
         background: #ddd;
         padding: 10px;
@@ -85,7 +89,7 @@
         select, .selecter {
             max-width: 220px;
         }
-    
+        
     }
     
     @media only screen and (max-width: 720px) {
@@ -450,7 +454,9 @@
         <br>
         <div class="validationNote" {% if not errors %}style="display:none;"{% endif %}>Mandatory information required.</div>
         <br>
-        <p>Your right to privacy is a concern for us and in keeping with our policy, all personal data provided will be kept confidential and will not be shared with any third party.</p>
+        <div class="privacyInfo">    
+            <p>Your right to privacy is a concern for us and in keeping with our policy, all personal data provided will be kept confidential and will not be shared with any third party.</p>
+        </div>
         <br>
         <input type="submit" value="SIGN UP" class="marginBottom">
     <div class="validation" {% if not errors %}style="display:none;"{% endif %}>Validation errors occured. Please confirm all mandatory information required has been filled in correctly.</div>
