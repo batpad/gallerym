@@ -16,6 +16,7 @@ class ArtistWorkImageInline(admin.StackedInline):
 class ArtistWorkInline(admin.StackedInline):
     model = ArtistWork
     sortable_field_name = 'order'
+    extra = 0
 
 class ExhibitionWorkInline(admin.StackedInline):
     raw_id_fields = ('work',)
@@ -24,6 +25,7 @@ class ExhibitionWorkInline(admin.StackedInline):
     }    
     model = ExhibitionWork
     sortable_field_name = 'order'
+    extra = 0
 
 class EventWorkInline(admin.StackedInline):
     raw_id_fields = ('work',)
@@ -32,10 +34,11 @@ class EventWorkInline(admin.StackedInline):
     }    
     model = EventWork
     sortable_field_name = 'order'
-
+    extra = 0
 
 class EventReviewInline(admin.StackedInline):
     model = EventReview
+    extra = 0
 
 '''
 class ArtistNews(admin.StackedInline):
@@ -45,21 +48,25 @@ class ArtistNews(admin.StackedInline):
 
 class ArtistReviewInline(admin.StackedInline):
     model = ArtistReview
+    extra = 0
     #inlines = []
     #sortable_field_name = 'order'
 
 class VideoInline(generic.GenericStackedInline):
     model = Video    
     sortable_field_name = 'order'
+    extra = 0
 
 class ArtistInfoForm(forms.ModelForm):
     text = forms.CharField(widget=forms.TextInput(attrs={'style':'width:800px'}))
 
 class ArtistInfoInlineBase(admin.StackedInline):
     form = ArtistInfoForm
+    extra = 0
 
 class ArtistEducationInline(ArtistInfoInlineBase):
     model = ArtistEducation
+    
 
 class ArtistSoloExhibInline(ArtistInfoInlineBase):
     model = ArtistSoloExhib
@@ -80,20 +87,23 @@ class ArtistPressInline(admin.StackedInline):
 
 class ArtistNewsInline(admin.StackedInline):
     model = ArtistNews
-
+    extra = 0
 
 
 class ArtistPressReleaseInline(admin.StackedInline):
     model = ArtistPressRelease
     sortable_field_name = 'order'
+    extra = 0
 
 class ExhibitionReviewInline(admin.StackedInline):
     model = ExhibitionReview
     #sortable_field_name = 'order'
+    extra = 0
 
 class ExhibitionPressReleaseInline(admin.StackedInline):
     model = ExhibitionPressRelease
     sortable_field_name = 'order'
+    extra = 0
 
 class BaseAdmin(admin.ModelAdmin):
     class Media:
