@@ -10,10 +10,14 @@ function getTileLayer(zoomable) {
     })
 }
 
-var map = L.map('map', {zoomControl: false}).setView(getCenter(ZOOMABLES[0]), 2);
-var zoomControl = L.control.zoom({
-    'position': 'topleft'
-}).addTo(map);
+var map = L.map('map', {zoomControl: false, zoomsliderControl: false}).setView(getCenter(ZOOMABLES[0]), 2);
+// var zoomControl = L.control.zoom({
+//     'position': 'bottomright'
+// }).addTo(map);
+var zoomSliderControl = L.control.zoomslider({
+      'position': 'bottomright',
+      'stepHeight': 45
+  }).addTo(map);
 var activeLayer = getTileLayer(ZOOMABLES[0]);
 activeLayer.addTo(map);
 

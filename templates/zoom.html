@@ -5,6 +5,10 @@
 
     <link rel="stylesheet" href="/static/css/reset.css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,400,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/static/js/leaflet.zoom/L.Control.Zoomslider.css" />
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" href="/static/js/leaflet.zoom/L.Control.Zoomslider.ie.css" />
+    <![endif]-->
     <style>
         
     * {
@@ -92,9 +96,11 @@
     }
     
     #helpText {
-        padding: 10px;
+        padding: 10px 15px;
     	color: #2d2d2c;
         text-align: left;
+        font-size: 95%;
+        line-height: 1.7;
     }
 
     #helpText p {
@@ -104,6 +110,13 @@
     @media only screen and (max-width: 500px) {
         .thumbContainer {
             padding: 20px 10px;
+        }
+    
+    }
+
+    @media only screen and (min-width: 1200px) {
+        #helpText {
+            padding: 10px 30px;
         }
     
     }
@@ -147,7 +160,9 @@
     </div> <!-- /thumbnails -->
     <!-- <div class="closeZoomTab"><a href="javascript:self.close();">CLOSE X</a></div> -->
     
-    <script src="http://cdn.leafletjs.com/leaflet-0.4/leaflet.js"></script>
+    <!-- <script src="http://cdn.leafletjs.com/leaflet-0.4/leaflet.js"></script> -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.6.4/leaflet.js"></script>
+    <script src="/static/js/leaflet.zoom/L.Control.Zoomslider.js"></script>
     <script>
         window.ZOOMABLES = {{ zoomables_json|safe }};
     </script>
