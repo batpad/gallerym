@@ -192,7 +192,8 @@ def work(request, object_type, slug, work_id):
         previous_work = works_qset[work_index - 2]
         context['previous_work'] = base_url + "/works/" + str(previous_work.id)
     if work_index < context['works_count']:
-        next_work = works_qset[work_index]   
+        next_work = works_qset[work_index]
+        context['next_work'] = base_url + "/works/" + str(next_work.id)
     context['object_type'] = object_type
     context['slug'] = slug
     context['work_id'] = work_id
