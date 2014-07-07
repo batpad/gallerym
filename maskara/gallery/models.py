@@ -82,6 +82,7 @@ class AboutReview(BaseModel):
 class Video(BaseModel):
     title = models.CharField(max_length=1024)
     description = models.TextField(blank=True)
+    thumbnail = FileBrowseField("Image", max_length=1024, extensions=['.jpg', '.png'], blank=True, null=True)
     duration = models.IntegerField(help_text="in minutes", blank=True, null=True)
     video_file = FileBrowseField("Video", max_length=1024, extensions=['.mp4', '.m4v'], blank=True, null=True)
     vimeo_id = models.CharField(max_length=128, blank=True)
@@ -369,6 +370,22 @@ class ArtistWork(BaseModel):
 
     def get_zoom_url(self):
         return "/zoom/%d" % self.id
+
+    def has_videos(self):
+        return self.videos.count() > 0
+
+    def has_images(self):
+        if self.artistworkimage_set.count() > 0:
+            return True
+        if self.image:
+            return True
+        return False
+
+    def get_images_url(self, base_url):
+        return "%s/works/%d" % (base_url, self.id,)
+
+    def get_videos_url(self, base_url):
+        return "%s/videos" % (self.get_images_url(base_url),)
 
     def get_zoomables_qset(self):
         return self.artistworkimage_set.filter(is_hires=True).filter(is_tiled=True)

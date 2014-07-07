@@ -131,7 +131,7 @@ class ArtistWorkAdmin(BaseAdmin):
     autocomplete_lookup_fields = {
         'fk': ['artist']
     }
-    inlines = [ArtistWorkImageInline]
+    inlines = [ArtistWorkImageInline, VideoInline]
     list_filter = ('artist', 'exhibitionwork__exhibition', 'eventwork__event', 'category', 'published',)
     exclude = ('order',)
 

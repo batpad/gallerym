@@ -14,6 +14,7 @@
         }
 
         #slider .flex-direction-nav a {
+            display: none;
             bottom: 0;
             top: auto;
         }
@@ -86,7 +87,14 @@ $(document).ready(function() {
     controlNav: false,
     animationLoop: false,
     slideshow: false,
-    sync: "#carousel"
+    sync: "#carousel",
+    before: function(slider) {
+      //console.log("called callback");
+      $('video').each(function() {
+        this.pause();
+      });
+    }
+
   });
 });
 </script>
@@ -99,7 +107,7 @@ $(document).ready(function() {
         {% if obj_title %}
         <h1 class="selectedHeading floatLeft">{{ obj_title }}</h1>
         {% endif %}
-        {% if work.has_videos %}
+        {% if work.has_images %}
         <p class="smallerFont floatRight"><a href="{{ images_url }}" class="blue">Images </a>/<a href="{{ videos_url }}"> Videos</a></p>
         {% endif %}
         <div class="clear"></div>
@@ -108,16 +116,16 @@ $(document).ready(function() {
     <div class=”flex-container”> 
         <div id="slider" class="flexslider">
             <ul class="slides">
-              {% if not work.artistworkimage_set.all %}
+<!--               {% if not work.artistworkimage_set.all %}
               <li>
                 <img src="{{ work.medium_image }}" />
               </li>
-              {% endif %}
-              {% for img in work.artistworkimage_set.all %}
+              {% endif %} -->
+              {% for video in work.videos.all %}
               <li>
-                <img src="{{ img.medium_image }}" />
-                {% if img.caption %}
-                  <div class="flex-caption">{{ img.caption }}</div>
+                <video src="{{ video.video_file.url }}" controls />
+                {% if video.title %}
+                  <div class="flex-caption">{{ video.title }}</div>
                 {% endif %}
               </li>
               {% endfor %}
@@ -127,14 +135,9 @@ $(document).ready(function() {
           <div id="carousel" class="flexslider col30">
 
             <ul class="slides">
-              {% if not work.artistworkimage_set.all %}
+              {% for video in work.videos.all %}
               <li>
-                <img src="{{ work.thumb }}" />
-              </li>
-              {% endif %}
-              {% for img in work.artistworkimage_set.all %}
-              <li>
-                <img src="{{ img.thumb }}" />
+                <img src="{{ video.thumbnail.url }}" />
               </li>
               {% endfor %}
     

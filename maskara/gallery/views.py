@@ -158,7 +158,16 @@ def work(request, object_type, slug, work_id):
     context[object_type] = obj
     context['kls'] = kls
     context['url'] = obj.get_absolute_url()
+
     work = ArtistWork.objects.get(pk=work_id)
+    context['images_url'] = work.get_images_url(context['url'])
+    context['videos_url'] = work.get_videos_url(context['url'])
+    if not work.has_images():
+        if work.has_videos():
+            return HttpResponseRedirect(context['videos_url'])
+        else:
+            raise Http404()
+
     context['work'] = work
     context['has_slides'] = work.artistworkimage_set.all().count() > 1
     base_name = 'artist' if object_type == 'artist' else object_type + 's'
@@ -184,10 +193,65 @@ def work(request, object_type, slug, work_id):
         context['previous_work'] = base_url + "/works/" + str(previous_work.id)
     if work_index < context['works_count']:
         next_work = works_qset[work_index]   
-        context['next_work'] = base_url + "/works/" + str(next_work.id)
+    context['object_type'] = object_type
+    context['slug'] = slug
+    context['work_id'] = work_id
     return render(request, "work.html", context)  
 
 
+def work_videos(request, object_type, slug, work_id):
+    context = {}
+    object_types = {
+        'artist': Artist,
+        'exhibition': Exhibition,
+        'event': Event
+    }
+    if object_type not in object_types:
+        raise Http404()
+    kls = object_types[object_type]
+    obj = kls.objects.get(slug=slug)
+    context[object_type] = obj
+    context['kls'] = kls
+    context['url'] = obj.get_absolute_url()
+    work = ArtistWork.objects.get(pk=work_id)
+    context['images_url'] = work.get_images_url(context['url'])
+    context['videos_url'] = work.get_videos_url(context['url'])
+    if not work.has_videos():
+        if work.has_images():
+            return HttpResponseRedirect(context['images_url'])
+        else:
+            raise Http404()
+
+    context['work'] = work
+    context['has_slides'] = work.videos.all().count() > 1
+    base_name = 'artist' if object_type == 'artist' else object_type + 's'
+    context['base_template'] = base_name + 'base.html'        
+    context['menu'] = object_type + 's'
+    if object_type == 'artist':
+        context['obj_title'] = obj.name
+
+    works_qset = obj.get_works()
+    try:
+        context['works_count'] = works_qset.count()
+    except:
+        context['works_count'] = len(works_qset)
+    for i, o in enumerate(works_qset):
+        if o.id == work.id:
+            work_index = i + 1
+    if not work_index:
+        raise Http404("this should never happen")
+    context['work_index'] = work_index
+    base_url = obj.get_absolute_url()
+    if work_index > 1:
+        previous_work = works_qset[work_index - 2]
+        context['previous_work'] = base_url + "/works/" + str(previous_work.id)
+    if work_index < context['works_count']:
+        next_work = works_qset[work_index]   
+        context['next_work'] = base_url + "/works/" + str(next_work.id)
+    context['object_type'] = object_type
+    context['slug'] = slug
+    context['work_id'] = work_id
+    return render(request, "work_videos.html", context)  
 
 
 def exhibitions(request, when='upcoming'):
