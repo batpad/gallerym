@@ -8,7 +8,13 @@
             {% include 'includes/press.html' %}
         </div>
 
-        {% include 'includes/artist-pdf-url.html' %}
+        {% if artist.pdf %}
+        <div class="bioDownloadInfo col30 smallestFont">
+            
+            <p><a href="{{ artist.pdf.url }}" target="_blank" class="downloadPdf">Download PDF</a></p>
+
+        </div> <!-- end bio download info  -->
+        {% endif %}
 
     <div class="clear"></div>
 
