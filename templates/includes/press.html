@@ -9,7 +9,7 @@
                         {% if p.author %} by {{ p.author }} {% endif %}
                     </p>
                     <p>
-                        {% if p.source %}TimeOut Mumbai,{% endif %}
+                        {% if p.source %}{{ p.source }},{% endif %}
                         {% if p.date %} {{ p.date|date:"M j Y" }} {% endif %}
                         {% if p.pdf %}
                             <a href="{{ p.pdf.url }}" class="downloadPdfIcon" target="_blank">PDF</a>
